@@ -1,8 +1,17 @@
 import { NestFactory } from '@nestjs/core';
-import { UsersModule } from './users.module';
+import { AppModule } from './app/app.module';
+import { Logger } from '@nestjs/common';
+import { config } from 'dotenv';
+import { rabbitmqOptions } from '@tasty.backend/libs/common/src/infrastructure/communication';
+import { QueuesEnum } from '@tasty.backend/libs/common/src/domain';
 
 async function bootstrap() {
-  const app = await NestFactory.create(UsersModule);
-  await app.listen(3000);
+  config();
+
+  const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.Users));
+
+  await app.listen();
 }
+
 bootstrap();
+Logger.log('Users microservice started');
