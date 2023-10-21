@@ -1,13 +1,15 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { MicroservicesNamesEnum } from '@tasty.backend/libs/common/src/domain';
-import { ClientProxy } from '@nestjs/microservices';
+import { Controller, Get } from '@nestjs/common';
+import { ServiceEnum, UserCommunicationEnum } from '@tasty.backend/libs/common/src/domain';
+import { CustomClientProxy } from '@tasty.backend/libs/common/src/infrastructure/communication';
 
 @Controller('users/test')
 export class UsersTestController {
-  constructor(@Inject(MicroservicesNamesEnum.Users) private client: ClientProxy) {}
+  constructor(private client: CustomClientProxy) {}
 
   @Get()
   public async test() {
-    return this.client.send('test', 'test').toPromise();
+    return this.client.sendTo(ServiceEnum.Users, {
+      pattern: UserCommunicationEnum.TEST,
+    });
   }
 }

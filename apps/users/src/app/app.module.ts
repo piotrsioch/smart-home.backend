@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { MicroservicesNamesEnum, QueuesEnum } from '@tasty.backend/libs/common/src/domain';
+import { ServiceEnum, QueuesEnum } from '@tasty.backend/libs/common/src/domain';
 import { UsersTestController } from './api/users-test/users-test.controller';
 
 const RABBITMQ_HOST = process.env.RABBITMQ_HOST;
@@ -12,7 +12,7 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
   imports: [
     ClientsModule.register([
       {
-        name: MicroservicesNamesEnum.Users,
+        name: ServiceEnum.Users,
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],
