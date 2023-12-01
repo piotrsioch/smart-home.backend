@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ServiceEnum, QueuesEnum } from '@tasty.backend/libs/common/src/domain';
+import { ServiceEnum, QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 import { UsersModule } from './users/users.module';
 
 const RABBITMQ_HOST = process.env.RABBITMQ_HOST;

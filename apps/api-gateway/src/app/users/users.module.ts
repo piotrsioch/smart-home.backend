@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UsersTestController } from './users-test/users-test.controller';
-import { CustomClientModule } from '@tasty.backend/libs/common/src/infrastructure/communication';
+import { CustomClientModule } from '@smart-home.backend/libs/common/src/infrastructure/communication';
 
 @Module({
   imports: [CustomClientModule],

@@ -1,6 +1,6 @@
 import { MessagePattern } from '@nestjs/microservices';
 import { Controller } from '@nestjs/common';
-import { UserCommunicationEnum } from '@tasty.backend/libs/common/src/domain';
+import { UserCommunicationEnum } from '@smart-home.backend/libs/common/src/domain';
 
 Controller();
 export class UsersTestController {

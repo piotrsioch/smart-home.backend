@@ -1,2 +1,2 @@
-export * from './communicationEnums';
+export * from './communication-enums';
 export * from './users';

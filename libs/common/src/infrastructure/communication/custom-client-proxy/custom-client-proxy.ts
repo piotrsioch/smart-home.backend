@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientProxy, ClientProxyFactory, RmqOptions, Transport } from '@nestjs/microservices';
-import { ServiceEnum, ServiceQueueMap } from '@tasty.backend/libs/common/src/domain';
+import { ServiceEnum, ServiceQueueMap } from '@smart-home.backend/libs/common/src/domain';
 
 export type CustomClientSendInput = {
   services: ServiceEnum[];
@@ -17,7 +17,9 @@ export class CustomClientProxy implements OnModuleInit {
   onModuleInit(): void {
     const RABBITMQ_HOST = process.env.RABBITMQ_HOST;
     const RABBITMQ_PORT = process.env.RABBITMQ_PORT;
+
     const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
+
     Object.entries(ServiceQueueMap).forEach(([service, queue]) => {
       const options: RmqOptions = {
         transport: Transport.RMQ,
