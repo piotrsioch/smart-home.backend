@@ -28,7 +28,7 @@ services:
       context: ./
       dockerfile: ./apps/api-gateway/Dockerfile
     ports:
-      - "3000:3000"
+      - "4001:4001"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -39,7 +39,7 @@ services:
       - rabbitmq
       - postgres
       - users
-    command: npm run start:dev api-gateway
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "api-gateway"]
 
   users:
     build:
@@ -54,7 +54,7 @@ services:
     depends_on:
       - rabbitmq
       - postgres
-    command: npm run start:dev users
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "users"]
 
   sensors:
     build:
@@ -69,7 +69,7 @@ services:
     depends_on:
       - rabbitmq
       - postgres
-    command: npm run start:dev sensors
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "sensors"]
 
 volumes:
   pgdata:
