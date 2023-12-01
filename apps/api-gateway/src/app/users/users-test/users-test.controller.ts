@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { ServiceEnum, UserCommunicationEnum } from '@tasty.backend/libs/common/src/domain';
-import { CustomClientProxy } from '@tasty.backend/libs/common/src/infrastructure/communication';
+import { ServiceEnum, UserCommunicationEnum } from '@smart-home.backend/libs/common/src/domain';
+import { CustomClientProxy } from '@smart-home.backend/libs/common/src/infrastructure/communication';
 
 @Controller('users/test')
 export class UsersTestController {

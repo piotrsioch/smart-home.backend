@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@tasty.backend/libs/*": ["libs/*"]
+      "@smart-home.backend/libs/*": ["libs/*"]
     }
   }
 }

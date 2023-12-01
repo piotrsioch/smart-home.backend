@@ -10,9 +10,9 @@
   "monorepo": true,
   "root": "apps/api-gateway",
   "projects": {
-    "tasty.backend": {
+    "smart-home.backend": {
       "type": "application",
-      "root": "apps/tasty.backend",
+      "root": "apps/smart-home.backend",
       "entryFile": "main",
       "sourceRoot": "apps/api-gateway/src",
       "compilerOptions": {

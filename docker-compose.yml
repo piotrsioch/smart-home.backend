@@ -6,8 +6,6 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-    logging:
-      driver: "none"
 
   postgres:
     image: postgres:13
@@ -15,8 +13,6 @@ services:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
-    logging:
-      driver: "none"
 
   pgadmin:
     image: dpage/pgadmin4
@@ -37,6 +33,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     env_file:
+      - .env
       - ./apps/api-gateway/.env
     depends_on:
       - rabbitmq
@@ -52,11 +49,27 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     env_file:
+      - .env
       - ./apps/users/.env
     depends_on:
       - rabbitmq
       - postgres
     command: npm run start:dev users
+
+  sensors:
+    build:
+      context: ./
+      dockerfile: ./apps/sensors/Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+      - ./apps/sensors/.env
+    depends_on:
+      - rabbitmq
+      - postgres
+    command: npm run start:dev sensors
 
 volumes:
   pgdata:

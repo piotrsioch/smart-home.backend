@@ -1,5 +1,5 @@
 {
-  "name": "tasty.backend",
+  "name": "smart-home.backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -11,13 +11,13 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/apps/tasty.backend/main",
+    "start:prod": "node dist/apps/smart0home.backend/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/tasty.backend/test/jest-e2e.json",
+    "test:e2e": "jest --config ./apps/smart-home.backend/test/jest-e2e.json",
     "prepare": "husky install",
     "start-prettier": "npx prettier --write '**/*.{ts,js}'"
   },

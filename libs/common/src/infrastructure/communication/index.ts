@@ -1,2 +1,2 @@
 export * from './utils';
-export * from './customClientProxy';
+export * from './custom-client-proxy';
