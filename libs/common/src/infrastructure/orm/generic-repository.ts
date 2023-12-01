@@ -11,7 +11,7 @@ export class GenericRepository<T> implements IGenericRepository<T> {
     return this._entityManager.getRepository(this._entity);
   }
 
-  async create(entity: T): Promise<T> {
+  async add(entity: T): Promise<T> {
     return await this.repository.save(entity);
   }
 

@@ -1,1 +1,1 @@
-export * from './generic-repository.interface';
+export * from './repository.interface';
