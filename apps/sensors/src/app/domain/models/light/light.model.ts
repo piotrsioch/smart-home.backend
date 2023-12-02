@@ -1,3 +1,3 @@
 import { BaseModel } from "@smart-home.backend/libs/common";
 
-export class LightModel extends BaseModel {}
+export class Light extends BaseModel {}

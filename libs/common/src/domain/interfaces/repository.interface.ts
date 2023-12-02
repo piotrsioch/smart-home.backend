@@ -14,9 +14,9 @@ export interface IGenericRepository<T> {
 }
 
 export interface IModelRepository<T> {
-    add(entity: T): Promise<T>;
-    remove(entity: T): Promise<void>;
-    update(entity: T): Promise<T>;
+    add(model: T): Promise<T>;
+    remove(model: T): Promise<void>;
+    update(model: T): Promise<T>;
     findOne(criteria: DeepPartial<T>): Promise<T | undefined>;
     findOneById(id: string): Promise<T | undefined>;
     findALl(): Promise<T[]>;
