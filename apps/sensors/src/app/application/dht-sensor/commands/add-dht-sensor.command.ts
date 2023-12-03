@@ -1,9 +1,6 @@
 import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { DhtSensor } from '../../../domain/models';
 import { IDhtSensorRepository } from '../../contracts';
-import { InjectRepository } from "@nestjs/typeorm";
-import { DhtSensorEntity } from "../../../infrastructure/persistence/type-orm/entities/dht-sensor.entity";
-import { Repository } from "typeorm";
 
 export class AddDhtSensorCommandInput {
   temperature: string;
@@ -22,7 +19,6 @@ export class AddDhtSensorCommandHandler implements ICommandHandler<AddDhtSensorC
   ) {}
 
   async execute(command: AddDhtSensorCommand): Promise<DhtSensor> {
-    console.log('In execugte in adddhtsensorcommandhandler');
     const { temperature, humidity } = command.input;
 
     const model = this.publisher.mergeClassContext(DhtSensor);
@@ -32,10 +28,7 @@ export class AddDhtSensorCommandHandler implements ICommandHandler<AddDhtSensorC
       humidity,
     });
 
-    console.log('before dhtSensorRepo add');
-    console.log(this.dhtSensorRepository);
-
-    await this.dhtSensorRepository.save(sensor);
+    await this.dhtSensorRepository.add(sensor);
 
     return sensor;
   }

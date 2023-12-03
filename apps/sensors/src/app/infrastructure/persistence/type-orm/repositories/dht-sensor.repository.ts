@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { IDhtSensorRepository } from '../../../../application';
-import { DhtSensor } from '../../../../domain/models';
-import { DhtSensorEntity } from "../entities/dht-sensor.entity";
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
+import { DhtSensorEntity } from '../entities/dht-sensor.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { GenericRepository } from '@smart-home.backend/libs/common';
 
 @Injectable()
-export class DhtSensorRepository implements IDhtSensorRepository {
+export class DhtSensorRepository
+  extends GenericRepository<DhtSensorEntity>
+  implements IDhtSensorRepository
+{
   constructor(
     @InjectRepository(DhtSensorEntity)
-    private readonly _repository: Repository<DhtSensorEntity>) {
-  }
-
-  async save(sensor: DhtSensor): Promise<DhtSensor> {
-    return await this._repository.save(sensor);
+    private readonly repository: Repository<DhtSensorEntity>,
+  ) {
+    super(repository);
   }
 }

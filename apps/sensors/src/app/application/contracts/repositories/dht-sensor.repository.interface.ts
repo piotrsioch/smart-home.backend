@@ -1,7 +1,5 @@
-import { IModelRepository } from '@smart-home.backend/libs/common';
-import { DhtSensor } from '../../../domain/models';
+import { IGenericRepository } from '@smart-home.backend/libs/common';
 
-export interface IDhtSensorRepository {
-}
+export interface IDhtSensorRepository extends IGenericRepository<any> {}
 
 export abstract class IDhtSensorRepository implements IDhtSensorRepository {}
