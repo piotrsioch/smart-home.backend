@@ -1,9 +1,9 @@
-import { AddDhtSensorCommandHandler } from './commands';
+import { AddDhtSensorDataCommandHandler } from './commands';
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
 
-const CommandHandlers = [AddDhtSensorCommandHandler];
+const CommandHandlers = [AddDhtSensorDataCommandHandler];
 const QueryHandlers = [];
 const EventHandlers = [];
 
