@@ -4,3 +4,5 @@ import { DhtSensor } from '../../../domain/models';
 export interface IDhtSensorRepository extends IModelRepository<DhtSensor> {
   _marker: true;
 }
+
+export abstract class IDhtSensorRepository implements IDhtSensorRepository {}

@@ -7,13 +7,6 @@ services:
       - "15672:15672"
       - "5672:5672"
 
-  postgres:
-    image: postgres:13
-    env_file:
-      - .env
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
   mongo:
     image: mongo
     container_name: mongodb
@@ -21,16 +14,6 @@ services:
       - "27017:27017"
     volumes:
       - mongodbdata:/data/db
-
-
-  pgadmin:
-    image: dpage/pgadmin4
-    env_file:
-      - .env
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
 
   api-gateway:
     build:
@@ -46,7 +29,6 @@ services:
       - ./apps/api-gateway/.env
     depends_on:
       - rabbitmq
-      - postgres
       - users
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "api-gateway"]
 
@@ -62,7 +44,6 @@ services:
       - ./apps/users/.env
     depends_on:
       - rabbitmq
-      - postgres
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "users"]
 
   sensors:
@@ -77,9 +58,7 @@ services:
       - ./apps/sensors/.env
     depends_on:
       - rabbitmq
-      - postgres
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "sensors"]
 
 volumes:
-  pgdata:
   mongodbdata:

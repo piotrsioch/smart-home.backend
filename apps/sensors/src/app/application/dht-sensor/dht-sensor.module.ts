@@ -8,7 +8,7 @@ const QueryHandlers = [];
 const EventHandlers = [];
 
 @Module({
-  imports: [PersistenceModule, CqrsModule],
+  imports: [CqrsModule, PersistenceModule],
   providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
   exports: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
 })
