@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
 
 export class BaseModel {
-    id: string;
+  id: string;
 
-    create(): void {
-        this.id = v4();
-    }
+  create(): void {
+    this.id = v4();
+  }
 }

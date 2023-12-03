@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { QueuesEnum, ServiceEnum } from '@smart-home.backend/libs/common/src/domain';
+import { PersistenceModule } from './infrastructure/persistence/persistence.module';
 
 const RABBITMQ_HOST = process.env.RABBITMQ_HOST;
 const RABBITMQ_PORT = process.env.RABBITMQ_PORT;
@@ -9,6 +10,7 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
 
 @Module({
   imports: [
+    PersistenceModule,
     ClientsModule.register([
       {
         name: ServiceEnum.Users,

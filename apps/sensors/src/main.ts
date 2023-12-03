@@ -2,8 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app';
 import { config } from 'dotenv';
 import { Logger } from '@nestjs/common';
-import { rabbitmqOptions } from "@smart-home.backend/libs/common/src/infrastructure/communication";
-import { QueuesEnum } from "@smart-home.backend/libs/common/src/domain";
+import { rabbitmqOptions } from '@smart-home.backend/libs/common/src/infrastructure/communication';
+import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
+import { DhtSensorSeeder } from './app/infrastructure/persistence/type-orm/seeders/dht-sensor.seeder';
 
 async function bootstrap() {
   config();
@@ -11,6 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.Sensors));
 
   await app.listen();
+
+  await app.close();
 }
 
 bootstrap();

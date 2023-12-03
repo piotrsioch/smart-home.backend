@@ -1,3 +1,3 @@
-import { BaseModel } from "@smart-home.backend/libs/common";
+import { BaseModel } from '@smart-home.backend/libs/common';
 
 export class ReedSwitch extends BaseModel {}
