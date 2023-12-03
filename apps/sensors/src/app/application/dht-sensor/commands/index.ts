@@ -1,1 +1,1 @@
-export * from './add-dht-sensor.command';
+export * from './add-dht-sensor-data.command';

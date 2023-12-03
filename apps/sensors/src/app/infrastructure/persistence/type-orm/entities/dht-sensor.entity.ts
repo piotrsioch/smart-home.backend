@@ -1,9 +1,9 @@
-import { Column, Entity, ObjectIdColumn, ObjectId } from 'typeorm';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
 @Entity()
 export class DhtSensorEntity {
   @ObjectIdColumn({ name: '_id' })
-  id: string;
+  _id: string;
 
   @Column()
   temperature: string;

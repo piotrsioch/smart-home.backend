@@ -1,21 +1,27 @@
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { MessagePattern } from '@nestjs/microservices';
-import { SensorsCommunicationEnum } from '@smart-home.backend/libs/common';
-import { AddDhtSensorCommand } from '../../../application';
-import { DhtSensor } from '../../../domain/models';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  AddDhtSensorDataInputDto,
+  DhtSensorDto,
+  SensorsCommunicationEnum,
+} from '@smart-home.backend/libs/common';
+import { AddDhtSensorDataCommand } from "../../../application";
 
 @Controller()
 export class DhtSensorController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @MessagePattern(SensorsCommunicationEnum.ADD_DHT)
-  async testAddDht(): Promise<DhtSensor> {
-    const command = new AddDhtSensorCommand({
-      temperature: '44',
-      humidity: '44',
+  @MessagePattern(SensorsCommunicationEnum.ADD_DHT_DATA)
+  async addDhtData(@Payload() payload: AddDhtSensorDataInputDto): Promise<DhtSensorDto> {
+    const { temperature, sensorId, humidity } = payload;
+
+    const command = new AddDhtSensorDataCommand({
+      temperature,
+      sensorId,
+      humidity,
     });
 
-    return await this.commandBus.execute<AddDhtSensorCommand, DhtSensor>(command);
+    return await this.commandBus.execute<AddDhtSensorDataCommand>(command);
   }
 }
