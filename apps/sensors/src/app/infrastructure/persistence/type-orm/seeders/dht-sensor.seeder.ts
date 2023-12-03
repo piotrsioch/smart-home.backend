@@ -11,8 +11,8 @@ export class DhtSensorSeeder {
   ) {}
 
   async onModuleInit() {
-    console.log('bede seedowal');
-    await this.seed();
+    console.log('starting seeding');
+    // await this.seed();
   }
 
   async seed(): Promise<void> {
