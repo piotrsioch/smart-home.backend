@@ -1,9 +1,3 @@
-// export type DeepPartial<T> = T extends object
-//   ? {
-//       [P in keyof T]?: DeepPartial<T[P]>;
-//     }
-//   : T;
-
 import { DeepPartial as TypeOrmDeepPartial } from 'typeorm';
 
 export type DeepPartial<T> = TypeOrmDeepPartial<T>;

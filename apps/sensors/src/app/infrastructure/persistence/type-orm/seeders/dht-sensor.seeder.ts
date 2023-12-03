@@ -10,11 +10,6 @@ export class DhtSensorSeeder {
     private readonly dhtSensorRepository: Repository<DhtSensorEntity>,
   ) {}
 
-  async onModuleInit() {
-    console.log('starting seeding');
-    // await this.seed();
-  }
-
   async seed(): Promise<void> {
     const initialData: any[] = [
       { temperature: '25', humidity: '50' },
@@ -27,7 +22,5 @@ export class DhtSensorSeeder {
         await this.dhtSensorRepository.save(newSensor);
       }),
     );
-
-    console.log('Seeding for dht sensor ended.');
   }
 }
