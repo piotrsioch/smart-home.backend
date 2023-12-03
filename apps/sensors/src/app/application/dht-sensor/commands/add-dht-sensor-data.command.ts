@@ -2,14 +2,14 @@ import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nest
 import { DhtSensor } from '../../../domain/models';
 import { IDhtSensorRepository } from '../../contracts';
 
-export class AddDhtSensorCommandInput {
+export class AddDhtSensorDataCommandInput {
   temperature: string;
   humidity: string;
   sensorId: string;
 }
 
 export class AddDhtSensorDataCommand implements ICommand {
-  constructor(public readonly input: AddDhtSensorCommandInput) {}
+  constructor(public readonly input: AddDhtSensorDataCommandInput) {}
 }
 
 @CommandHandler(AddDhtSensorDataCommand)
