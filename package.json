@@ -27,14 +27,19 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/cqrs": "^10.2.6",
     "@nestjs/microservices": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^10.0.1",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.3",
     "dotenv": "^16.3.1",
+    "faker": "^6.6.6",
+    "mongodb": "^5.9.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0",
-    "typeorm": "^0.3.17"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.17",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { QueuesEnum, ServiceEnum } from '@smart-home.backend/libs/common/src/domain';
+import { ApiModule } from './api';
 
 const RABBITMQ_HOST = process.env.RABBITMQ_HOST;
 const RABBITMQ_PORT = process.env.RABBITMQ_PORT;
@@ -9,13 +10,14 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
 
 @Module({
   imports: [
+    ApiModule,
     ClientsModule.register([
       {
-        name: ServiceEnum.Users,
+        name: ServiceEnum.Sensors,
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],
-          queue: QueuesEnum.Users,
+          queue: QueuesEnum.Sensors,
           queueOptions: {
             durable: true,
           },
@@ -23,7 +25,5 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
       },
     ]),
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
