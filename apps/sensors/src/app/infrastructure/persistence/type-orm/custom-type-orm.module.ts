@@ -5,12 +5,15 @@ import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { typeOrmConfig } from './type-orm.config';
 import { DhtSensorRepository } from './repositories/dht-sensor.repository';
 import { IDhtSensorRepository } from '../../../application';
+import { DhtSensorFactory } from './factories/dht-sensor.factory';
 
 const providers = [
   {
     provide: IDhtSensorRepository,
     useClass: DhtSensorRepository,
   },
+  DhtSensorFactory,
+  DhtSensorSeeder,
 ];
 
 @Module({

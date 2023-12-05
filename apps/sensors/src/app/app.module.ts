@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { QueuesEnum, ServiceEnum } from '@smart-home.backend/libs/common/src/domain';
 import { ApiModule } from './api';
+import { PersistenceModule } from "./infrastructure/persistence/persistence.module";
+import { CustomTypeOrmModule } from "./infrastructure/persistence/type-orm";
 
 const RABBITMQ_HOST = process.env.RABBITMQ_HOST;
 const RABBITMQ_PORT = process.env.RABBITMQ_PORT;

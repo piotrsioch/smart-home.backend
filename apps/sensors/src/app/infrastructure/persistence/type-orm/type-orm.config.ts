@@ -3,7 +3,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mongodb',
-  url: process.env.DB_URL || 'mongodb://mongo:27017/sensors',
+  url: process.env.DB_URL,
   synchronize: process.env.SYNCHRONIZE_DB === 'true',
   useUnifiedTopology: true,
   entities: [DhtSensorEntity],

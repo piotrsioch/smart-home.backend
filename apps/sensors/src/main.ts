@@ -7,6 +7,13 @@ import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 
 async function bootstrap() {
   config();
+  console.log('-------------');
+  console.log('-------------');
+  console.log('-------------');
+  console.log(process.env.DB_URL);
+  console.log('-------------');
+  console.log('-------------');
+  console.log('-------------');
 
   const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.Sensors));
 
