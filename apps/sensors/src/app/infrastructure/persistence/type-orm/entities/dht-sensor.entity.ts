@@ -6,6 +6,9 @@ export class DhtSensorEntity {
   _id: string;
 
   @Column()
+  sensorId: string;
+
+  @Column()
   temperature: string;
 
   @Column()
