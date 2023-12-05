@@ -21,3 +21,5 @@ export const typeOrmConfig: TypeOrmModuleOptions =
   process.env.NODE_ENV === 'test'
     ? { ...commonOptions, ...testOptions }
     : { ...commonOptions, ...devOptions };
+
+export default typeOrmConfig;
