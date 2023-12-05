@@ -1,36 +1,31 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DhtSensorEntity } from './entities/dht-sensor.entity';
 import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { DhtSensorRepository } from './repositories/dht-sensor.repository';
-import { IDhtSensorRepository } from '../../../application';
+import { IDatabaseSeederService, IDhtSensorRepository } from '../../../application';
 import { DhtSensorFactory } from './factories/dht-sensor.factory';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { typeOrmConfig } from './type-orm.config';
+import { DatabaseSeederService } from './database-seeder.service';
 
 const providers = [
   {
     provide: IDhtSensorRepository,
     useClass: DhtSensorRepository,
   },
+  {
+    provide: IDatabaseSeederService,
+    useClass: DatabaseSeederService,
+  },
   DhtSensorFactory,
   DhtSensorSeeder,
 ];
 
-const typeOrmConfig = TypeOrmModule.forRootAsync({
-  imports: [ConfigModule],
-  useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => ({
-    type: 'mongodb',
-    url: configService.get<string>('DB_URL'),
-    synchronize: configService.get<string>('SYNCHRONIZE_DB') === 'true',
-    useUnifiedTopology: true,
-    entities: [DhtSensorEntity],
-  }),
-  inject: [ConfigService],
-});
+const typeOrmModule = TypeOrmModule.forRoot(typeOrmConfig);
 
 @Module({
-  imports: [typeOrmConfig, TypeOrmModule.forFeature([DhtSensorEntity])],
-  providers: [DhtSensorSeeder, ...providers],
-  exports: [typeOrmConfig, TypeOrmModule.forFeature([DhtSensorEntity]), ...providers],
+  imports: [typeOrmModule, TypeOrmModule.forFeature([DhtSensorEntity])],
+  providers: [...providers, DatabaseSeederService],
+  exports: [typeOrmModule, TypeOrmModule.forFeature([DhtSensorEntity]), ...providers],
 })
 export class CustomTypeOrmModule {}

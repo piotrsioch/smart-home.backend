@@ -12,10 +12,6 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
 @Module({
   imports: [
     ApiModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
-    }),
     ClientsModule.register([
       {
         name: ServiceEnum.Sensors,

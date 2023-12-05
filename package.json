@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./apps/smart-home.backend/test/jest-e2e.json",
     "prepare": "husky install",
     "start-prettier": "npx prettier --write '**/*.{ts,js}'",
-    "seed": "NODE_ENV=test DB_URL=mongodb://localhost:27017/sensors ts-node -r tsconfig-paths/register ./apps/sensors/src/cli.ts"
+    "seeder:sensors": "ts-node -r tsconfig-paths/register ./apps/sensors/src/cli.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,scss,md,json,graphql}": "prettier --write"
