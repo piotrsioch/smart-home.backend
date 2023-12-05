@@ -1,17 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { DhtSensorSeeder } from './app/infrastructure/persistence/type-orm/seeders/dht-sensor.seeder';
-import { CustomTypeOrmModule } from "./app/infrastructure/persistence/type-orm";
-import { config } from "dotenv";
-import { AppModule } from "./app";
+import { CliModule } from "./cli.module";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
-  config();
-  process.env.DB_URL = 'mongodb://mongo:27017/sensors';
   console.log(process.env.DB_URL);
-  const app = await NestFactory.createApplicationContext(AppModule);
-  console.log('get seeder');
+
+  const app = await NestFactory.createApplicationContext(CliModule);
+  const configService = app.get<ConfigService>(ConfigService);
+
+  console.log(configService);
+  console.log(configService.get('DB_URL'));
+
   const seeder = app.get(DhtSensorSeeder);
-  console.log('seed');
+
   await seeder.seed();
   await app.close();
 }
