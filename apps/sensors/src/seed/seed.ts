@@ -8,10 +8,12 @@ async function bootstrap() {
   const seederService = app.get(DatabaseSeederService);
 
   await seederService.seedAllEntities();
+
   await app.close();
 }
 
 bootstrap().catch((error) => {
   console.error('Seeding failed', error);
+
   process.exit(1);
 });

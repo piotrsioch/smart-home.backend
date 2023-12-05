@@ -9,10 +9,12 @@ function seedDatabase(serviceName: string) {
       console.error(`error: ${error.message}`);
       return;
     }
+
     if (stderr) {
       console.error(`stderr: ${stderr}`);
       return;
     }
+
     console.log(`stdout: ${stdout}`);
   });
 }

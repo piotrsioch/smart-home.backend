@@ -6,6 +6,7 @@ async function clearDatabase(typeOrmConfig) {
 
   for (const entity of connection.entityMetadatas) {
     const repository = connection.getRepository(entity.name);
+
     await repository.clear();
   }
 

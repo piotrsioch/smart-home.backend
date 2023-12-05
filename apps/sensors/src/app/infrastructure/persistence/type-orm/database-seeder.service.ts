@@ -8,6 +8,7 @@ export class DatabaseSeederService implements IDatabaseSeederService {
 
   async seedAllEntities(): Promise<void> {
     await this.dhtSensorSeeder.seed();
+
     console.log('Seeding all entities ended');
   }
 }

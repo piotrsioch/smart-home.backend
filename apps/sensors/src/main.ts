@@ -7,6 +7,7 @@ import { config } from 'dotenv';
 
 async function bootstrap() {
   config();
+
   const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.Sensors));
 
   await app.listen();

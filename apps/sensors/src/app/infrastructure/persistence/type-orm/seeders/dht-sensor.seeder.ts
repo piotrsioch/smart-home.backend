@@ -15,8 +15,10 @@ export class DhtSensorSeeder {
   async seed(): Promise<void> {
     for (let i = 0; i < 10; i++) {
       const sensor = this.dhtSensorFactory.create();
+
       await this.dhtSensorRepository.save(sensor);
     }
+
     console.log('Seeding for dht sensor ended.');
   }
 }

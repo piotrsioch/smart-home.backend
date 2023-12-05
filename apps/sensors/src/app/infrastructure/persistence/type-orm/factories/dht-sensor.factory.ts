@@ -7,6 +7,7 @@ import { DhtSensor } from '../../../../domain/models';
 export class DhtSensorFactory {
   create(): DhtSensorEntity {
     const sensor = new DhtSensor();
+
     sensor.create();
 
     sensor.temperature = faker.number.int({ min: -30, max: 60 }).toString();
