@@ -3,5 +3,5 @@ import { BaseSensorDto } from './base-sensor.dto';
 
 export class SmokeSensorDto extends BaseSensorDto {
   @IsNumber()
-  value: string;
+  value: number;
 }
