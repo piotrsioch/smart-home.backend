@@ -10,7 +10,7 @@ import { PirSensorModule } from '../../application/pir-sensor/pir-sensor.module'
 const controllers = [DhtSensorController, SensorController, PirSensorController];
 
 @Module({
-  imports: [CqrsModule, DhtSensorModule, SensorModule, PirSensorModule],
+  imports: [CqrsModule, DhtSensorModule, SensorModule, PirSensorModule, SensorModule],
   controllers,
 })
 export class RpcModule {}
