@@ -6,6 +6,7 @@ import { DhtSensorRepository } from './repositories/dht-sensor.repository';
 import {
   IDatabaseSeederService,
   IDhtSensorRepository,
+  IPirSensorRepository,
   ISensorRepository,
 } from '../../../application';
 import { DhtSensorFactory } from './factories/dht-sensor.factory';
@@ -18,6 +19,7 @@ import { SensorEntity } from './entities/sensor.entity';
 import { PirSensorEntity } from './entities/pir-sensor.entity';
 import { PirSensorSeeder } from './seeders/pir-sensor.seeder';
 import { PirSensorFactory } from './factories/pir-sensor.factory';
+import { PirSensorRepository } from './repositories/pir-sensor.repository';
 
 const entities = [DhtSensorEntity, SensorEntity, PirSensorEntity];
 const seeders = [DhtSensorSeeder, SensorSeeder, PirSensorSeeder];
@@ -31,6 +33,10 @@ const providers = [
   {
     provide: ISensorRepository,
     useClass: SensorRepository,
+  },
+  {
+    provide: IPirSensorRepository,
+    useClass: PirSensorRepository,
   },
   {
     provide: IDatabaseSeederService,
