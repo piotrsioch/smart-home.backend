@@ -1,20 +1,20 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import {
-  CreateSensorInputDto,
+  AddPirSensorDataInputDto,
   CustomClientProxy,
-  SensorDto,
+  PirSensorDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 
-@Controller('/sensors')
-export class SensorController {
+@Controller('/pir-sensor')
+export class PirSensorController {
   constructor(private client: CustomClientProxy) {}
 
-  @Post('/create')
-  async createSensor(@Body() input: CreateSensorInputDto): Promise<SensorDto> {
+  @Post('/add-data')
+  async addPirSensorData(@Body() input: AddPirSensorDataInputDto): Promise<PirSensorDto> {
     return await this.client.sendTo(ServiceEnum.Sensors, {
-      pattern: SensorsCommunicationEnum.CREATE_SENSOR,
+      pattern: SensorsCommunicationEnum.ADD_PIR_DATA,
       data: input,
     });
   }
