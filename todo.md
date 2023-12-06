@@ -20,3 +20,10 @@ light, dht and maybe some more.
 After that I think it will be appropriate time to start making frontend. I expect these tasks won't take me more than 2 weeks, but to be honest I would like to
 finish them in less than 2 weeks - in two weeks I wanna go to the thesis advisor and show him the work I've done. There is no need to create beautiful site in the beginning,
 it just has to show functionalities in the app.
+
+In the meantime there need to be openapi setup for frontend.
+
+Minor tasks:
+
+- Change console logs inside such files as seeders to logger.
+- Create basic entity which will contain id, sensor id, createdAt.

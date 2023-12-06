@@ -7,6 +7,7 @@ import {
   IDatabaseSeederService,
   IDhtSensorRepository,
   IPirSensorRepository,
+  IReedSwitchRepository,
   ISensorRepository,
 } from '../../../application';
 import { DhtSensorFactory } from './factories/dht-sensor.factory';
@@ -25,10 +26,32 @@ import { SmokeSensorSeeder } from './seeders/smoke-sensor.seeder';
 import { SmokeSensorFactory } from './factories/smoke-sensor.factory';
 import { ISmokeSensorRepository } from '../../../application/contracts/repositories/smoke-sensor.repository.interface';
 import { SmokeSensorRepository } from './repositories/smoke-sensor.repository';
+import { ReedSwitchEntity } from './entities/reed-switch.entity';
+import { ReedSwitchSeeder } from './seeders/reed-switch.seeder';
+import { ReedSwitchFactory } from './factories/reed-switch.factory';
+import { ReedSwitchRepository } from './repositories/reed-switch.repository';
 
-const entities = [DhtSensorEntity, SensorEntity, PirSensorEntity, SmokeSensorEntity];
-const seeders = [DhtSensorSeeder, SensorSeeder, PirSensorSeeder, SmokeSensorSeeder];
-const factories = [DhtSensorFactory, SensorFactory, PirSensorFactory, SmokeSensorFactory];
+const entities = [
+  DhtSensorEntity,
+  SensorEntity,
+  PirSensorEntity,
+  SmokeSensorEntity,
+  ReedSwitchEntity,
+];
+const seeders = [
+  DhtSensorSeeder,
+  SensorSeeder,
+  PirSensorSeeder,
+  SmokeSensorSeeder,
+  ReedSwitchSeeder,
+];
+const factories = [
+  DhtSensorFactory,
+  SensorFactory,
+  PirSensorFactory,
+  SmokeSensorFactory,
+  ReedSwitchFactory,
+];
 
 const providers = [
   {
@@ -46,6 +69,10 @@ const providers = [
   {
     provide: ISmokeSensorRepository,
     useClass: SmokeSensorRepository,
+  },
+  {
+    provide: IReedSwitchRepository,
+    useClass: ReedSwitchRepository,
   },
   {
     provide: IDatabaseSeederService,
