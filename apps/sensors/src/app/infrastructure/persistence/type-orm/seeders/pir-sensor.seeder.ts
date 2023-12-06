@@ -8,7 +8,7 @@ import { PirSensorFactory } from '../factories/pir-sensor.factory';
 export class PirSensorSeeder {
   constructor(
     @InjectRepository(PirSensorEntity)
-    private readonly pirSensorEntity: Repository<PirSensorEntity>,
+    private readonly pirSensorRepository: Repository<PirSensorEntity>,
     private readonly pirSensorFactory: PirSensorFactory,
   ) {}
 
@@ -16,7 +16,7 @@ export class PirSensorSeeder {
     for (let i = 0; i < 10; i++) {
       const sensor = this.pirSensorFactory.create();
 
-      await this.pirSensorEntity.save(sensor);
+      await this.pirSensorRepository.save(sensor);
     }
 
     console.log('Seeding for pir sensor ended.');
