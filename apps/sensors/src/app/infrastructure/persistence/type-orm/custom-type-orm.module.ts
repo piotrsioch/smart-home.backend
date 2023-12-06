@@ -20,10 +20,15 @@ import { PirSensorEntity } from './entities/pir-sensor.entity';
 import { PirSensorSeeder } from './seeders/pir-sensor.seeder';
 import { PirSensorFactory } from './factories/pir-sensor.factory';
 import { PirSensorRepository } from './repositories/pir-sensor.repository';
+import { SmokeSensorEntity } from './entities/smoke-sensor.entity';
+import { SmokeSensorSeeder } from './seeders/smoke-sensor.seeder';
+import { SmokeSensorFactory } from './factories/smoke-sensor.factory';
+import { ISmokeSensorRepository } from '../../../application/contracts/repositories/smoke-sensor.repository.interface';
+import { SmokeSensorRepository } from './repositories/smoke-sensor.repository';
 
-const entities = [DhtSensorEntity, SensorEntity, PirSensorEntity];
-const seeders = [DhtSensorSeeder, SensorSeeder, PirSensorSeeder];
-const factories = [DhtSensorFactory, SensorFactory, PirSensorFactory];
+const entities = [DhtSensorEntity, SensorEntity, PirSensorEntity, SmokeSensorEntity];
+const seeders = [DhtSensorSeeder, SensorSeeder, PirSensorSeeder, SmokeSensorSeeder];
+const factories = [DhtSensorFactory, SensorFactory, PirSensorFactory, SmokeSensorFactory];
 
 const providers = [
   {
@@ -37,6 +42,10 @@ const providers = [
   {
     provide: IPirSensorRepository,
     useClass: PirSensorRepository,
+  },
+  {
+    provide: ISmokeSensorRepository,
+    useClass: SmokeSensorRepository,
   },
   {
     provide: IDatabaseSeederService,

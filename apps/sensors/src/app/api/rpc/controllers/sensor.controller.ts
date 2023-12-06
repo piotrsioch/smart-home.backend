@@ -13,7 +13,7 @@ export class SensorController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @MessagePattern(SensorsCommunicationEnum.CREATE_SENSOR)
-  async addDhtData(@Payload() payload: CreateSensorInputDto): Promise<SensorDto> {
+  async createSensor(@Payload() payload: CreateSensorInputDto): Promise<SensorDto> {
     const { id, type, name, location } = payload;
 
     const command = new CreateSensorCommand({
