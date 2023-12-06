@@ -3,8 +3,9 @@ import { DhtSensorModule } from '../../application';
 import { CqrsModule } from '@nestjs/cqrs';
 import { DhtSensorController } from './controllers/dht-sensor.controller';
 import { SensorModule } from '../../application/sensor/sensor.module';
+import { SensorController } from './controllers/sensor.controller';
 
-const controllers = [DhtSensorController];
+const controllers = [DhtSensorController, SensorController];
 
 @Module({
   imports: [CqrsModule, DhtSensorModule, SensorModule],
