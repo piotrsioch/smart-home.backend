@@ -14,8 +14,8 @@
     "start:prod": "node dist/apps/smart0home.backend/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "pretest": "ts-node ./assets/seed-databases-for-tests.ts",
-    "posttest": "NODE_ENV=test ts-node ./assets/clear-databases-for-tests.ts",
-    "test": "NODE_ENV=test jest",
+    "posttest": "NODE_ENV=test ts-node -r tsconfig-paths/register ./assets/clear-databases-for-tests.ts",
+    "test": "NODE_ENV=test jest --runInBand",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -23,7 +23,7 @@
     "prepare": "husky install",
     "start-prettier": "npx prettier --write '**/*.{ts,js}'",
     "seed": "ts-node ./assets/seed-database.ts",
-    "clear-database": "ts-node ./assets/clear-database.ts"
+    "clear-database": "ts-node -r tsconfig-paths/register ./assets/clear-database.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,scss,md,json,graphql}": "prettier --write"

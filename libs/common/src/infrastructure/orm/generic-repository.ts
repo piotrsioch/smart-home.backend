@@ -23,7 +23,7 @@ export class GenericRepository<T> implements IGenericRepository<T> {
 
   async findOneById(id: string): Promise<T | undefined> {
     const options: FindOneOptions = {
-      where: { id },
+      where: { _id: id },
     };
 
     return await this._repository.findOne(options);
