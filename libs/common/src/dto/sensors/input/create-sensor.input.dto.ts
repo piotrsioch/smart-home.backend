@@ -6,7 +6,7 @@ export class CreateSensorInputDto {
   id: string;
 
   @IsEnum(SensorTypeEnum)
-  n: SensorTypeEnum;
+  type: SensorTypeEnum;
 
   @IsString()
   name: string;
