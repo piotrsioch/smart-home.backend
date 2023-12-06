@@ -13,7 +13,7 @@ export class PirSensorController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @MessagePattern(SensorsCommunicationEnum.ADD_PIR_DATA)
-  async addDhtData(@Payload() payload: AddPirSensorDataInputDto): Promise<PirSensorDto> {
+  async addPirData(@Payload() payload: AddPirSensorDataInputDto): Promise<PirSensorDto> {
     const { sensorId } = payload;
 
     const command = new AddPirSensorDataCommand({

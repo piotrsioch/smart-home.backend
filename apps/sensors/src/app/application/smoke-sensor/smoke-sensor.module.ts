@@ -12,4 +12,4 @@ const EventHandlers = [];
   providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
   exports: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
 })
-export class SensorModule {}
+export class SmokeSensorModule {}
