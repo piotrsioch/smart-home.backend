@@ -8,16 +8,26 @@ import { PirSensorController } from './controllers/pir-sensor.controller';
 import { PirSensorModule } from '../../application/pir-sensor/pir-sensor.module';
 import { SmokeSensorController } from './controllers/smoke-sensor.controller';
 import { SmokeSensorModule } from '../../application/smoke-sensor';
+import { ReedSwitchController } from './controllers/reed-switch.controller';
+import { ReedSwitchModule } from '../../application/reed-switch';
 
 const controllers = [
   DhtSensorController,
   SensorController,
   PirSensorController,
   SmokeSensorController,
+  ReedSwitchController,
 ];
 
 @Module({
-  imports: [CqrsModule, DhtSensorModule, SensorModule, PirSensorModule, SmokeSensorModule],
+  imports: [
+    CqrsModule,
+    DhtSensorModule,
+    SensorModule,
+    PirSensorModule,
+    SmokeSensorModule,
+    ReedSwitchModule,
+  ],
   controllers,
 })
 export class RpcModule {}
