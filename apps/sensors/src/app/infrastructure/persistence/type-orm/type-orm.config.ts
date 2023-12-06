@@ -1,8 +1,9 @@
 import { DhtSensorEntity } from './entities/dht-sensor.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { SensorEntity } from './entities/sensor.entity';
 
 const commonOptions: Partial<TypeOrmModuleOptions> = {
-  entities: [DhtSensorEntity],
+  entities: [DhtSensorEntity, SensorEntity],
   synchronize: process.env.SYNCHRONIZE_DB === 'true',
   useUnifiedTopology: true,
 };

@@ -1,6 +1,6 @@
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
-@Entity()
+@Entity('dht-sensor')
 export class DhtSensorEntity {
   @ObjectIdColumn({ name: '_id' })
   _id: string;
