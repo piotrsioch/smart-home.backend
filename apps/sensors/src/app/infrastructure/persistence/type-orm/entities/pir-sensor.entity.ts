@@ -1,18 +1,12 @@
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
-@Entity('dht-sensor')
-export class DhtSensorEntity {
+@Entity('pir-sensor')
+export class PirSensorEntity {
   @ObjectIdColumn({ name: '_id' })
   _id: string;
 
   @Column()
   sensorId: string;
-
-  @Column()
-  temperature: string;
-
-  @Column()
-  humidity: string;
 
   @Column()
   createdAt: Date;
