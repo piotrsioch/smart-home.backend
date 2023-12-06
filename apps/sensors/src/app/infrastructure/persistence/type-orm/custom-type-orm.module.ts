@@ -15,10 +15,13 @@ import { SensorSeeder } from './seeders/sensor.seeder';
 import { SensorFactory } from './factories/sensor.factory';
 import { SensorRepository } from './repositories/sensor.repository';
 import { SensorEntity } from './entities/sensor.entity';
+import { PirSensorEntity } from './entities/pir-sensor.entity';
+import { PirSensorSeeder } from './seeders/pir-sensor.seeder';
+import { PirSensorFactory } from './factories/pir-sensor.factory';
 
-const entities = [DhtSensorEntity, SensorEntity];
-const seeders = [DhtSensorSeeder, SensorSeeder];
-const factories = [DhtSensorFactory, SensorFactory];
+const entities = [DhtSensorEntity, SensorEntity, PirSensorEntity];
+const seeders = [DhtSensorSeeder, SensorSeeder, PirSensorSeeder];
+const factories = [DhtSensorFactory, SensorFactory, PirSensorFactory];
 
 const providers = [
   {
