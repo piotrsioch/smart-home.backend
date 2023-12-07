@@ -11,7 +11,7 @@ import {
 import { IReedSwitchRepository, ISensorRepository } from '../../../contracts';
 import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
 
-describe('AddPirSensorDataCommand', () => {
+describe('AddReedSwitchDataCommand', () => {
   const commandInput: AddReedSwitchDataCommandInput = {
     sensorId: '',
     isOpened: true,

@@ -5,31 +5,31 @@ import { RpcException } from '@nestjs/microservices';
 import { v4 } from 'uuid';
 import { ILightRepository, ISensorRepository } from '../../../contracts';
 import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
-import {
-  ChangeLightStateCommand,
-  ChangeLightStateCommandHandler,
-  ChangeLightStateCommandInput,
-} from './change-light-state.command';
 import { Light } from '../../../../domain';
+import {
+  GetLightStateQuery,
+  GetLightStateQueryHandler,
+  GetLightStateQueryInput,
+} from './get-light-state.query';
 
-describe('ChangeLightStateCommand', () => {
-  const commandInput: ChangeLightStateCommandInput = {
+describe('GetLightStateQuery', () => {
+  const queryInput: GetLightStateQueryInput = {
     sensorId: '',
   };
 
   const contextId = ContextIdFactory.create();
 
   let app: TestingModule;
-  let command: ChangeLightStateCommand;
-  let commandHandler: ChangeLightStateCommandHandler;
+  let query: GetLightStateQuery;
+  let queryHandler: GetLightStateQueryHandler;
   let sensorRepository: ISensorRepository;
   let lightRepository: ILightRepository;
-  let previousData: Light;
+  let newlyCreatedRecord: Light;
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
       imports: [PersistenceModule, CqrsModule],
-      providers: [ChangeLightStateCommand, ChangeLightStateCommandHandler],
+      providers: [GetLightStateQuery, GetLightStateQueryHandler],
     }).compile();
 
     await app.init();
@@ -40,46 +40,38 @@ describe('ChangeLightStateCommand', () => {
 
     lightRepository = await app.resolve<ILightRepository>(ILightRepository, contextId);
 
-    commandHandler = await app.resolve<ChangeLightStateCommandHandler>(
-      ChangeLightStateCommandHandler,
+    queryHandler = await app.resolve<GetLightStateQueryHandler>(
+      GetLightStateQueryHandler,
       contextId,
     );
 
     const [sensor] = await sensorRepository.findAll();
-    commandInput.sensorId = sensor._id;
+    queryInput.sensorId = sensor._id;
 
-    command = new ChangeLightStateCommand(commandInput);
-  });
+    query = new GetLightStateQuery(queryInput);
 
-  it('Should add new light data', async () => {
-    await commandHandler.execute(command);
-
-    const foundData = (await lightRepository.findAll()).filter(
-      (res) => res.sensorId === commandInput.sensorId,
-    );
-
-    previousData = foundData[0];
-
-    expect(foundData.length).toBeGreaterThanOrEqual(1);
-  });
-
-  it('Should add new light data', async () => {
-    await commandHandler.execute(command);
-
-    const foundData = await lightRepository.findLatestData({
-      sensorId: previousData.sensorId,
+    newlyCreatedRecord = Light.create({
+      sensorId: sensor._id,
+      isOn: false,
     });
 
-    expect(foundData.sensorId).toBe(previousData.sensorId);
-    expect(foundData.isOn).toBe(!previousData.isOn);
+    await lightRepository.add(newlyCreatedRecord);
+  });
+
+  it('Should return the newest light data', async () => {
+    const dataFromQuery = await queryHandler.execute(query);
+
+    expect(dataFromQuery._id).toBe(newlyCreatedRecord._id);
+    expect(dataFromQuery.sensorId).toBe(newlyCreatedRecord.sensorId);
+    expect(dataFromQuery.isOn).toBe(newlyCreatedRecord.isOn);
   });
 
   it('Should throw rpc exception', async () => {
     let errMessage: string;
-    commandInput.sensorId = v4();
+    queryInput.sensorId = v4();
 
     try {
-      await commandHandler.execute(command);
+      await queryHandler.execute(query);
     } catch (e) {
       errMessage = e;
     }
