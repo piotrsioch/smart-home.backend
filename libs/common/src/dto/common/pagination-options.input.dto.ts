@@ -1,5 +1,6 @@
-import { IPaginationOptions, SortOrder } from '../../../src';
-import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
+import { SortOrder } from '../../domain/enums';
+import { IPaginationOptions } from '../../domain/interfaces';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class PaginationOptionsInputDto implements IPaginationOptions {
   @IsNumber()
@@ -19,8 +20,4 @@ export class PaginationOptionsInputDto implements IPaginationOptions {
   @IsOptional()
   @IsString()
   search?: string;
-
-  @IsOptional()
-  @IsArray()
-  searchFields?: string[];
 }

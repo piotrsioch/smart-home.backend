@@ -1,5 +1,6 @@
 import { DeepPartial, FindOneOptions, Repository } from 'typeorm';
-import { IGenericRepository, IPaginationOptions, PaginationOutput } from '../../domain';
+import { IGenericRepository, IPaginationOptions } from '../../domain';
+import { PaginationOutput } from '../../../src';
 
 export class GenericRepository<T> implements IGenericRepository<T> {
   protected readonly _repository: Repository<T>;
@@ -43,9 +44,7 @@ export class GenericRepository<T> implements IGenericRepository<T> {
     const query: any = {};
     const order: any = {};
 
-    const currentPage = page >= 1 ? page : 1;
-
-    const skip = (currentPage - 1) * limit;
+    const skip = page > 0 ? page * limit : 0;
 
     if (search && searchFields) {
       query.$or = searchFields.map((field) => ({

@@ -2,9 +2,9 @@ import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 import { DhtSensorListQuery, DhtSensorListQueryHandler } from './dht-sensor-list.query';
-import { DhtSensorListQueryInput, DhtSensorOrderFieldEnum } from './dht-sensor-list.types';
+import { DhtSensorListQueryInput } from './dht-sensor-list.types';
 import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
-import { SortOrder } from '@smart-home.backend/libs/common';
+import { DhtSensorOrderFieldEnum, SortOrder } from '@smart-home.backend/libs/common';
 import { IDhtSensorRepository } from '../../../contracts';
 
 describe('DhtSensorListQuery', () => {

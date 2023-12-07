@@ -1,11 +1,7 @@
-import { PaginationOptionsInputDto } from '@smart-home.backend/libs/common';
-
-export enum DhtSensorOrderFieldEnum {
-  TEMPERATURE = 'temperature',
-  HUMIDITY = 'humidity',
-  SENSOR_ID = 'sensorId',
-  CREATED_AT = 'createdAt',
-}
+import {
+  DhtSensorOrderFieldEnum,
+  PaginationOptionsInputDto,
+} from '@smart-home.backend/libs/common';
 
 export const searchFields = ['sensorId', 'createdAt', '_id'];
 

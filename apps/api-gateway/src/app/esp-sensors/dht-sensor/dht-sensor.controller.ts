@@ -1,8 +1,11 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 import {
   AddDhtSensorDataInputDto,
   CustomClientProxy,
   DhtSensorDto,
+  DhtSensorListInputDto,
+  GetLatestDhtDataInputDto,
+  PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
@@ -17,6 +20,24 @@ export class DhtSensorController {
   ): Promise<DhtSensorDto> {
     return await this.client.sendTo(ServiceEnum.Sensors, {
       pattern: SensorsCommunicationEnum.ADD_DHT_DATA,
+      data: input,
+    });
+  }
+
+  @Get('/list')
+  async dhtSensorList(
+    @Body() input: DhtSensorListInputDto,
+  ): Promise<PaginationOutput<DhtSensorDto>> {
+    return await this.client.sendTo(ServiceEnum.Sensors, {
+      pattern: SensorsCommunicationEnum.DHT_SENSOR_LIST,
+      data: input,
+    });
+  }
+
+  @Get('/latest-data')
+  async getLatestData(@Body() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
+    return await this.client.sendTo(ServiceEnum.Sensors, {
+      pattern: SensorsCommunicationEnum.GET_LATEST_DHT_DATA,
       data: input,
     });
   }

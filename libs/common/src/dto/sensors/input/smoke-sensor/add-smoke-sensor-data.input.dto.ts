@@ -1,4 +1,4 @@
-import { BaseSensorInputDto } from './base-sensor.input.dto';
+import { BaseSensorInputDto } from '../base-sensor.input.dto';
 import { IsNumber } from 'class-validator';
 import { Transform } from 'class-transformer';
 
