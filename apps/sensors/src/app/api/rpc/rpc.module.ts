@@ -10,6 +10,8 @@ import { SmokeSensorController } from './controllers/smoke-sensor.controller';
 import { SmokeSensorModule } from '../../application/smoke-sensor';
 import { ReedSwitchController } from './controllers/reed-switch.controller';
 import { ReedSwitchModule } from '../../application/reed-switch';
+import { LightModule } from '../../application/light';
+import { LightController } from './controllers/light.controller';
 
 const controllers = [
   DhtSensorController,
@@ -17,6 +19,7 @@ const controllers = [
   PirSensorController,
   SmokeSensorController,
   ReedSwitchController,
+  LightController,
 ];
 
 @Module({
@@ -27,6 +30,7 @@ const controllers = [
     PirSensorModule,
     SmokeSensorModule,
     ReedSwitchModule,
+    LightModule,
   ],
   controllers,
 })

@@ -17,7 +17,7 @@ export class BaseSensorRepository<T extends BaseSensorEntity>
     const options: FindOneOptions = {
       where: { sensorId },
       order: {
-        createdAt: SortOrder.ASC,
+        createdAt: SortOrder.DESC,
       },
     };
 

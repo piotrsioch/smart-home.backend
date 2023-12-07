@@ -3,32 +3,33 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { v4 } from 'uuid';
-import {
-  AddReedSwitchDataCommand,
-  AddReedSwitchDataCommandHandler,
-  AddReedSwitchDataCommandInput,
-} from './add-reed-switch-data.command';
-import { IReedSwitchRepository, ISensorRepository } from '../../../contracts';
+import { ILightRepository, ISensorRepository } from '../../../contracts';
 import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
+import {
+  ChangeLightStateCommand,
+  ChangeLightStateCommandHandler,
+  ChangeLightStateCommandInput,
+} from './change-light-state.command';
+import { Light } from '../../../../domain';
 
-describe('AddReedSwitchDataCommand', () => {
-  const commandInput: AddReedSwitchDataCommandInput = {
+describe('ChangeLightStateCommand', () => {
+  const commandInput: ChangeLightStateCommandInput = {
     sensorId: '',
-    isOpened: true,
   };
 
   const contextId = ContextIdFactory.create();
 
   let app: TestingModule;
-  let command: AddReedSwitchDataCommand;
-  let commandHandler: AddReedSwitchDataCommandHandler;
+  let command: ChangeLightStateCommand;
+  let commandHandler: ChangeLightStateCommandHandler;
   let sensorRepository: ISensorRepository;
-  let reedSwitchRepository: IReedSwitchRepository;
+  let lightRepository: ILightRepository;
+  let previousData: Light;
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
       imports: [PersistenceModule, CqrsModule],
-      providers: [AddReedSwitchDataCommand, AddReedSwitchDataCommandHandler],
+      providers: [ChangeLightStateCommand, ChangeLightStateCommandHandler],
     }).compile();
 
     await app.init();
@@ -37,30 +38,40 @@ describe('AddReedSwitchDataCommand', () => {
 
     sensorRepository = await app.resolve<ISensorRepository>(ISensorRepository, contextId);
 
-    reedSwitchRepository = await app.resolve<IReedSwitchRepository>(
-      IReedSwitchRepository,
-      contextId,
-    );
+    lightRepository = await app.resolve<ILightRepository>(ILightRepository, contextId);
 
-    commandHandler = await app.resolve<AddReedSwitchDataCommandHandler>(
-      AddReedSwitchDataCommandHandler,
+    commandHandler = await app.resolve<ChangeLightStateCommandHandler>(
+      ChangeLightStateCommandHandler,
       contextId,
     );
 
     const [sensor] = await sensorRepository.findAll();
     commandInput.sensorId = sensor._id;
 
-    command = new AddReedSwitchDataCommand(commandInput);
+    command = new ChangeLightStateCommand(commandInput);
   });
 
-  it('Should add new pir sensor data', async () => {
+  it('Should add new light data', async () => {
     await commandHandler.execute(command);
 
-    const foundData = (await reedSwitchRepository.findAll()).filter(
+    const foundData = (await lightRepository.findAll()).filter(
       (res) => res.sensorId === commandInput.sensorId,
     );
 
+    previousData = foundData[0];
+
     expect(foundData.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('Should add new light data', async () => {
+    await commandHandler.execute(command);
+
+    const foundData = await lightRepository.findLatestData({
+      sensorId: previousData.sensorId,
+    });
+
+    expect(foundData.sensorId).toBe(previousData.sensorId);
+    expect(foundData.isOn).toBe(!previousData.isOn);
   });
 
   it('Should throw rpc exception', async () => {
