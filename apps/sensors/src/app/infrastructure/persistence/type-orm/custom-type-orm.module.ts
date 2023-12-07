@@ -6,6 +6,7 @@ import { DhtSensorRepository } from './repositories/dht-sensor.repository';
 import {
   IDatabaseSeederService,
   IDhtSensorRepository,
+  ILightRepository,
   IPirSensorRepository,
   IReedSwitchRepository,
   ISensorRepository,
@@ -24,12 +25,16 @@ import { PirSensorRepository } from './repositories/pir-sensor.repository';
 import { SmokeSensorEntity } from './entities/smoke-sensor.entity';
 import { SmokeSensorSeeder } from './seeders/smoke-sensor.seeder';
 import { SmokeSensorFactory } from './factories/smoke-sensor.factory';
-import { ISmokeSensorRepository } from '../../../application/contracts/repositories/smoke-sensor.repository.interface';
+import { ISmokeSensorRepository } from '../../../application';
 import { SmokeSensorRepository } from './repositories/smoke-sensor.repository';
 import { ReedSwitchEntity } from './entities/reed-switch.entity';
 import { ReedSwitchSeeder } from './seeders/reed-switch.seeder';
 import { ReedSwitchFactory } from './factories/reed-switch.factory';
 import { ReedSwitchRepository } from './repositories/reed-switch.repository';
+import { LightEntity } from './entities/light.entity';
+import { LightSeeder } from './seeders/light.seeder';
+import { LightFactory } from './factories/light.factory';
+import { LightRepository } from './repositories/light.repository';
 
 const entities = [
   DhtSensorEntity,
@@ -37,6 +42,7 @@ const entities = [
   PirSensorEntity,
   SmokeSensorEntity,
   ReedSwitchEntity,
+  LightEntity,
 ];
 const seeders = [
   DhtSensorSeeder,
@@ -44,6 +50,7 @@ const seeders = [
   PirSensorSeeder,
   SmokeSensorSeeder,
   ReedSwitchSeeder,
+  LightSeeder,
 ];
 const factories = [
   DhtSensorFactory,
@@ -51,6 +58,7 @@ const factories = [
   PirSensorFactory,
   SmokeSensorFactory,
   ReedSwitchFactory,
+  LightFactory,
 ];
 
 const providers = [
@@ -77,6 +85,10 @@ const providers = [
   {
     provide: IDatabaseSeederService,
     useClass: DatabaseSeederService,
+  },
+  {
+    provide: ILightRepository,
+    useClass: LightRepository,
   },
   ...seeders,
   ...factories,
