@@ -1,4 +1,4 @@
-import { SensorTypeEnum } from '../../../domain';
+import { SensorTypeEnum } from '../../../../domain';
 import { IsEnum, IsString } from 'class-validator';
 
 export class CreateSensorInputDto {
