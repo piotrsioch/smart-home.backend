@@ -2,7 +2,11 @@ import { DeepPartial, FindOneOptions, Repository } from 'typeorm';
 import { IGenericRepository } from '../../domain';
 
 export class GenericRepository<T> implements IGenericRepository<T> {
-  constructor(private readonly _repository: Repository<T>) {}
+  protected readonly _repository: Repository<T>;
+
+  constructor(repository: Repository<T>) {
+    this._repository = repository;
+  }
 
   async add(entity: T): Promise<T> {
     return await this._repository.save(entity);

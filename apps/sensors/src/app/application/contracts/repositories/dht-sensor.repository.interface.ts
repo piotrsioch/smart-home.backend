@@ -1,5 +1,5 @@
-import { IGenericRepository } from '@smart-home.backend/libs/common';
+import { IBaseSensorRepository } from './base-sensor.repository.interface';
 
-export interface IDhtSensorRepository extends IGenericRepository<any> {}
+export interface IDhtSensorRepository extends IBaseSensorRepository {}
 
 export abstract class IDhtSensorRepository implements IDhtSensorRepository {}

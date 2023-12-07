@@ -1,13 +1,5 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Entity } from 'typeorm';
+import { BaseSensorEntity } from './base-sensor.entity';
 
 @Entity('pir-sensor')
-export class PirSensorEntity {
-  @ObjectIdColumn({ name: '_id' })
-  _id: string;
-
-  @Column()
-  sensorId: string;
-
-  @Column()
-  createdAt: Date;
-}
+export class PirSensorEntity extends BaseSensorEntity {}

@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { IReedSwitchRepository } from '../../../../application';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GenericRepository } from '@smart-home.backend/libs/common';
 import { ReedSwitchEntity } from '../entities/reed-switch.entity';
+import { BaseSensorRepository } from './base-sensor.repository';
 
 @Injectable()
 export class ReedSwitchRepository
-  extends GenericRepository<ReedSwitchEntity>
+  extends BaseSensorRepository<ReedSwitchEntity>
   implements IReedSwitchRepository
 {
   constructor(
