@@ -1,5 +1,5 @@
 import { DeepPartial, FindOneOptions, Repository } from 'typeorm';
-import { IGenericRepository, IPaginationOptions } from '../../domain';
+import { IGenericRepository, IPaginationOptions, PaginationOutput } from '../../domain';
 
 export class GenericRepository<T> implements IGenericRepository<T> {
   protected readonly _repository: Repository<T>;
@@ -37,8 +37,9 @@ export class GenericRepository<T> implements IGenericRepository<T> {
     return await this._repository.find();
   }
 
-  async getPaginatedData(options: IPaginationOptions): Promise<[T[], number]> {
+  async getPaginatedData(options: IPaginationOptions): Promise<PaginationOutput<T>> {
     const { page, limit, orderField, orderDirection, search, searchFields } = options;
+
     const query: any = {};
     const order: any = {};
 
@@ -52,17 +53,20 @@ export class GenericRepository<T> implements IGenericRepository<T> {
       }));
     }
 
-    if (orderField && orderDirection) {
+    if (orderField) {
       order[orderField] = orderDirection === 'ASC' ? 1 : -1;
     }
 
     const [results, total] = await this._repository.findAndCount({
       where: query,
       take: limit,
-      skip: skip,
-      order: order,
+      skip,
+      order,
     });
 
-    return [results, total];
+    return {
+      items: results,
+      total,
+    };
   }
 }

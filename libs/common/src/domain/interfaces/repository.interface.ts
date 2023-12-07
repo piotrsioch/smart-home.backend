@@ -3,6 +3,11 @@ import { SortOrder } from '@smart-home.backend/libs/common';
 
 export type DeepPartial<T> = TypeOrmDeepPartial<T>;
 
+export type PaginationOutput<T> = {
+  items: T[];
+  total: number;
+};
+
 export interface IPaginationOptions {
   page: number;
   limit: number;
@@ -25,7 +30,7 @@ export interface IGenericRepository<T> {
 
   findAll(): Promise<T[]>;
 
-  getPaginatedData(options: IPaginationOptions): Promise<[T[], number]>;
+  getPaginatedData(options: IPaginationOptions): Promise<PaginationOutput<any>>;
 }
 
 export abstract class IGenericRepository<T> implements IGenericRepository<T> {}
