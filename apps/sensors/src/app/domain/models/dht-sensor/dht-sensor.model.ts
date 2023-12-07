@@ -2,14 +2,14 @@ import { BaseModel } from '@smart-home.backend/libs/common';
 
 export type DhtSensorCreateInput = {
   sensorId: string;
-  temperature: string;
-  humidity: string;
+  temperature: number;
+  humidity: number;
 };
 
 export class DhtSensor extends BaseModel {
   sensorId: string;
-  temperature: string;
-  humidity: string;
+  temperature: number;
+  humidity: number;
 
   static create(input: DhtSensorCreateInput) {
     const { temperature, humidity, sensorId } = input;

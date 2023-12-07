@@ -4,8 +4,8 @@ import { BaseSensorEntity } from './base-sensor.entity';
 @Entity('dht-sensor')
 export class DhtSensorEntity extends BaseSensorEntity {
   @Column()
-  temperature: string;
+  temperature: number;
 
   @Column()
-  humidity: string;
+  humidity: number;
 }

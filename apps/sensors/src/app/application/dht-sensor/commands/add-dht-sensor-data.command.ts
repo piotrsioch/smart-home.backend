@@ -1,10 +1,11 @@
 import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { DhtSensor } from '../../../domain/models';
 import { IDhtSensorRepository } from '../../contracts';
+import { IPaginationOptions, SortOrder } from '@smart-home.backend/libs/common';
 
 export class AddDhtSensorDataCommandInput {
-  temperature: string;
-  humidity: string;
+  temperature: number;
+  humidity: number;
   sensorId: string;
 }
 
@@ -23,6 +24,16 @@ export class AddDhtSensorDataCommandHandler
 
   async execute(command: AddDhtSensorDataCommand): Promise<DhtSensor> {
     const { temperature, humidity, sensorId } = command.input;
+
+    //test
+    const options: IPaginationOptions = {
+      page: 0,
+      limit: 5,
+      orderField: 'createdAt',
+      orderDirection: SortOrder.DESC,
+    };
+    const test = await this.dhtSensorRepository.getPaginatedData(options);
+    console.log(test);
 
     const model = this.publisher.mergeClassContext(DhtSensor);
 
