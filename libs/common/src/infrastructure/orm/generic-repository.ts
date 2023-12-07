@@ -38,7 +38,7 @@ export class GenericRepository<T> implements IGenericRepository<T> {
   }
 
   async getPaginatedData(options: IPaginationOptions): Promise<[T[], number]> {
-    const { page, limit, orderField, orderDirection, search } = options;
+    const { page, limit, orderField, orderDirection, search, searchFields } = options;
     const query: any = {};
     const order: any = {};
 
@@ -46,8 +46,10 @@ export class GenericRepository<T> implements IGenericRepository<T> {
 
     const skip = (currentPage - 1) * limit;
 
-    if (search) {
-      query['$text'] = { $search: search };
+    if (search && searchFields) {
+      query.$or = searchFields.map((field) => ({
+        [field]: { $regex: search, $options: 'i' },
+      }));
     }
 
     if (orderField && orderDirection) {

@@ -9,6 +9,7 @@ export interface IPaginationOptions {
   orderField?: string;
   orderDirection?: SortOrder;
   search?: string;
+  searchFields?: string[];
 }
 
 export interface IGenericRepository<T> {

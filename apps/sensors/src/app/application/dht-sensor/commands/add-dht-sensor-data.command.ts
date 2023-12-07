@@ -25,16 +25,6 @@ export class AddDhtSensorDataCommandHandler
   async execute(command: AddDhtSensorDataCommand): Promise<DhtSensor> {
     const { temperature, humidity, sensorId } = command.input;
 
-    //test
-    const options: IPaginationOptions = {
-      page: 0,
-      limit: 5,
-      orderField: 'createdAt',
-      orderDirection: SortOrder.DESC,
-    };
-    const test = await this.dhtSensorRepository.getPaginatedData(options);
-    console.log(test);
-
     const model = this.publisher.mergeClassContext(DhtSensor);
 
     const sensor = model.create({
