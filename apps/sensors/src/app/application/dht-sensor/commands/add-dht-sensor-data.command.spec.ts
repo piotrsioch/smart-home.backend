@@ -11,8 +11,8 @@ import { CqrsModule } from '@nestjs/cqrs';
 
 describe('AddDhtSensorDataCommand', () => {
   const commandInput: AddDhtSensorDataCommandInput = {
-    temperature: '25',
-    humidity: '25',
+    temperature: 25,
+    humidity: 25,
     sensorId: '9',
   };
 

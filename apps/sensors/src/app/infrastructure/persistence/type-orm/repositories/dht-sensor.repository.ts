@@ -3,11 +3,11 @@ import { IDhtSensorRepository } from '../../../../application';
 import { DhtSensorEntity } from '../entities/dht-sensor.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GenericRepository } from '@smart-home.backend/libs/common';
+import { BaseSensorRepository } from './base-sensor.repository';
 
 @Injectable()
 export class DhtSensorRepository
-  extends GenericRepository<DhtSensorEntity>
+  extends BaseSensorRepository<DhtSensorEntity>
   implements IDhtSensorRepository
 {
   constructor(

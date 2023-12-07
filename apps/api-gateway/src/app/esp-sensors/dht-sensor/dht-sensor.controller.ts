@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import {
   AddDhtSensorDataInputDto,
   CustomClientProxy,
@@ -12,7 +12,9 @@ export class DhtSensorController {
   constructor(private client: CustomClientProxy) {}
 
   @Post('/add-data')
-  async addDhtSensorData(@Body() input: AddDhtSensorDataInputDto): Promise<DhtSensorDto> {
+  async addDhtSensorData(
+    @Body(new ValidationPipe({ transform: true })) input: AddDhtSensorDataInputDto,
+  ): Promise<DhtSensorDto> {
     return await this.client.sendTo(ServiceEnum.Sensors, {
       pattern: SensorsCommunicationEnum.ADD_DHT_DATA,
       data: input,

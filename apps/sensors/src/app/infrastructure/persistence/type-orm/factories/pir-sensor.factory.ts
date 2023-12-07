@@ -9,6 +9,7 @@ export class PirSensorFactory {
     const sensor = new PirSensor();
 
     sensor.create();
+
     sensor.sensorId = faker.string.uuid();
 
     return sensor;

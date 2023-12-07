@@ -1,10 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 import { BaseSensorDto } from './base-sensor.dto';
 
 export class DhtSensorDto extends BaseSensorDto {
-  @IsString()
-  temperature: string;
+  @IsNumber()
+  temperature: number;
 
-  @IsString()
-  humidity: string;
+  @IsNumber()
+  humidity: number;
 }

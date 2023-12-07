@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { IPirSensorRepository } from '../../../../application';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GenericRepository } from '@smart-home.backend/libs/common';
-import { PirSensorEntity } from '../entities/pir-sensor.entity';
-import { ISmokeSensorRepository } from '../../../../application/contracts/repositories/smoke-sensor.repository.interface';
+import { ISmokeSensorRepository } from '../../../../application';
 import { SmokeSensorEntity } from '../entities/smoke-sensor.entity';
+import { BaseSensorRepository } from './base-sensor.repository';
 
 @Injectable()
 export class SmokeSensorRepository
-  extends GenericRepository<PirSensorEntity>
+  extends BaseSensorRepository<SmokeSensorEntity>
   implements ISmokeSensorRepository
 {
   constructor(

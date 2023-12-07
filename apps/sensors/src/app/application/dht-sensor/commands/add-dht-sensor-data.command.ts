@@ -1,10 +1,11 @@
 import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { DhtSensor } from '../../../domain/models';
 import { IDhtSensorRepository } from '../../contracts';
+import { IPaginationOptions, SortOrder } from '@smart-home.backend/libs/common';
 
 export class AddDhtSensorDataCommandInput {
-  temperature: string;
-  humidity: string;
+  temperature: number;
+  humidity: number;
   sensorId: string;
 }
 

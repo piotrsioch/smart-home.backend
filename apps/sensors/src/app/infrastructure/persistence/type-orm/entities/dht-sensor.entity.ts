@@ -1,19 +1,11 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseSensorEntity } from './base-sensor.entity';
 
 @Entity('dht-sensor')
-export class DhtSensorEntity {
-  @ObjectIdColumn({ name: '_id' })
-  _id: string;
+export class DhtSensorEntity extends BaseSensorEntity {
+  @Column()
+  temperature: number;
 
   @Column()
-  sensorId: string;
-
-  @Column()
-  temperature: string;
-
-  @Column()
-  humidity: string;
-
-  @Column()
-  createdAt: Date;
+  humidity: number;
 }

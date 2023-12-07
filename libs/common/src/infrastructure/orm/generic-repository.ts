@@ -1,8 +1,12 @@
 import { DeepPartial, FindOneOptions, Repository } from 'typeorm';
-import { IGenericRepository } from '../../domain';
+import { IGenericRepository, IPaginationOptions } from '../../domain';
 
 export class GenericRepository<T> implements IGenericRepository<T> {
-  constructor(private readonly _repository: Repository<T>) {}
+  protected readonly _repository: Repository<T>;
+
+  constructor(repository: Repository<T>) {
+    this._repository = repository;
+  }
 
   async add(entity: T): Promise<T> {
     return await this._repository.save(entity);
@@ -31,5 +35,34 @@ export class GenericRepository<T> implements IGenericRepository<T> {
 
   async findAll(): Promise<T[]> {
     return await this._repository.find();
+  }
+
+  async getPaginatedData(options: IPaginationOptions): Promise<[T[], number]> {
+    const { page, limit, orderField, orderDirection, search, searchFields } = options;
+    const query: any = {};
+    const order: any = {};
+
+    const currentPage = page >= 1 ? page : 1;
+
+    const skip = (currentPage - 1) * limit;
+
+    if (search && searchFields) {
+      query.$or = searchFields.map((field) => ({
+        [field]: { $regex: search, $options: 'i' },
+      }));
+    }
+
+    if (orderField && orderDirection) {
+      order[orderField] = orderDirection === 'ASC' ? 1 : -1;
+    }
+
+    const [results, total] = await this._repository.findAndCount({
+      where: query,
+      take: limit,
+      skip: skip,
+      order: order,
+    });
+
+    return [results, total];
   }
 }

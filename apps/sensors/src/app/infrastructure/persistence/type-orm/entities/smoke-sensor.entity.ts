@@ -1,16 +1,8 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseSensorEntity } from './base-sensor.entity';
 
 @Entity('smoke-sensor')
-export class SmokeSensorEntity {
-  @ObjectIdColumn({ name: '_id' })
-  _id: string;
-
+export class SmokeSensorEntity extends BaseSensorEntity {
   @Column()
   value: number;
-
-  @Column()
-  sensorId: string;
-
-  @Column()
-  createdAt: Date;
 }

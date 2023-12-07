@@ -10,8 +10,8 @@ export class DhtSensorFactory {
 
     sensor.create();
 
-    sensor.temperature = faker.number.int({ min: -30, max: 60 }).toString();
-    sensor.humidity = faker.number.int({ min: 0, max: 100 }).toString();
+    sensor.temperature = faker.number.int({ min: -30, max: 60 });
+    sensor.humidity = faker.number.int({ min: 0, max: 100 });
     sensor.sensorId = faker.string.uuid();
 
     return sensor;

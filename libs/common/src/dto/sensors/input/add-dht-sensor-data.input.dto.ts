@@ -1,10 +1,13 @@
 import { BaseSensorInputDto } from './base-sensor.input.dto';
-import { IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class AddDhtSensorDataInputDto extends BaseSensorInputDto {
-  @IsString()
-  temperature: string;
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  temperature: number;
 
-  @IsString()
-  humidity: string;
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  humidity: number;
 }
