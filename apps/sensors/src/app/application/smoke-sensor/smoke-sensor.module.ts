@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AddSmokeSensorDataCommandHandler } from './commands';
+import { SmokeSensorListQueryHandler } from './queries';
 
 const CommandHandlers = [AddSmokeSensorDataCommandHandler];
-const QueryHandlers = [];
+const QueryHandlers = [SmokeSensorListQueryHandler];
 const EventHandlers = [];
 
 @Module({

@@ -5,6 +5,7 @@ export enum SensorsCommunicationEnum {
   CREATE_SENSOR = 'createSensor',
   ADD_PIR_DATA = 'addPirData',
   ADD_SMOKE_DATA = 'addSmokeData',
+  SMOKE_SENSOR_LIST = 'smokeSensorList',
   ADD_REED_SWITCH_DATA = 'addReedSwitchData',
   GET_LIGHT_STATE = 'getLightState',
   CHANGE_LIGHT_STATE = 'changeLightState',
