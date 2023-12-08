@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseFilters } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
@@ -14,7 +14,9 @@ import {
   DhtSensorListQuery,
   GetLatestDhtDataQuery,
 } from '../../../application';
+import { TestExceptionFilter } from '@smart-home.backend/libs/common/src/api/filters/test';
 
+@UseFilters(TestExceptionFilter)
 @Controller()
 export class DhtSensorController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}

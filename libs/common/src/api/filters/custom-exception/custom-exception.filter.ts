@@ -1,29 +1,14 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
-import { CustomRpcException } from '../../../domain/exceptions';
-import { ErrorCodeEnum } from '../../../domain/enums/common';
+import { RpcException } from '@nestjs/microservices';
 
-@Catch(CustomRpcException)
+@Catch(RpcException)
 export class CustomExceptionFilter implements ExceptionFilter {
-  catch(exception: CustomRpcException, host: ArgumentsHost) {
+  catch(exception: any, host: ArgumentsHost) {
+    console.log('in catch');
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
-    let status = 500;
-    if (exception.code) {
-      switch (exception.code) {
-        case ErrorCodeEnum.NOT_FOUND:
-          status = 404;
-          break;
-        case ErrorCodeEnum.BAD_REQUEST:
-          status = 400;
-          break;
-        case ErrorCodeEnum.UNAUTHORIZED:
-          status = 401;
-          break;
-        default:
-          status = 500;
-      }
-    }
+    console.log(exception);
 
     response.status(status).json({
       statusCode: status,
