@@ -5,9 +5,15 @@ import {
   ChangeLightStateInputDto,
   GetLightStateInputDto,
   LightDto,
+  LightListInputDto,
+  PaginationOutput,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
-import { ChangeLightStateCommand, GetLightStateQuery } from '../../../application/light';
+import {
+  ChangeLightStateCommand,
+  GetLightStateQuery,
+  LightListQuery,
+} from '../../../application/light';
 
 @Controller()
 export class LightController {
@@ -29,5 +35,20 @@ export class LightController {
     const query = new GetLightStateQuery({ sensorId });
 
     return await this.queryBus.execute<GetLightStateQuery>(query);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.LIGHT_LIST)
+  async lightList(@Payload() payload: LightListInputDto): Promise<PaginationOutput<LightDto>> {
+    const { page, limit, orderField, orderDirection, search } = payload;
+
+    const query = new LightListQuery({
+      page,
+      limit,
+      orderField: orderField ?? null,
+      orderDirection: orderDirection ?? null,
+      search: search ?? null,
+    });
+
+    return await this.queryBus.execute<LightListQuery>(query);
   }
 }
