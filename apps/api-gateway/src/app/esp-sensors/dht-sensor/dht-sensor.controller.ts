@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddDhtSensorDataInputDto,
   CustomClientProxy,
+  CustomExceptionFilter,
   DhtSensorDto,
   DhtSensorListInputDto,
   GetLatestDhtDataInputDto,
@@ -10,6 +11,7 @@ import {
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 
+@UseFilters(CustomExceptionFilter)
 @Controller('/dht-sensor')
 export class DhtSensorController {
   constructor(private client: CustomClientProxy) {}
