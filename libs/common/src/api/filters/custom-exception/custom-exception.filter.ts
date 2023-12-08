@@ -27,7 +27,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: message,
+      message: message.length > 0 ? message : 'Unknown error',
     });
   }
 }

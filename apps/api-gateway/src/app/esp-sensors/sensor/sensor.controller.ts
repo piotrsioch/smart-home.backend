@@ -1,12 +1,14 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseFilters } from '@nestjs/common';
 import {
   CreateSensorInputDto,
   CustomClientProxy,
+  CustomExceptionFilter,
   SensorDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 
+@UseFilters(CustomExceptionFilter)
 @Controller('/sensors')
 export class SensorController {
   constructor(private client: CustomClientProxy) {}

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { Light } from '../../../../domain';
 import { ILightRepository, ISensorRepository } from '../../../contracts';
-import { RpcException } from '@nestjs/microservices';
+import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export type ChangeLightStateCommandInput = {
   sensorId: string;
@@ -26,7 +26,7 @@ export class ChangeLightStateCommandHandler
     const existingSensor = await this.sensorRepository.findOneById(sensorId);
 
     if (!existingSensor) {
-      throw new RpcException('Sensor with given id does not exist');
+      throw new CustomRpcException('Sensor with given id does not exist', ErrorCodeEnum.NOT_FOUND);
     }
 
     const sensorData = await this.lightRepository.findLatestData({

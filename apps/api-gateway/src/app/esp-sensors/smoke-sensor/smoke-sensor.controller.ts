@@ -1,12 +1,14 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddSmokeSensorDataInputDto,
   CustomClientProxy,
+  CustomExceptionFilter,
   SensorsCommunicationEnum,
   ServiceEnum,
   SmokeSensorDto,
 } from '@smart-home.backend/libs/common';
 
+@UseFilters(CustomExceptionFilter)
 @Controller('/smoke-sensor')
 export class SmokeSensorController {
   constructor(private client: CustomClientProxy) {}
