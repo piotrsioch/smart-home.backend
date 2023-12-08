@@ -5,6 +5,8 @@ import {
   CustomExceptionFilter,
   GetLightStateInputDto,
   LightDto,
+  LightListInputDto,
+  PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
@@ -18,6 +20,14 @@ export class LightController {
   async changeLightState(@Body() input: ChangeLightStateInputDto): Promise<LightDto> {
     return await this.client.sendTo(ServiceEnum.Sensors, {
       pattern: SensorsCommunicationEnum.CHANGE_LIGHT_STATE,
+      data: input,
+    });
+  }
+
+  @Get('/list')
+  async lightList(@Body() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
+    return await this.client.sendTo(ServiceEnum.Sensors, {
+      pattern: SensorsCommunicationEnum.LIGHT_LIST,
       data: input,
     });
   }
