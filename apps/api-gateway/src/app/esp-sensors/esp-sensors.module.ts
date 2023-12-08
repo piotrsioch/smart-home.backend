@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CustomClientModule } from '@smart-home.backend/libs/common';
+import { CustomClientModule, CustomExceptionFilter } from '@smart-home.backend/libs/common';
 import { DhtSensorController } from './dht-sensor';
 import { SensorController } from './sensor';
 import { PirSensorController } from './pir-sensor';
@@ -17,6 +17,7 @@ import { LightController } from './light';
     ReedSwitchController,
     LightController,
   ],
+  providers: [CustomExceptionFilter],
   exports: [],
 })
 export class EspSensorsModule {}

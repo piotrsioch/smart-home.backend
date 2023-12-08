@@ -1,7 +1,7 @@
 import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { ReedSwitch } from '../../../../domain';
 import { IReedSwitchRepository, ISensorRepository } from '../../../contracts';
-import { RpcException } from '@nestjs/microservices';
+import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export type AddReedSwitchDataCommandInput = {
   sensorId: string;
@@ -27,7 +27,7 @@ export class AddReedSwitchDataCommandHandler
     const existingSensor = await this.sensorRepository.findOneById(sensorId);
 
     if (!existingSensor) {
-      throw new RpcException('Sensor with given id does not exist!');
+      throw new CustomRpcException('Sensor with given id does not exist', ErrorCodeEnum.NOT_FOUND);
     }
 
     const sensor = ReedSwitch.create({

@@ -1,8 +1,8 @@
 import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { SmokeSensor } from '../../../../domain';
 import { ISmokeSensorRepository } from '../../../contracts';
 import { ISensorRepository } from '../../../contracts';
+import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export class AddSmokeSensorDataCommandInput {
   sensorId: string;
@@ -29,7 +29,7 @@ export class AddSmokeSensorDataCommandHandler
     const existingSensor = await this.sensorRepository.findOneById(sensorId);
 
     if (!existingSensor) {
-      throw new RpcException('Sensor with given id does not exist!');
+      throw new CustomRpcException('Sensor with given id does not exist', ErrorCodeEnum.NOT_FOUND);
     }
 
     const model = this.publisher.mergeClassContext(SmokeSensor);

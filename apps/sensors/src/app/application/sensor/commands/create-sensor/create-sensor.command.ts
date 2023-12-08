@@ -1,8 +1,7 @@
 import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
-import { SensorTypeEnum } from '@smart-home.backend/libs/common';
+import { CustomRpcException, ErrorCodeEnum, SensorTypeEnum } from '@smart-home.backend/libs/common';
 import { Sensor } from '../../../../domain/models/sensors';
 import { ISensorRepository } from '../../../contracts';
-import { RpcException } from '@nestjs/microservices';
 
 export type CreateSensorCommandInput = {
   id: string;
@@ -25,7 +24,7 @@ export class CreateSensorCommandHandler implements ICommandHandler<CreateSensorC
     const sensorWithGivenId = await this.sensorRepository.findOneById(id);
 
     if (sensorWithGivenId) {
-      throw new RpcException('Sensor with given id already exists!');
+      throw new CustomRpcException('Sensor with given id already exist', ErrorCodeEnum.BAD_REQUEST);
     }
 
     const sensor = Sensor.create({

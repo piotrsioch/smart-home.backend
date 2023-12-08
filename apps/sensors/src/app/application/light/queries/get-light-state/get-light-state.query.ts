@@ -1,7 +1,7 @@
 import { IQuery, IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { Light } from '../../../../domain';
 import { ILightRepository, ISensorRepository } from '../../../contracts';
-import { RpcException } from '@nestjs/microservices';
+import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export type GetLightStateQueryInput = {
   sensorId: string;
@@ -24,7 +24,7 @@ export class GetLightStateQueryHandler implements IQueryHandler<GetLightStateQue
     const existingSensor = await this.sensorRepository.findOneById(sensorId);
 
     if (!existingSensor) {
-      throw new RpcException('Sensor with given id does not exist');
+      throw new CustomRpcException('Sensor with given id does not exist', ErrorCodeEnum.NOT_FOUND);
     }
 
     return await this.lightRepository.findLatestData({ sensorId });
