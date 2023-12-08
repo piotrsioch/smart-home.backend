@@ -14,9 +14,9 @@ import {
   DhtSensorListQuery,
   GetLatestDhtDataQuery,
 } from '../../../application';
-import { TestExceptionFilter } from '@smart-home.backend/libs/common/src/api/filters/test';
+import { CustomRpcExceptionFilter } from '@smart-home.backend/libs/common/src/api/filters/test';
 
-@UseFilters(TestExceptionFilter)
+@UseFilters(CustomRpcExceptionFilter)
 @Controller()
 export class DhtSensorController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
