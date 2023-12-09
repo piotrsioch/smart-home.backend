@@ -6,7 +6,7 @@ import {
   PirSensorDto,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
-import { AddPirSensorDataCommand } from '../../../application/pir-sensor/commands/add-pir-sensor-data.command';
+import { AddPirSensorDataCommand } from '../../../application/pir-sensor/commands/add-pir-sensor-data/add-pir-sensor-data.command';
 
 @Controller()
 export class PirSensorController {

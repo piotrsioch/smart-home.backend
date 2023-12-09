@@ -1,6 +1,6 @@
 import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
-import { PirSensor } from '../../../domain/models';
-import { IPirSensorRepository, ISensorRepository } from '../../contracts';
+import { PirSensor } from '../../../../domain/models';
+import { IPirSensorRepository, ISensorRepository } from '../../../contracts';
 import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export class AddPirSensorDataCommandInput {
