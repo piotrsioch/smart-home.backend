@@ -1,5 +1,6 @@
 export enum SensorsCommunicationEnum {
   CREATE_SENSOR = 'createSensor',
+  GET_SENSOR_BY_ID = 'getSensorById',
   SENSOR_LIST = 'sensorList',
   ADD_DHT_DATA = 'addDhtData',
   GET_LATEST_DHT_DATA = 'getLatestDhtData',

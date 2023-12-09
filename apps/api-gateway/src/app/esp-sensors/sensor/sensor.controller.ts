@@ -1,9 +1,12 @@
-import { Body, Controller, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
 import {
-  CreateSensorInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
+  GetSensorByIdInputDto,
+  PaginationOutput,
+  ReedSwitchListInputDto,
   SensorDto,
+  SensorListInputDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
@@ -14,9 +17,25 @@ export class SensorController {
   constructor(private client: CustomClientProxy) {}
 
   @Post('/create')
-  async createSensor(@Body() input: CreateSensorInputDto): Promise<SensorDto> {
+  async createSensor(@Body() input: SensorListInputDto): Promise<SensorDto> {
     return await this.client.sendTo(ServiceEnum.Sensors, {
-      pattern: SensorsCommunicationEnum.CREATE_SENSOR,
+      pattern: SensorsCommunicationEnum.SENSOR_LIST,
+      data: input,
+    });
+  }
+
+  @Get('/list')
+  async sensorList(@Body() input: ReedSwitchListInputDto): Promise<PaginationOutput<SensorDto>> {
+    return await this.client.sendTo(ServiceEnum.Sensors, {
+      pattern: SensorsCommunicationEnum.SENSOR_LIST,
+      data: input,
+    });
+  }
+
+  @Get('/get-by-id')
+  async getById(@Body() input: GetSensorByIdInputDto): Promise<SensorDto> {
+    return await this.client.sendTo(ServiceEnum.Sensors, {
+      pattern: SensorsCommunicationEnum.GET_SENSOR_BY_ID,
       data: input,
     });
   }
