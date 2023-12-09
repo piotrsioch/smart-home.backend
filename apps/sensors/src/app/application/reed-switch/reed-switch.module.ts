@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AddReedSwitchDataCommandHandler } from './commands/add-reed-switch-data';
+import { AddReedSwitchDataCommandHandler } from './commands';
+import { GetLatestReedSwitchDataQueryHandler, ReedSwitchListQueryHandler } from './queries';
 
 const CommandHandlers = [AddReedSwitchDataCommandHandler];
-const QueryHandlers = [];
+const QueryHandlers = [ReedSwitchListQueryHandler, GetLatestReedSwitchDataQueryHandler];
 const EventHandlers = [];
 
 @Module({
