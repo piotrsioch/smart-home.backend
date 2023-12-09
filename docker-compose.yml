@@ -30,6 +30,8 @@ services:
     depends_on:
       - rabbitmq
       - users
+      - sensors
+      - notifications
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "api-gateway"]
 
   users:
@@ -44,6 +46,7 @@ services:
       - ./apps/users/.env
     depends_on:
       - rabbitmq
+      - mongo
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "users"]
 
   sensors:
@@ -58,7 +61,23 @@ services:
       - ./apps/sensors/.env
     depends_on:
       - rabbitmq
+      - mongo
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "sensors"]
+
+  notifications:
+    build:
+      context: ./
+      dockerfile: ./apps/notifications/Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+      - ./apps/notifications/.env
+    depends_on:
+      - rabbitmq
+      - mongo
+    command: [ "./wait-for-it.sh", "rabbitmq:5672", "--", "npm", "run", "start:dev", "notifications" ]
 
 volumes:
   mongodbdata:

@@ -8,10 +8,13 @@ import { config } from 'dotenv';
 async function bootstrap() {
   config();
 
-  const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.SENSORS));
+  const app = await NestFactory.createMicroservice(
+    AppModule,
+    rabbitmqOptions(QueuesEnum.NOTIFICATIONS),
+  );
 
   await app.listen();
 }
 
 bootstrap();
-Logger.log('Sensors microservice started');
+Logger.log('Notifications microservice started');

@@ -16,7 +16,7 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],
-          queue: QueuesEnum.Users,
+          queue: QueuesEnum.USERS,
           queueOptions: {
             durable: true,
           },
