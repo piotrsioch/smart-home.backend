@@ -7,8 +7,8 @@ import {
   AddPirSensorDataCommandHandler,
   AddPirSensorDataCommandInput,
 } from './add-pir-sensor-data.command';
-import { IPirSensorRepository, ISensorRepository } from '../../contracts';
-import { PersistenceModule } from '../../../infrastructure/persistence/persistence.module';
+import { IPirSensorRepository, ISensorRepository } from '../../../contracts';
+import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
 import { v4 } from 'uuid';
 
 describe('AddPirSensorDataCommand', () => {

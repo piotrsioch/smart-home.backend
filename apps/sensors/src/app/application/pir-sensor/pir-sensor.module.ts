@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AddPirSensorDataCommandHandler } from './commands/add-pir-sensor-data.command';
+import { AddPirSensorDataCommandHandler } from './commands';
+import { PirSensorListQueryHandler } from './queries';
 
 const CommandHandlers = [AddPirSensorDataCommandHandler];
-const QueryHandlers = [];
+const QueryHandlers = [PirSensorListQueryHandler];
 const EventHandlers = [];
 
 @Module({
