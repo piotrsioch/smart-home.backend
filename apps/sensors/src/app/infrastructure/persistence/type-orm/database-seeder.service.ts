@@ -1,4 +1,3 @@
-import { IDatabaseSeederService } from '../../../application';
 import { Injectable } from '@nestjs/common';
 import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { SensorSeeder } from './seeders/sensor.seeder';
@@ -6,6 +5,7 @@ import { PirSensorSeeder } from './seeders/pir-sensor.seeder';
 import { SmokeSensorSeeder } from './seeders/smoke-sensor.seeder';
 import { ReedSwitchSeeder } from './seeders/reed-switch.seeder';
 import { LightSeeder } from './seeders/light.seeder';
+import { IDatabaseSeederService } from '@smart-home.backend/libs/common';
 
 @Injectable()
 export class DatabaseSeederService implements IDatabaseSeederService {

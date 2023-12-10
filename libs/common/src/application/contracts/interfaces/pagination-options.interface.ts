@@ -1,4 +1,4 @@
-import { SortOrder } from '../enums';
+import { SortOrder } from '../../../domain/enums';
 
 export interface IPaginationOptions {
   page: number;
