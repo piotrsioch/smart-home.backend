@@ -4,7 +4,6 @@ import { DhtSensorEntity } from './entities/dht-sensor.entity';
 import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { DhtSensorRepository } from './repositories/dht-sensor.repository';
 import {
-  IDatabaseSeederService,
   IDhtSensorRepository,
   ILightRepository,
   IPirSensorRepository,
@@ -35,6 +34,7 @@ import { LightEntity } from './entities/light.entity';
 import { LightSeeder } from './seeders/light.seeder';
 import { LightFactory } from './factories/light.factory';
 import { LightRepository } from './repositories/light.repository';
+import { IDatabaseSeederService } from '@smart-home.backend/libs/common';
 
 const entities = [
   DhtSensorEntity,

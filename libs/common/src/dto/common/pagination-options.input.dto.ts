@@ -1,5 +1,5 @@
 import { SortOrder } from '../../domain/enums';
-import { IPaginationOptions } from '../../domain/interfaces';
+import { IPaginationOptions } from '../../application/contracts/interfaces';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class PaginationOptionsInputDto implements IPaginationOptions {

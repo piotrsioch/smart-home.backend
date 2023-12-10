@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  app.connectMicroservice(rabbitmqOptions(QueuesEnum.ApiGateway));
+  app.connectMicroservice(rabbitmqOptions(QueuesEnum.API_GATEWAY));
 
   await app.startAllMicroservices();
 

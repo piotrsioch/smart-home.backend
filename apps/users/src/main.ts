@@ -8,7 +8,7 @@ import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 async function bootstrap() {
   config();
 
-  const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.Users));
+  const app = await NestFactory.createMicroservice(AppModule, rabbitmqOptions(QueuesEnum.USERS));
 
   await app.listen();
 }

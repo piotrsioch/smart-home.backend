@@ -1,5 +1,5 @@
 import { DeepPartial, FindOneOptions, Repository } from 'typeorm';
-import { IGenericRepository, IPaginationOptions } from '../../domain';
+import { IGenericRepository, IPaginationOptions } from '../../application';
 import { PaginationOutput } from '../../../src';
 
 export class GenericRepository<T> implements IGenericRepository<T> {

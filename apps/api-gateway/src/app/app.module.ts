@@ -19,7 +19,7 @@ const modules = [UsersModule, EspSensorsModule];
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],
-          queue: QueuesEnum.ApiGateway,
+          queue: QueuesEnum.API_GATEWAY,
           queueOptions: {
             durable: true,
           },
