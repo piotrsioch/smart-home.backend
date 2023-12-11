@@ -6,6 +6,7 @@ import { PirSensorController } from './pir-sensor';
 import { SmokeSensorController } from './smoke-sensor';
 import { ReedSwitchController } from './reed-switch';
 import { LightController } from './light';
+import { AlarmController } from './alarm';
 
 @Module({
   imports: [CustomClientModule],
@@ -16,6 +17,7 @@ import { LightController } from './light';
     SmokeSensorController,
     ReedSwitchController,
     LightController,
+    AlarmController,
   ],
   providers: [CustomExceptionFilter],
   exports: [],
