@@ -1,7 +1,17 @@
 import { createConnection } from 'typeorm';
 import * as path from 'path';
 
-async function clearDatabase(typeOrmConfig) {
+const microservices = ['sensors', 'notifications'];
+
+async function clearDatabase(microservice: string) {
+  const configPath = path.join(
+    __dirname,
+    `../apps/${microservice}/src/app/infrastructure/persistence/type-orm/type-orm.config.ts`,
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const typeOrmConfig = require(configPath).default;
+
   const connection = await createConnection(typeOrmConfig);
 
   for (const entity of connection.entityMetadatas) {
@@ -13,14 +23,8 @@ async function clearDatabase(typeOrmConfig) {
   await connection.close();
 }
 
-const configPath = path.join(
-  __dirname,
-  `../apps/sensors/src/app/infrastructure/persistence/type-orm/type-orm.config.ts`,
+microservices.forEach((microservice) =>
+  clearDatabase(microservice)
+    .then(() => console.log('Database cleared successfully'))
+    .catch((error) => console.error('Failed to clear database', error)),
 );
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const sensorsTypeOrmConfig = require(configPath).default;
-
-clearDatabase(sensorsTypeOrmConfig)
-  .then(() => console.log('Database cleared successfully'))
-  .catch((error) => console.error('Failed to clear database', error));

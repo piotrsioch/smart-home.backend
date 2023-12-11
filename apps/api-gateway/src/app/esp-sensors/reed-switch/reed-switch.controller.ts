@@ -18,7 +18,7 @@ export class ReedSwitchController {
 
   @Post('/add-data')
   async addReedSwitchController(@Body() input: AddReedSwitchDataInputDto): Promise<ReedSwitchDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_REED_SWITCH_DATA,
       data: input,
     });
@@ -28,7 +28,7 @@ export class ReedSwitchController {
   async reedSwitchList(
     @Body() input: ReedSwitchListInputDto,
   ): Promise<PaginationOutput<ReedSwitchDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.REED_SWITCH_LIST,
       data: input,
     });
@@ -36,7 +36,7 @@ export class ReedSwitchController {
 
   @Get('/latest-data')
   async getLatestData(@Body() input: GetLatestReedSwitchDataInputDto): Promise<ReedSwitchDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_REED_SWITCH_DATA,
       data: input,
     });

@@ -18,7 +18,7 @@ export class SensorController {
 
   @Post('/create')
   async createSensor(@Body() input: SensorListInputDto): Promise<SensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SENSOR_LIST,
       data: input,
     });
@@ -26,7 +26,7 @@ export class SensorController {
 
   @Get('/list')
   async sensorList(@Body() input: ReedSwitchListInputDto): Promise<PaginationOutput<SensorDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SENSOR_LIST,
       data: input,
     });
@@ -34,9 +34,16 @@ export class SensorController {
 
   @Get('/get-by-id')
   async getById(@Body() input: GetSensorByIdInputDto): Promise<SensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_SENSOR_BY_ID,
       data: input,
+    });
+  }
+
+  @Post('test')
+  async test() {
+    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+      pattern: 'notification-test',
     });
   }
 }

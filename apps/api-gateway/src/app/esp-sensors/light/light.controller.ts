@@ -18,7 +18,7 @@ export class LightController {
 
   @Post('/change-state')
   async changeLightState(@Body() input: ChangeLightStateInputDto): Promise<LightDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CHANGE_LIGHT_STATE,
       data: input,
     });
@@ -26,7 +26,7 @@ export class LightController {
 
   @Get('/list')
   async lightList(@Body() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.LIGHT_LIST,
       data: input,
     });
@@ -34,7 +34,7 @@ export class LightController {
 
   @Get('/get-state')
   async getLightState(@Body() input: GetLightStateInputDto): Promise<LightDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LIGHT_STATE,
       data: input,
     });

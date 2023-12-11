@@ -20,7 +20,7 @@ export class DhtSensorController {
   async addDhtSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddDhtSensorDataInputDto,
   ): Promise<DhtSensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_DHT_DATA,
       data: input,
     });
@@ -30,7 +30,7 @@ export class DhtSensorController {
   async dhtSensorList(
     @Body() input: DhtSensorListInputDto,
   ): Promise<PaginationOutput<DhtSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.DHT_SENSOR_LIST,
       data: input,
     });
@@ -38,7 +38,7 @@ export class DhtSensorController {
 
   @Get('/latest-data')
   async getLatestData(@Body() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_DHT_DATA,
       data: input,
     });

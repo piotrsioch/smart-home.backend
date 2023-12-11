@@ -13,7 +13,7 @@ const RABBITMQ_URL = `amqp://${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
     ApiModule,
     ClientsModule.register([
       {
-        name: ServiceEnum.Sensors,
+        name: ServiceEnum.SENSORS,
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],
