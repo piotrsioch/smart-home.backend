@@ -8,7 +8,5 @@ export class SmokeSensorCriticalValueDetectedInfraEvent {
   readonly receivers: ServiceEnum[] = [ServiceEnum.NOTIFICATIONS];
   readonly pattern = SensorEventPatternEnum.SMOKE_SENSOR_CRITICAL_VALUE_DETECTED;
 
-  constructor(readonly data: SmokeSensorCriticalValueDetectedEventDto) {
-    console.log('smoke sensor infra event');
-  }
+  constructor(readonly data: SmokeSensorCriticalValueDetectedEventDto) {}
 }
