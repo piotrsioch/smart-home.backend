@@ -12,7 +12,7 @@ import {
 } from './change-alarm-state.command';
 import { Alarm } from '../../../../domain/models/alarm';
 
-describe('ChangeLightStateCommand', () => {
+describe('ChangeAlarmStateCommand', () => {
   const commandInput: ChangeAlarmStateCommandInput = {
     sensorId: '',
   };
