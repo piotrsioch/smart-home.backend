@@ -8,7 +8,7 @@ export class UsersTestController {
 
   @Get()
   public async test() {
-    return this.client.sendTo(ServiceEnum.Users, {
+    return this.client.sendTo(ServiceEnum.USERS, {
       pattern: UserCommunicationEnum.TEST,
     });
   }

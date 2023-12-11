@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
+import { NotificationModule } from '../../application/notification';
+import { SensorsController } from './controllers/sensors.controller';
+import { CqrsModule } from '@nestjs/cqrs';
 
-const controllers = [];
+const controllers = [SensorsController];
 
 @Module({
-  imports: [],
+  imports: [CqrsModule, NotificationModule],
   controllers,
 })
 export class RpcModule {}

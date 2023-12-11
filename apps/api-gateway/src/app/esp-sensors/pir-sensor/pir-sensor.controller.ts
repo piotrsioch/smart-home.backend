@@ -17,7 +17,7 @@ export class PirSensorController {
 
   @Post('/add-data')
   async addPirSensorData(@Body() input: AddPirSensorDataInputDto): Promise<PirSensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_PIR_DATA,
       data: input,
     });
@@ -27,7 +27,7 @@ export class PirSensorController {
   async pirSensorList(
     @Body() input: PirSensorListInputDto,
   ): Promise<PaginationOutput<PirSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.PIR_SENSOR_LIST,
       data: input,
     });

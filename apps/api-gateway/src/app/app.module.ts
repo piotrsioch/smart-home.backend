@@ -15,7 +15,7 @@ const modules = [UsersModule, EspSensorsModule];
   imports: [
     ClientsModule.register([
       {
-        name: ServiceEnum.ApiGateway,
+        name: ServiceEnum.API_GATEWAY,
         transport: Transport.RMQ,
         options: {
           urls: [RABBITMQ_URL],

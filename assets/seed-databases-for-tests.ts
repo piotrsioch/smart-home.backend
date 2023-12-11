@@ -1,9 +1,11 @@
 import * as path from 'path';
 import { exec } from 'child_process';
 
-const cliPath = path.join(__dirname, `../apps/sensors/src/seed/seed.ts`);
+const microservices = ['sensors', 'notifications'];
 
-function seedDatabase(cliPath: string) {
+function seedDatabase(microservice: string) {
+  const cliPath = path.join(__dirname, `../apps/${microservice}/src/seed/seed.ts`);
+
   exec(`NODE_ENV=test ts-node -r tsconfig-paths/register ${cliPath}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`error: ${error.message}`);
@@ -19,4 +21,4 @@ function seedDatabase(cliPath: string) {
   });
 }
 
-seedDatabase(cliPath);
+microservices.forEach((microservice) => seedDatabase(microservice));

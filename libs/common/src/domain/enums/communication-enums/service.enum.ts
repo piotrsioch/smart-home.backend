@@ -1,6 +1,6 @@
 export enum ServiceEnum {
-  ApiGateway = 'api-gateway_microservice',
-  Users = 'users_microservice',
-  Sensors = 'sensors_microservice',
+  API_GATEWAY = 'api-gateway_microservice',
+  USERS = 'users_microservice',
+  SENSORS = 'sensors_microservice',
   NOTIFICATIONS = 'notifications_microservice',
 }

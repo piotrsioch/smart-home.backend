@@ -19,7 +19,7 @@ export class SmokeSensorController {
   async addSmokeSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddSmokeSensorDataInputDto,
   ): Promise<SmokeSensorDto> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_SMOKE_DATA,
       data: input,
     });
@@ -29,7 +29,7 @@ export class SmokeSensorController {
   async dhtSensorList(
     @Body() input: SmokeSensorListInputDto,
   ): Promise<PaginationOutput<SmokeSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.Sensors, {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SMOKE_SENSOR_LIST,
       data: input,
     });
