@@ -58,7 +58,7 @@ describe('GetAlarmStateQuery', () => {
     await alarmRepository.add(newlyCreatedRecord);
   });
 
-  it('Should return the newest light data', async () => {
+  it('Should return the newest alarm data', async () => {
     const dataFromQuery = await queryHandler.execute(query);
 
     expect(dataFromQuery._id).toBe(newlyCreatedRecord._id);
