@@ -1,5 +1,4 @@
 import { BaseModel } from '@smart-home.backend/libs/common';
-import { SmokeSensorCriticalValueDomainEvent } from '../../events/smoke-sensor-critical-value.domain-event';
 
 export type SmokeSensorCreateInput = {
   sensorId: string;
@@ -18,8 +17,6 @@ export class SmokeSensor extends BaseModel {
     _this.create();
     _this.sensorId = sensorId;
     _this.value = value;
-
-    _this.apply(new SmokeSensorCriticalValueDomainEvent(_this));
 
     return _this;
   }

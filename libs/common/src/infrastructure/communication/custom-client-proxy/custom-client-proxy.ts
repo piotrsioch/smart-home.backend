@@ -8,6 +8,12 @@ export type CustomClientSendInput = {
   pattern: string;
 };
 
+export type CustomClientEmitInput = {
+  receivers: ServiceEnum[];
+  data?: any;
+  pattern: string;
+};
+
 export type CustomClientSendToInput = Omit<CustomClientSendInput, 'services'>;
 
 @Injectable()
@@ -54,5 +60,14 @@ export class CustomClientProxy implements OnModuleInit {
     }).then((results) => results[0]);
   }
 
-  //TODO add emit method when needed
+  emit(input: CustomClientEmitInput): void {
+    const { receivers, data, pattern } = input;
+
+    receivers.forEach((service) => {
+      const clientProxy = this.clientProxies.get(service);
+      if (clientProxy) {
+        clientProxy.emit(pattern, data ?? '').toPromise();
+      }
+    });
+  }
 }

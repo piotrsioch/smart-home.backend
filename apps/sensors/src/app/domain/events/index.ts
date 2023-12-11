@@ -1,1 +1,1 @@
-export * from './pir-sensor-move-detected.domain-event';
+export * from './pir-sensor-movement-detected-domain.event';

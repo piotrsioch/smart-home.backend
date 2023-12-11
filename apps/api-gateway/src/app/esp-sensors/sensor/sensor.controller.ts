@@ -39,11 +39,4 @@ export class SensorController {
       data: input,
     });
   }
-
-  @Post('test')
-  async test() {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
-      pattern: 'notification-test',
-    });
-  }
 }
