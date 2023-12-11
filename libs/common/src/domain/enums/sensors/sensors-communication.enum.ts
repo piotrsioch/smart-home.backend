@@ -15,4 +15,7 @@ export enum SensorsCommunicationEnum {
   GET_LIGHT_STATE = 'getLightState',
   CHANGE_LIGHT_STATE = 'changeLightState',
   LIGHT_LIST = 'lightList',
+  CHANGE_ALARM_STATE = 'changeAlarmState',
+  GET_LATEST_ALARM_STATE = 'getLatestAlarmState',
+  ALARM_LIST = 'alarmList',
 }

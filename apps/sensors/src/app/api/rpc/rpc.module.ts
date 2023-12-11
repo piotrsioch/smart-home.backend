@@ -12,6 +12,8 @@ import { ReedSwitchController } from './controllers/reed-switch.controller';
 import { ReedSwitchModule } from '../../application/reed-switch';
 import { LightModule } from '../../application/light';
 import { LightController } from './controllers/light.controller';
+import { AlarmModule } from '../../application/alarm';
+import { AlarmController } from './controllers/alarm.controller';
 
 const controllers = [
   DhtSensorController,
@@ -20,6 +22,7 @@ const controllers = [
   SmokeSensorController,
   ReedSwitchController,
   LightController,
+  AlarmController,
 ];
 
 @Module({
@@ -31,6 +34,7 @@ const controllers = [
     SmokeSensorModule,
     ReedSwitchModule,
     LightModule,
+    AlarmModule,
   ],
   controllers,
 })

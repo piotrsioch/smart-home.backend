@@ -6,3 +6,4 @@ export * from './sensor.repository.interface';
 export * from './smoke-sensor.repository.interface';
 export * from './reed-switch.repository.interface';
 export * from './light.repository.interface';
+export * from './alarm.repository.interface';

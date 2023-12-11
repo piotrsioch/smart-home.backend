@@ -5,3 +5,4 @@ export * from './pir-sensor.dto';
 export * from './smoke-sensor.dto';
 export * from './reed-switch.dto';
 export * from './light.dto';
+export * from './alarm.dto';
