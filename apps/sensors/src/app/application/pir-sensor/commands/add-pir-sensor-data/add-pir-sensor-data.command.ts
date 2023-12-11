@@ -1,7 +1,8 @@
-import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { PirSensor } from '../../../../domain/models';
 import { IPirSensorRepository, ISensorRepository } from '../../../contracts';
 import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
+import { PirSensorMovementDetectedDomainEvent } from '../../../../domain';
 
 export class AddPirSensorDataCommandInput {
   sensorId: string;
@@ -19,6 +20,7 @@ export class AddPirSensorDataCommandHandler
     private readonly sensorRepository: ISensorRepository,
     private readonly pirSensorRepository: IPirSensorRepository,
     private readonly publisher: EventPublisher,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: AddPirSensorDataCommand): Promise<PirSensor> {
@@ -37,6 +39,8 @@ export class AddPirSensorDataCommandHandler
     });
 
     await this.pirSensorRepository.add(sensor);
+
+    this.eventBus.publish(new PirSensorMovementDetectedDomainEvent(sensor));
 
     return sensor;
   }

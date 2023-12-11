@@ -1,8 +1,9 @@
-import { CommandHandler, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, EventPublisher, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { SmokeSensor } from '../../../../domain';
 import { ISmokeSensorRepository } from '../../../contracts';
 import { ISensorRepository } from '../../../contracts';
 import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
+import { SmokeSensorCriticalValueDetectedDomainEvent } from '../../../../domain/events/smoke-sensor-critical-value-detected-domain.event';
 
 export class AddSmokeSensorDataCommandInput {
   sensorId: string;
@@ -21,6 +22,7 @@ export class AddSmokeSensorDataCommandHandler
     private readonly sensorRepository: ISensorRepository,
     private readonly smokeSensorRepository: ISmokeSensorRepository,
     private readonly publisher: EventPublisher,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: AddSmokeSensorDataCommand): Promise<SmokeSensor> {
@@ -40,6 +42,8 @@ export class AddSmokeSensorDataCommandHandler
     });
 
     await this.smokeSensorRepository.add(sensor);
+
+    this.eventBus.publish(new SmokeSensorCriticalValueDetectedDomainEvent(sensor));
 
     return sensor;
   }

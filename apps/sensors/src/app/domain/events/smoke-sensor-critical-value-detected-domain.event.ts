@@ -1,5 +1,5 @@
 import { SmokeSensor } from '../models';
 
-export class SmokeSensorCriticalValueDomainEvent {
+export class SmokeSensorCriticalValueDetectedDomainEvent {
   constructor(public readonly smokeSensor: SmokeSensor) {}
 }

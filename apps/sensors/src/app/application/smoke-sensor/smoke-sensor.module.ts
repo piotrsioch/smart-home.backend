@@ -3,13 +3,15 @@ import { PersistenceModule } from '../../infrastructure/persistence/persistence.
 import { CqrsModule } from '@nestjs/cqrs';
 import { AddSmokeSensorDataCommandHandler } from './commands';
 import { SmokeSensorListQueryHandler } from './queries';
+import { CriticalValueDetectedHandler } from './handlers';
+import { CustomClientModule } from '@smart-home.backend/libs/common';
 
 const CommandHandlers = [AddSmokeSensorDataCommandHandler];
 const QueryHandlers = [SmokeSensorListQueryHandler];
-const EventHandlers = [];
+const EventHandlers = [CriticalValueDetectedHandler];
 
 @Module({
-  imports: [CqrsModule, PersistenceModule],
+  imports: [CustomClientModule, PersistenceModule, CqrsModule],
   providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
   exports: [...QueryHandlers, ...CommandHandlers, ...EventHandlers],
 })

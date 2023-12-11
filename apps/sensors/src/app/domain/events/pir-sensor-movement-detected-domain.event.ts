@@ -1,5 +1,5 @@
 import { PirSensor } from '../models';
 
-export class PirSensorMoveDetectedDomainEvent {
+export class PirSensorMovementDetectedDomainEvent {
   constructor(public pirSensor: PirSensor) {}
 }
