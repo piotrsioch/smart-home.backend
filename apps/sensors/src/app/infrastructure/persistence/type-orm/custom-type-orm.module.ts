@@ -4,6 +4,7 @@ import { DhtSensorEntity } from './entities/dht-sensor.entity';
 import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { DhtSensorRepository } from './repositories/dht-sensor.repository';
 import {
+  IAlarmRepository,
   IDhtSensorRepository,
   ILightRepository,
   IPirSensorRepository,
@@ -35,6 +36,10 @@ import { LightSeeder } from './seeders/light.seeder';
 import { LightFactory } from './factories/light.factory';
 import { LightRepository } from './repositories/light.repository';
 import { IDatabaseSeederService } from '@smart-home.backend/libs/common';
+import { AlarmEntity } from './entities/alarm.entity';
+import { AlarmSeeder } from './seeders/alarm.seeder';
+import { AlarmFactory } from './factories/alarm.factory';
+import { AlarmRepository } from './repositories/alarm.repository';
 
 const entities = [
   DhtSensorEntity,
@@ -43,6 +48,7 @@ const entities = [
   SmokeSensorEntity,
   ReedSwitchEntity,
   LightEntity,
+  AlarmEntity,
 ];
 const seeders = [
   DhtSensorSeeder,
@@ -51,6 +57,7 @@ const seeders = [
   SmokeSensorSeeder,
   ReedSwitchSeeder,
   LightSeeder,
+  AlarmSeeder,
 ];
 const factories = [
   DhtSensorFactory,
@@ -59,6 +66,7 @@ const factories = [
   SmokeSensorFactory,
   ReedSwitchFactory,
   LightFactory,
+  AlarmFactory,
 ];
 
 const providers = [
@@ -89,6 +97,10 @@ const providers = [
   {
     provide: ILightRepository,
     useClass: LightRepository,
+  },
+  {
+    provide: IAlarmRepository,
+    useClass: AlarmRepository,
   },
   ...seeders,
   ...factories,
