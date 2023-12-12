@@ -11,6 +11,7 @@ import {
   GetAlarmStateQueryHandler,
   GetAlarmStateQueryInput,
 } from './get-alarm-state.query';
+import { AlarmStateEnum } from '@smart-home.backend/libs/common';
 
 describe('GetAlarmStateQuery', () => {
   const queryInput: GetAlarmStateQueryInput = {
@@ -52,7 +53,7 @@ describe('GetAlarmStateQuery', () => {
 
     newlyCreatedRecord = Alarm.create({
       sensorId: sensor._id,
-      isActive: false,
+      state: AlarmStateEnum.ON,
     });
 
     await alarmRepository.add(newlyCreatedRecord);
@@ -63,7 +64,7 @@ describe('GetAlarmStateQuery', () => {
 
     expect(dataFromQuery._id).toBe(newlyCreatedRecord._id);
     expect(dataFromQuery.sensorId).toBe(newlyCreatedRecord.sensorId);
-    expect(dataFromQuery.isActive).toBe(newlyCreatedRecord.isActive);
+    expect(dataFromQuery.state).toBe(newlyCreatedRecord.state);
   });
 
   it('Should throw rpc exception', async () => {

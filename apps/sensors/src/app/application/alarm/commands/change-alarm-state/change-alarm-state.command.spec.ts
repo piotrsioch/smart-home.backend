@@ -16,6 +16,7 @@ import { AlarmStateEnum } from '@smart-home.backend/libs/common';
 describe('ChangeAlarmStateCommand', () => {
   const commandInput: ChangeAlarmStateCommandInput = {
     sensorId: '',
+    state: AlarmStateEnum.OFF,
   };
 
   const contextId = ContextIdFactory.create();

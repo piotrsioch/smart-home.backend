@@ -40,6 +40,7 @@ import { AlarmEntity } from './entities/alarm.entity';
 import { AlarmSeeder } from './seeders/alarm.seeder';
 import { AlarmFactory } from './factories/alarm.factory';
 import { AlarmRepository } from './repositories/alarm.repository';
+import { EspSensorSeeder } from './seeders/esp-sensor.seeder';
 
 const entities = [
   DhtSensorEntity,
@@ -58,6 +59,7 @@ const seeders = [
   ReedSwitchSeeder,
   LightSeeder,
   AlarmSeeder,
+  EspSensorSeeder,
 ];
 const factories = [
   DhtSensorFactory,

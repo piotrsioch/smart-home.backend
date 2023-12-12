@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AddReedSwitchDataInputDto,
   CustomClientProxy,
@@ -26,7 +26,7 @@ export class ReedSwitchController {
 
   @Get('/list')
   async reedSwitchList(
-    @Body() input: ReedSwitchListInputDto,
+    @Query() input: ReedSwitchListInputDto,
   ): Promise<PaginationOutput<ReedSwitchDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.REED_SWITCH_LIST,
@@ -35,7 +35,7 @@ export class ReedSwitchController {
   }
 
   @Get('/latest-data')
-  async getLatestData(@Body() input: GetLatestReedSwitchDataInputDto): Promise<ReedSwitchDto> {
+  async getLatestData(@Query() input: GetLatestReedSwitchDataInputDto): Promise<ReedSwitchDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_REED_SWITCH_DATA,
       data: input,

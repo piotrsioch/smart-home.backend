@@ -5,7 +5,7 @@ import { AlarmStateEnum, CustomRpcException, ErrorCodeEnum } from '@smart-home.b
 
 export type ChangeAlarmStateCommandInput = {
   sensorId: string;
-  state?: AlarmStateEnum;
+  state: AlarmStateEnum;
 };
 
 export class ChangeAlarmStateCommand implements ICommand {

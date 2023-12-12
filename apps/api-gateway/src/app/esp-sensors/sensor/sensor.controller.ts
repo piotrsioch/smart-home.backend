@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   CustomClientProxy,
   CustomExceptionFilter,
@@ -25,7 +25,7 @@ export class SensorController {
   }
 
   @Get('/list')
-  async sensorList(@Body() input: ReedSwitchListInputDto): Promise<PaginationOutput<SensorDto>> {
+  async sensorList(@Query() input: ReedSwitchListInputDto): Promise<PaginationOutput<SensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SENSOR_LIST,
       data: input,

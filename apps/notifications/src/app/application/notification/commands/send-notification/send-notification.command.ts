@@ -26,10 +26,10 @@ export class SendNotificationCommandHandler
   async execute(command: SendNotificationCommand): Promise<Notification> {
     const { phoneNumber, message, sensorId, name } = command.input;
 
-    await this.notifyService.sendMessage({
-      phoneNumber,
-      message,
-    });
+    // await this.notifyService.sendMessage({
+    //   phoneNumber,
+    //   message,
+    // });
 
     const notification = Notification.create({
       receiver: phoneNumber,

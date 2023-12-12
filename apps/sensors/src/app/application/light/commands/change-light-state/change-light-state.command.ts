@@ -33,7 +33,7 @@ export class ChangeLightStateCommandHandler
       sensorId,
     });
 
-    const isOn = sensorData ? !sensorData.isOn : false;
+    const isOn = sensorData ? !sensorData.isOn : true;
 
     const dataToSave = Light.create({
       sensorId,
