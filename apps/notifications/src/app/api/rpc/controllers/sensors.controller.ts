@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
+import { EventPattern, Payload } from '@nestjs/microservices';
 import { CommandBus } from '@nestjs/cqrs';
 import { SendNotificationCommand } from '../../../application/notification/commands';
 import {
@@ -7,6 +7,7 @@ import {
   SensorEventPatternEnum,
   SmokeSensorCriticalValueDetectedEventDto,
 } from '@smart-home.backend/libs/common';
+import { createNotificationMessage, NotificationTypeEnum } from '../../../../assets';
 
 @Controller()
 export class SensorsController {
@@ -14,20 +15,45 @@ export class SensorsController {
 
   @EventPattern(SensorEventPatternEnum.PIR_SENSOR_MOVEMENT_DETECTED)
   async pirSensor(@Payload() payload: PirSensorMovementDetectedEventDto) {
-    const command = new SendNotificationCommand({
-      phoneNumber: process.env.USER_PHONE_NUMBER,
-      message: 'test',
-      sensorId: '555',
-      name: '2323',
+    const { sensorId } = payload;
+
+    const date = new Date().toDateString();
+
+    const message = await createNotificationMessage({
+      type: NotificationTypeEnum.PIR_SENSOR,
+      sensorName: sensorId,
+      date,
     });
 
-    // await this.commandBus.execute(command);
-    console.log('Pir sensor value detected handled');
-    console.log(payload);
+    const command = new SendNotificationCommand({
+      phoneNumber: process.env.USER_PHONE_NUMBER,
+      message,
+      sensorId,
+      name: NotificationTypeEnum.PIR_SENSOR,
+    });
+
+    await this.commandBus.execute(command);
   }
 
   @EventPattern(SensorEventPatternEnum.SMOKE_SENSOR_CRITICAL_VALUE_DETECTED)
   async smokeSensor(@Payload() payload: SmokeSensorCriticalValueDetectedEventDto) {
-    console.log('Smoke sensor value detected handled');
+    const { sensorId } = payload;
+
+    const date = new Date().toDateString();
+
+    const message = await createNotificationMessage({
+      type: NotificationTypeEnum.PIR_SENSOR,
+      sensorName: sensorId,
+      date,
+    });
+
+    const command = new SendNotificationCommand({
+      phoneNumber: process.env.USER_PHONE_NUMBER,
+      message,
+      sensorId,
+      name: NotificationTypeEnum.SMOKE_SENSOR,
+    });
+
+    await this.commandBus.execute(command);
   }
 }
