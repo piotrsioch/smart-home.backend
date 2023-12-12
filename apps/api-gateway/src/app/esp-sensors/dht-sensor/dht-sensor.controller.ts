@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddDhtSensorDataInputDto,
   CustomClientProxy,
@@ -28,7 +28,7 @@ export class DhtSensorController {
 
   @Get('/list')
   async dhtSensorList(
-    @Body() input: DhtSensorListInputDto,
+    @Query() input: DhtSensorListInputDto,
   ): Promise<PaginationOutput<DhtSensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.DHT_SENSOR_LIST,
@@ -37,7 +37,7 @@ export class DhtSensorController {
   }
 
   @Get('/latest-data')
-  async getLatestData(@Body() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
+  async getLatestData(@Query() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_DHT_DATA,
       data: input,

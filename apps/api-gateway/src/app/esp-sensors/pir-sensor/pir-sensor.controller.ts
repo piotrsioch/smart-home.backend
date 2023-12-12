@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AddPirSensorDataInputDto,
   CustomClientProxy,
@@ -25,7 +25,7 @@ export class PirSensorController {
 
   @Get('/list')
   async pirSensorList(
-    @Body() input: PirSensorListInputDto,
+    @Query() input: PirSensorListInputDto,
   ): Promise<PaginationOutput<PirSensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.PIR_SENSOR_LIST,

@@ -25,7 +25,7 @@ export class LightController {
   }
 
   @Get('/list')
-  async lightList(@Body() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
+  async lightList(@Query() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.LIGHT_LIST,
       data: input,

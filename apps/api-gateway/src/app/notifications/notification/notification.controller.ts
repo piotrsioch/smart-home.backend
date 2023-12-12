@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Controller, Get, Query, UseFilters } from '@nestjs/common';
 import {
   CustomClientProxy,
   CustomExceptionFilter,
@@ -16,7 +16,7 @@ export class NotificationController {
   constructor(private client: CustomClientProxy) {}
 
   @Get('/get-by-id')
-  async getNotificationById(@Body() input: ChangeAlarmStateInputDto): Promise<NotificationDto> {
+  async getNotificationById(@Query() input: ChangeAlarmStateInputDto): Promise<NotificationDto> {
     return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.GET_NOTIFICATION_BY_ID,
       data: input,
@@ -25,7 +25,7 @@ export class NotificationController {
 
   @Get('/list')
   async notificationList(
-    @Body() input: NotificationListInputDto,
+    @Query() input: NotificationListInputDto,
   ): Promise<PaginationOutput<NotificationDto>> {
     return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.NOTIFICATION_LIST,

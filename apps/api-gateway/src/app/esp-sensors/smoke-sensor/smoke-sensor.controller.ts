@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddSmokeSensorDataInputDto,
   CustomClientProxy,
@@ -27,7 +27,7 @@ export class SmokeSensorController {
 
   @Get('/list')
   async dhtSensorList(
-    @Body() input: SmokeSensorListInputDto,
+    @Query() input: SmokeSensorListInputDto,
   ): Promise<PaginationOutput<SmokeSensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SMOKE_SENSOR_LIST,
