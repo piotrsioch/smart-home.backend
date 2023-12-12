@@ -20,10 +20,10 @@ export class AlarmController {
 
   @MessagePattern(SensorsCommunicationEnum.CHANGE_ALARM_STATE)
   async changeAlarmState(@Payload() payload: ChangeAlarmStateInputDto): Promise<AlarmDto> {
-    const { desiredState, sensorId } = payload;
+    const { state, sensorId } = payload;
 
     const command = new ChangeAlarmStateCommand({
-      desiredState: desiredState ?? null,
+      state,
       sensorId,
     });
 
@@ -42,6 +42,8 @@ export class AlarmController {
   @MessagePattern(SensorsCommunicationEnum.ALARM_LIST)
   async alarmList(@Payload() payload: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
     const { page, limit, orderField, orderDirection, search } = payload;
+
+    console.log(orderField);
 
     const query = new AlarmListQuery({
       page,

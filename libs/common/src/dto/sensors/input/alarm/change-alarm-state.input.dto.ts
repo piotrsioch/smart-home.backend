@@ -1,10 +1,8 @@
 import { BaseSensorInputDto } from '../base-sensor.input.dto';
-import { IsBoolean, IsOptional } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { IsEnum } from 'class-validator';
+import { AlarmStateEnum } from '../../../../domain/enums';
 
 export class ChangeAlarmStateInputDto extends BaseSensorInputDto {
-  @IsOptional()
-  @IsBoolean()
-  @Transform(({ value }) => value === 'true' || value === true)
-  desiredState: boolean;
+  @IsEnum(AlarmStateEnum)
+  state: AlarmStateEnum;
 }

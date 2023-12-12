@@ -1,23 +1,23 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
+import { AlarmStateEnum, BaseModel } from '@smart-home.backend/libs/common';
 
 export type AlarmCreateInput = {
   sensorId: string;
-  isActive: boolean;
+  state: AlarmStateEnum;
 };
 
 export class Alarm extends BaseModel {
   sensorId: string;
-  isActive: boolean;
+  state: AlarmStateEnum;
 
   static create(input: AlarmCreateInput): Alarm {
-    const { sensorId, isActive } = input;
+    const { sensorId, state } = input;
 
     const _this = new Alarm();
 
     _this.create();
 
     _this.sensorId = sensorId;
-    _this.isActive = isActive;
+    _this.state = state;
 
     return _this;
   }
