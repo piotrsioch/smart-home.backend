@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { NotifyServiceModule } from '../../infrastructure/notify-service';
 import { SendNotificationCommandHandler } from './commands';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
+import { GetNotificationByIdQueryHandler, NotificationListQueryHandler } from './queries';
 
 const CommandHandlers = [SendNotificationCommandHandler];
-const QueryHandlers = [];
+const QueryHandlers = [GetNotificationByIdQueryHandler, NotificationListQueryHandler];
 const EventHandlers = [];
 
 @Module({
