@@ -43,23 +43,22 @@ describe('AlarmListQuery', () => {
   });
 
   it('Should return results in proper order', async () => {
-    queryInput.orderField = AlarmOrderFieldEnum.IS_ACTIVE;
+    queryInput.orderField = AlarmOrderFieldEnum.STATE;
     queryInput.orderDirection = SortOrder.DESC;
 
     const { items } = await queryHandler.execute(query);
 
-    const firstFalseIndex = items.findIndex((item) => item.isActive === false);
+    const expectedOrder = ['ON', 'ARMED', 'OFF'];
 
-    const allTrueBeforeFirstFalse =
-      firstFalseIndex === -1 ||
-      items.slice(0, firstFalseIndex).every((item) => item.isActive === true);
+    let isSortedCorrectly = true;
+    for (let i = 0; i < items.length - 1; i++) {
+      if (expectedOrder.indexOf(items[i].state) < expectedOrder.indexOf(items[i + 1].state)) {
+        isSortedCorrectly = false;
+        break;
+      }
+    }
 
-    const allFalseFromFirstFalse =
-      firstFalseIndex === -1 ||
-      items.slice(firstFalseIndex).every((item) => item.isActive === false);
-
-    expect(allTrueBeforeFirstFalse).toBeTruthy();
-    expect(allFalseFromFirstFalse).toBeTruthy();
+    expect(isSortedCorrectly).toBeTruthy();
   });
 
   afterAll(async () => {

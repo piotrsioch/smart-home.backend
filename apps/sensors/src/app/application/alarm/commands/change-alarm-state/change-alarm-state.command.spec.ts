@@ -11,6 +11,7 @@ import {
   ChangeAlarmStateCommandInput,
 } from './change-alarm-state.command';
 import { Alarm } from '../../../../domain/models/alarm';
+import { AlarmStateEnum } from '@smart-home.backend/libs/common';
 
 describe('ChangeAlarmStateCommand', () => {
   const commandInput: ChangeAlarmStateCommandInput = {
@@ -63,7 +64,9 @@ describe('ChangeAlarmStateCommand', () => {
     expect(foundData.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('Should add new alarm data', async () => {
+  it('state property should be armed', async () => {
+    commandInput.state = AlarmStateEnum.ARMED;
+
     await commandHandler.execute(command);
 
     const foundData = await alarmRepository.findLatestData({
@@ -71,11 +74,11 @@ describe('ChangeAlarmStateCommand', () => {
     });
 
     expect(foundData.sensorId).toBe(previousData.sensorId);
-    expect(foundData.isActive).toBe(!previousData.isActive);
+    expect(foundData.state).toBe(AlarmStateEnum.ARMED);
   });
 
-  it('isActive property should be true', async () => {
-    commandInput.desiredState = true;
+  it('state property should be on', async () => {
+    commandInput.state = AlarmStateEnum.ON;
 
     await commandHandler.execute(command);
 
@@ -84,20 +87,7 @@ describe('ChangeAlarmStateCommand', () => {
     });
 
     expect(foundData.sensorId).toBe(previousData.sensorId);
-    expect(foundData.isActive).toBeTruthy();
-  });
-
-  it('isActive property should be false', async () => {
-    commandInput.desiredState = false;
-
-    await commandHandler.execute(command);
-
-    const foundData = await alarmRepository.findLatestData({
-      sensorId: previousData.sensorId,
-    });
-
-    expect(foundData.sensorId).toBe(previousData.sensorId);
-    expect(foundData.isActive).toBeFalsy();
+    expect(foundData.state).toBe(AlarmStateEnum.ON);
   });
 
   it('Should throw rpc exception', async () => {

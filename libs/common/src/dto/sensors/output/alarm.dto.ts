@@ -1,7 +1,8 @@
 import { BaseSensorDto } from './base-sensor.dto';
-import { IsBoolean } from 'class-validator';
+import { IsEnum } from 'class-validator';
+import { AlarmStateEnum } from '../../../domain/enums';
 
 export class AlarmDto extends BaseSensorDto {
-  @IsBoolean()
-  isActive: boolean;
+  @IsEnum(AlarmStateEnum)
+  state: AlarmStateEnum;
 }
