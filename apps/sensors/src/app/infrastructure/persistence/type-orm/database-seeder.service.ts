@@ -7,6 +7,7 @@ import { ReedSwitchSeeder } from './seeders/reed-switch.seeder';
 import { LightSeeder } from './seeders/light.seeder';
 import { IDatabaseSeederService } from '@smart-home.backend/libs/common';
 import { AlarmSeeder } from './seeders/alarm.seeder';
+import { EspSensorSeeder } from './seeders/esp-sensor.seeder';
 
 @Injectable()
 export class DatabaseSeederService implements IDatabaseSeederService {
@@ -18,6 +19,7 @@ export class DatabaseSeederService implements IDatabaseSeederService {
     private readonly reedSwitchSeeder: ReedSwitchSeeder,
     private readonly lightSeeder: LightSeeder,
     private readonly alarmSeeder: AlarmSeeder,
+    private readonly espSensorSeeder: EspSensorSeeder,
   ) {}
 
   async seedAllEntities(): Promise<void> {
@@ -30,5 +32,9 @@ export class DatabaseSeederService implements IDatabaseSeederService {
     await this.alarmSeeder.seed();
 
     console.log('Seeding all entities in sensors microservice ended');
+  }
+
+  async seedEspSensor(): Promise<void> {
+    await this.espSensorSeeder.seed();
   }
 }
