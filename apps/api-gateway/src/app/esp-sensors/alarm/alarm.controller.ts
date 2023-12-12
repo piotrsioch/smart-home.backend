@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AlarmDto,
   CustomClientProxy,
@@ -27,7 +27,7 @@ export class AlarmController {
   }
 
   @Get('/get-state')
-  async getAlarmState(@Body() input: GetAlarmStateInputDto): Promise<AlarmDto> {
+  async getAlarmState(@Query() input: GetAlarmStateInputDto): Promise<AlarmDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_ALARM_STATE,
       data: input,

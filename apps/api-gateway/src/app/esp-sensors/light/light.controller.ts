@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   ChangeLightStateInputDto,
   CustomClientProxy,
@@ -33,7 +33,7 @@ export class LightController {
   }
 
   @Get('/get-state')
-  async getLightState(@Body() input: GetLightStateInputDto): Promise<LightDto> {
+  async getLightState(@Query() input: GetLightStateInputDto): Promise<LightDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LIGHT_STATE,
       data: input,

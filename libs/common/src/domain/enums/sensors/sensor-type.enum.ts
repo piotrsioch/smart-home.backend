@@ -4,4 +4,5 @@ export enum SensorTypeEnum {
   REED_SWITCH = 'reedSwitch',
   LIGHT = 'light',
   MQ_SENSOR = 'mqSensor',
+  ALARM = 'alarm',
 }
