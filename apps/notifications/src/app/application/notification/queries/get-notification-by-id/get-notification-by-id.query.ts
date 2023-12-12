@@ -11,7 +11,7 @@ export class GetNotificationByIdQuery implements IQuery {
   constructor(public readonly input: GetNotificationByIdQueryInput) {}
 }
 
-@QueryHandler(GetNotificationByIdQueryHandler)
+@QueryHandler(GetNotificationByIdQuery)
 export class GetNotificationByIdQueryHandler
   implements IQueryHandler<GetNotificationByIdQuery, Notification>
 {
