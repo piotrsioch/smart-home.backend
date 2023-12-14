@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 import { rabbitmqOptions } from '@smart-home.backend/libs/common/src/infrastructure/communication';
 import { config } from 'dotenv';
@@ -12,6 +12,17 @@ async function bootstrap() {
   config();
 
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
 
   app.connectMicroservice(rabbitmqOptions(QueuesEnum.API_GATEWAY));
 
