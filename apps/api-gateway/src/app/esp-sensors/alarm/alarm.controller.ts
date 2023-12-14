@@ -36,6 +36,7 @@ export class AlarmController {
 
   @Get('/list')
   async alarmList(@Query() input: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
+    console.log(input);
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ALARM_LIST,
       data: input,

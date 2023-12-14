@@ -4,6 +4,7 @@ import { Logger } from '@nestjs/common';
 import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 import { rabbitmqOptions } from '@smart-home.backend/libs/common/src/infrastructure/communication';
 import { config } from 'dotenv';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const port = process.env.PORT ?? 4001;
 
@@ -13,6 +14,16 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.connectMicroservice(rabbitmqOptions(QueuesEnum.API_GATEWAY));
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Smarthome.Backend')
+    .setDescription('API Description for Smarthome.Backend')
+    .setVersion('1.0')
+    .addTag('')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservices();
 
