@@ -43,8 +43,6 @@ export class AlarmController {
   async alarmList(@Payload() payload: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
     const { page, limit, orderField, orderDirection, search } = payload;
 
-    console.log(orderField);
-
     const query = new AlarmListQuery({
       page,
       limit,

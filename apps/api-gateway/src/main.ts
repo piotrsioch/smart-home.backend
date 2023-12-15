@@ -5,6 +5,7 @@ import { QueuesEnum } from '@smart-home.backend/libs/common/src/domain';
 import { rabbitmqOptions } from '@smart-home.backend/libs/common/src/infrastructure/communication';
 import { config } from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cors from 'cors';
 
 const port = process.env.PORT ?? 4001;
 
@@ -35,6 +36,12 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
+
+  app.use(
+    cors({
+      origin: 'http://localhost:4200',
+    }),
+  );
 
   await app.startAllMicroservices();
 
