@@ -9,12 +9,15 @@ import {
   SmokeSensorDto,
   SmokeSensorListInputDto,
 } from '@smart-home.backend/libs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Smoke sensor')
 @UseFilters(CustomExceptionFilter)
 @Controller('/smoke-sensor')
 export class SmokeSensorController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: SmokeSensorDto })
   @Post('/add-data')
   async addSmokeSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddSmokeSensorDataInputDto,
@@ -25,6 +28,7 @@ export class SmokeSensorController {
     });
   }
 
+  @ApiResponse({ status: 200, type: PaginationOutput<SmokeSensorDto> })
   @Get('/list')
   async dhtSensorList(
     @Query() input: SmokeSensorListInputDto,

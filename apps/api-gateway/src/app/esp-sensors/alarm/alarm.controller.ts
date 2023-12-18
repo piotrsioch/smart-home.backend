@@ -12,12 +12,15 @@ import {
   ChangeAlarmStateInputDto,
   GetAlarmStateInputDto,
 } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Alarm')
 @UseFilters(CustomExceptionFilter)
 @Controller('/alarm')
 export class AlarmController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: AlarmDto })
   @Post('/change-state')
   async changeLightState(@Body() input: ChangeAlarmStateInputDto): Promise<AlarmDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
@@ -26,6 +29,7 @@ export class AlarmController {
     });
   }
 
+  @ApiResponse({ status: 200, type: AlarmDto })
   @Get('/get-state')
   async getAlarmState(@Query() input: GetAlarmStateInputDto): Promise<AlarmDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
@@ -34,6 +38,7 @@ export class AlarmController {
     });
   }
 
+  @ApiResponse({ status: 200, type: PaginationOutput<AlarmDto> })
   @Get('/list')
   async alarmList(@Query() input: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {

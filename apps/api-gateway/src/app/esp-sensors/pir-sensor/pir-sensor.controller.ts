@@ -9,12 +9,15 @@ import {
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Pir sensor')
 @UseFilters(CustomExceptionFilter)
 @Controller('/pir-sensor')
 export class PirSensorController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: PirSensorDto })
   @Post('/add-data')
   async addPirSensorData(@Body() input: AddPirSensorDataInputDto): Promise<PirSensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
@@ -23,6 +26,7 @@ export class PirSensorController {
     });
   }
 
+  @ApiResponse({ status: 200, type: PaginationOutput<PirSensorDto> })
   @Get('/list')
   async pirSensorList(
     @Query() input: PirSensorListInputDto,

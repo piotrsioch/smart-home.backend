@@ -9,12 +9,15 @@ import {
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ChangeAlarmStateInputDto } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Notifications')
 @UseFilters(CustomExceptionFilter)
 @Controller('/notifications')
 export class NotificationController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: NotificationDto })
   @Get('/get-by-id')
   async getNotificationById(@Query() input: ChangeAlarmStateInputDto): Promise<NotificationDto> {
     return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
@@ -23,6 +26,7 @@ export class NotificationController {
     });
   }
 
+  @ApiResponse({ status: 200, type: PaginationOutput<NotificationDto> })
   @Get('/list')
   async notificationList(
     @Query() input: NotificationListInputDto,
