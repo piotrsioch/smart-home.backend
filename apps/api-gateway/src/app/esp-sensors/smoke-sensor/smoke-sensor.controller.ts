@@ -3,6 +3,7 @@ import {
   AddSmokeSensorDataInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
+  LightDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -10,6 +11,7 @@ import {
   SmokeSensorListInputDto,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Smoke sensor')
 @UseFilters(CustomExceptionFilter)
@@ -28,7 +30,7 @@ export class SmokeSensorController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<SmokeSensorDto> })
+  @ApiOkResponsePaginated(SmokeSensorDto)
   @Get('/list')
   async dhtSensorList(
     @Query() input: SmokeSensorListInputDto,

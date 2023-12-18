@@ -7,10 +7,12 @@ import {
   LightDto,
   LightListInputDto,
   PaginationOutput,
+  ReedSwitchDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Light')
 @UseFilters(CustomExceptionFilter)
@@ -27,7 +29,7 @@ export class LightController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<LightDto> })
+  @ApiOkResponsePaginated(LightDto)
   @Get('/list')
   async lightList(@Query() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {

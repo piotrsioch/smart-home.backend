@@ -7,10 +7,12 @@ import {
   PaginationOutput,
   ReedSwitchDto,
   ReedSwitchListInputDto,
+  SensorDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Reed switch')
 @UseFilters(CustomExceptionFilter)
@@ -27,7 +29,7 @@ export class ReedSwitchController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<ReedSwitchDto> })
+  @ApiOkResponsePaginated(ReedSwitchDto)
   @Get('/list')
   async reedSwitchList(
     @Query() input: ReedSwitchListInputDto,

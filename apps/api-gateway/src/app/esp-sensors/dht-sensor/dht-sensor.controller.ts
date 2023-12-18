@@ -6,11 +6,13 @@ import {
   DhtSensorDto,
   DhtSensorListInputDto,
   GetLatestDhtDataInputDto,
+  LightDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Dht sensor')
 @UseFilters(CustomExceptionFilter)
@@ -29,7 +31,7 @@ export class DhtSensorController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<DhtSensorDto> })
+  @ApiOkResponsePaginated(DhtSensorDto)
   @Get('/list')
   async dhtSensorList(
     @Query() input: DhtSensorListInputDto,

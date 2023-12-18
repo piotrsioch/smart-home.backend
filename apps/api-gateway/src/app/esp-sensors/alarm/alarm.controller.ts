@@ -3,6 +3,7 @@ import {
   AlarmDto,
   CustomClientProxy,
   CustomExceptionFilter,
+  LightDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -13,6 +14,7 @@ import {
   GetAlarmStateInputDto,
 } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Alarm')
 @UseFilters(CustomExceptionFilter)
@@ -38,7 +40,7 @@ export class AlarmController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<AlarmDto> })
+  @ApiOkResponsePaginated(AlarmDto)
   @Get('/list')
   async alarmList(@Query() input: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {

@@ -6,10 +6,12 @@ import {
   PaginationOutput,
   PirSensorDto,
   PirSensorListInputDto,
+  ReedSwitchDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Pir sensor')
 @UseFilters(CustomExceptionFilter)
@@ -26,7 +28,7 @@ export class PirSensorController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<PirSensorDto> })
+  @ApiOkResponsePaginated(PirSensorDto)
   @Get('/list')
   async pirSensorList(
     @Query() input: PirSensorListInputDto,
