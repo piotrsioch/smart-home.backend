@@ -12,6 +12,7 @@ export class Sensor {
   type: SensorTypeEnum;
   name: string;
   location: string;
+  roomId: string;
 
   static create(input: SensorCreateInput): Sensor {
     const { id, type, name, location } = input;
@@ -22,6 +23,7 @@ export class Sensor {
     _this.type = type;
     _this.name = name;
     _this.location = location;
+    _this.roomId = null;
 
     return _this;
   }

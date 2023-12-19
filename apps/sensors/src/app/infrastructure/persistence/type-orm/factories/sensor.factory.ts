@@ -17,6 +17,7 @@ export class SensorFactory {
     sensor.type = enumValues[randomIndex];
     sensor.name = faker.string.alpha({ length: 8 });
     sensor.location = faker.string.alpha({ length: 8 });
+    sensor.roomId = null;
 
     return sensor;
   }

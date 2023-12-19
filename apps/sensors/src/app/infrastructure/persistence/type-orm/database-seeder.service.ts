@@ -8,6 +8,7 @@ import { LightSeeder } from './seeders/light.seeder';
 import { IDatabaseSeederService } from '@smart-home.backend/libs/common';
 import { AlarmSeeder } from './seeders/alarm.seeder';
 import { EspSensorSeeder } from './seeders/esp-sensor.seeder';
+import { RoomSeeder } from './seeders/room.seeder';
 
 @Injectable()
 export class DatabaseSeederService implements IDatabaseSeederService {
@@ -20,6 +21,7 @@ export class DatabaseSeederService implements IDatabaseSeederService {
     private readonly lightSeeder: LightSeeder,
     private readonly alarmSeeder: AlarmSeeder,
     private readonly espSensorSeeder: EspSensorSeeder,
+    private readonly roomSeeder: RoomSeeder,
   ) {}
 
   async seedAllEntities(): Promise<void> {
@@ -30,6 +32,7 @@ export class DatabaseSeederService implements IDatabaseSeederService {
     await this.reedSwitchSeeder.seed();
     await this.lightSeeder.seed();
     await this.alarmSeeder.seed();
+    await this.roomSeeder.seed();
 
     console.log('Seeding all entities in sensors microservice ended');
   }
