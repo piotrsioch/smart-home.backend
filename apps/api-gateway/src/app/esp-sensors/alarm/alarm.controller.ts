@@ -3,7 +3,6 @@ import {
   AlarmDto,
   CustomClientProxy,
   CustomExceptionFilter,
-  LightDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
