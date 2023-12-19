@@ -41,6 +41,11 @@ import { AlarmSeeder } from './seeders/alarm.seeder';
 import { AlarmFactory } from './factories/alarm.factory';
 import { AlarmRepository } from './repositories/alarm.repository';
 import { EspSensorSeeder } from './seeders/esp-sensor.seeder';
+import { IRoomRepository } from '../../../application/room';
+import { RoomRepository } from './repositories/room.repository';
+import { RoomFactory } from './factories/room.factory';
+import { RoomSeeder } from './seeders/room.seeder';
+import { RoomEntity } from './entities/room.entity';
 
 const entities = [
   DhtSensorEntity,
@@ -50,6 +55,7 @@ const entities = [
   ReedSwitchEntity,
   LightEntity,
   AlarmEntity,
+  RoomEntity,
 ];
 const seeders = [
   DhtSensorSeeder,
@@ -60,6 +66,7 @@ const seeders = [
   LightSeeder,
   AlarmSeeder,
   EspSensorSeeder,
+  RoomSeeder,
 ];
 const factories = [
   DhtSensorFactory,
@@ -69,6 +76,7 @@ const factories = [
   ReedSwitchFactory,
   LightFactory,
   AlarmFactory,
+  RoomFactory,
 ];
 
 const providers = [
@@ -103,6 +111,10 @@ const providers = [
   {
     provide: IAlarmRepository,
     useClass: AlarmRepository,
+  },
+  {
+    provide: IRoomRepository,
+    useClass: RoomRepository,
   },
   ...seeders,
   ...factories,

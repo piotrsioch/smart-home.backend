@@ -14,4 +14,7 @@ export class SensorEntity {
 
   @Column()
   location: string;
+
+  @Column({ nullable: true })
+  roomId: string;
 }

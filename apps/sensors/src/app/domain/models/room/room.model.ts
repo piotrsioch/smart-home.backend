@@ -10,7 +10,7 @@ export class Room extends BaseModel {
   name: string;
   roomType: RoomTypeEnum;
   description?: string;
-  sensorsIds?: string[];
+  sensorsIds: string[];
 
   static create(input: RoomCreateInput): Room {
     const { name, roomType, description } = input;
@@ -22,7 +22,7 @@ export class Room extends BaseModel {
     _this.name = name;
     _this.roomType = roomType;
     _this.description = description ?? 'null';
-    _this.sensorsIds = null;
+    _this.sensorsIds = [];
 
     return _this;
   }

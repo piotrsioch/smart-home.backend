@@ -6,6 +6,7 @@ import { SmokeSensorEntity } from './entities/smoke-sensor.entity';
 import { ReedSwitchEntity } from './entities/reed-switch.entity';
 import { LightEntity } from './entities/light.entity';
 import { AlarmEntity } from './entities/alarm.entity';
+import { RoomEntity } from './entities/room.entity';
 
 const commonOptions: Partial<TypeOrmModuleOptions> = {
   entities: [
@@ -16,6 +17,7 @@ const commonOptions: Partial<TypeOrmModuleOptions> = {
     ReedSwitchEntity,
     LightEntity,
     AlarmEntity,
+    RoomEntity,
   ],
   synchronize: process.env.SYNCHRONIZE_DB === 'true',
   useUnifiedTopology: true,

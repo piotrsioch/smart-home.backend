@@ -18,6 +18,5 @@ export class RoomDto extends ModelDto {
 
   @ApiProperty()
   @IsArray()
-  @IsOptional()
-  sensorsIds?: string;
+  sensorsIds: string;
 }
