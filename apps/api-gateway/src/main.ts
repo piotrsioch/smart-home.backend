@@ -37,11 +37,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  app.use(
-    cors({
-      origin: 'http://localhost:4200',
-    }),
-  );
+  app.use(cors());
 
   await app.startAllMicroservices();
 

@@ -6,7 +6,7 @@ export class ModelDto {
   @ApiProperty()
   @IsString()
   @IsUUID()
-  id: string;
+  _id: string;
 
   @ApiProperty()
   @IsDate()

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AddReedSwitchDataInputDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   GetLatestReedSwitchDataInputDto,
@@ -10,12 +11,15 @@ import {
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Reed switch')
 @UseFilters(CustomExceptionFilter)
 @Controller('/reed-switch')
 export class ReedSwitchController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: ReedSwitchDto })
   @Post('/add-data')
   async addReedSwitchController(@Body() input: AddReedSwitchDataInputDto): Promise<ReedSwitchDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
@@ -24,6 +28,7 @@ export class ReedSwitchController {
     });
   }
 
+  @ApiOkResponsePaginated(ReedSwitchDto)
   @Get('/list')
   async reedSwitchList(
     @Query() input: ReedSwitchListInputDto,
@@ -34,6 +39,7 @@ export class ReedSwitchController {
     });
   }
 
+  @ApiResponse({ status: 200, type: ReedSwitchDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestReedSwitchDataInputDto): Promise<ReedSwitchDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {

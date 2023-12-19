@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddDhtSensorDataInputDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   DhtSensorDto,
@@ -10,12 +11,15 @@ import {
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Dht sensor')
 @UseFilters(CustomExceptionFilter)
 @Controller('/dht-sensor')
 export class DhtSensorController {
   constructor(private client: CustomClientProxy) {}
 
+  @ApiResponse({ status: 200, type: AddDhtSensorDataInputDto })
   @Post('/add-data')
   async addDhtSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddDhtSensorDataInputDto,
@@ -26,6 +30,7 @@ export class DhtSensorController {
     });
   }
 
+  @ApiOkResponsePaginated(DhtSensorDto)
   @Get('/list')
   async dhtSensorList(
     @Query() input: DhtSensorListInputDto,
@@ -36,6 +41,7 @@ export class DhtSensorController {
     });
   }
 
+  @ApiResponse({ status: 200, type: AddDhtSensorDataInputDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
