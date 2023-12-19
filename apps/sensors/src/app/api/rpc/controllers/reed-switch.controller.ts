@@ -9,11 +9,11 @@ import {
   ReedSwitchListInputDto,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
-import { AddReedSwitchDataCommand } from '../../../application/reed-switch/commands/add-reed-switch-data';
+import { AddReedSwitchDataCommand } from '../../../application/sensors/reed-switch/commands/add-reed-switch-data';
 import {
   GetLatestReedSwitchDataQuery,
   ReedSwitchListQuery,
-} from '../../../application/reed-switch/queries';
+} from '../../../application/sensors/reed-switch/queries';
 
 @Controller()
 export class ReedSwitchController {

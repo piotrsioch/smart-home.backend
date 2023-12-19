@@ -13,7 +13,7 @@ import {
   ChangeLightStateCommand,
   GetLightStateQuery,
   LightListQuery,
-} from '../../../application/light';
+} from '../../../application/sensors/light';
 
 @Controller()
 export class LightController {

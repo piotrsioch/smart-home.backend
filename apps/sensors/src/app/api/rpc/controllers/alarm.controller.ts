@@ -11,8 +11,8 @@ import {
   ChangeAlarmStateInputDto,
   GetAlarmStateInputDto,
 } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
-import { ChangeAlarmStateCommand } from '../../../application/alarm/commands';
-import { AlarmListQuery, GetAlarmStateQuery } from '../../../application/alarm/queries';
+import { ChangeAlarmStateCommand } from '../../../application/sensors/alarm/commands';
+import { AlarmListQuery, GetAlarmStateQuery } from '../../../application/sensors/alarm/queries';
 
 @Controller()
 export class AlarmController {
