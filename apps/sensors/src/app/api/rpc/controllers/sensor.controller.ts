@@ -13,7 +13,7 @@ import {
   CreateSensorCommand,
   GetSensorByIdQuery,
   SensorListQuery,
-} from '../../../application/sensor';
+} from '../../../application/sensors/sensor';
 
 @Controller()
 export class SensorController {

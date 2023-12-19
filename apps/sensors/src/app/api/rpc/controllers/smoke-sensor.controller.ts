@@ -8,7 +8,7 @@ import {
   SmokeSensorDto,
   SmokeSensorListInputDto,
 } from '@smart-home.backend/libs/common';
-import { AddSmokeSensorDataCommand, SmokeSensorListQuery } from '../../../application/smoke-sensor';
+import { AddSmokeSensorDataCommand, SmokeSensorListQuery } from '../../../application/sensors';
 
 @Controller()
 export class SmokeSensorController {
