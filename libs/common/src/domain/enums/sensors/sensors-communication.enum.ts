@@ -18,4 +18,8 @@ export enum SensorsCommunicationEnum {
   CHANGE_ALARM_STATE = 'changeAlarmState',
   GET_ALARM_STATE = 'getAlarmState',
   ALARM_LIST = 'alarmList',
+  CREATE_ROOM = 'createRoom',
+  ASSIGN_SENSOR_TO_ROOM = 'assignSensorToRoom',
+  GET_ROOM = 'getRoom',
+  ROOM_LIST = 'roomList',
 }
