@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AlarmDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   PaginationOutput,
@@ -13,7 +14,6 @@ import {
   GetAlarmStateInputDto,
 } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Alarm')
 @UseFilters(CustomExceptionFilter)

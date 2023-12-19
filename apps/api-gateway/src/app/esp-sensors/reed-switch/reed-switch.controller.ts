@@ -1,18 +1,17 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   AddReedSwitchDataInputDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   GetLatestReedSwitchDataInputDto,
   PaginationOutput,
   ReedSwitchDto,
   ReedSwitchListInputDto,
-  SensorDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Reed switch')
 @UseFilters(CustomExceptionFilter)

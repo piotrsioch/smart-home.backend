@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
-  AlarmDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   GetSensorByIdInputDto,
@@ -12,7 +12,6 @@ import {
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Sensors')
 @UseFilters(CustomExceptionFilter)
@@ -30,7 +29,6 @@ export class SensorController {
   }
 
   @ApiOkResponsePaginated(SensorDto)
-  @ApiResponse({ status: 200, type: PaginationOutput<SensorDto> })
   @Get('/list')
   async sensorList(@Query() input: ReedSwitchListInputDto): Promise<PaginationOutput<SensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {

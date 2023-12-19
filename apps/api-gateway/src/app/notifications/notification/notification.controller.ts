@@ -1,5 +1,6 @@
 import { Controller, Get, Query, UseFilters } from '@nestjs/common';
 import {
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
   NotificationDto,
@@ -26,7 +27,7 @@ export class NotificationController {
     });
   }
 
-  @ApiResponse({ status: 200, type: PaginationOutput<NotificationDto> })
+  @ApiOkResponsePaginated(NotificationDto)
   @Get('/list')
   async notificationList(
     @Query() input: NotificationListInputDto,

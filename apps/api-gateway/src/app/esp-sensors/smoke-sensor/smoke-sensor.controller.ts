@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Query, UseFilters, ValidationPipe } from '@nestjs/common';
 import {
   AddSmokeSensorDataInputDto,
+  ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
-  LightDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -11,7 +11,6 @@ import {
   SmokeSensorListInputDto,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Smoke sensor')
 @UseFilters(CustomExceptionFilter)

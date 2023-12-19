@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
+  ApiOkResponsePaginated,
   ChangeLightStateInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
@@ -7,12 +8,10 @@ import {
   LightDto,
   LightListInputDto,
   PaginationOutput,
-  ReedSwitchDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApiOkResponsePaginated } from '@smart-home.backend/libs/common/src/api/decorators/api-ok-response-paginated';
 
 @ApiTags('Light')
 @UseFilters(CustomExceptionFilter)
