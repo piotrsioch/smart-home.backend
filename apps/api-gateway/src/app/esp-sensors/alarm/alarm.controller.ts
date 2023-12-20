@@ -23,7 +23,7 @@ export class AlarmController {
 
   @ApiResponse({ status: 200, type: AlarmDto })
   @Post('/change-state')
-  async changeLightState(@Body() input: ChangeAlarmStateInputDto): Promise<AlarmDto> {
+  async changeAlarmState(@Body() input: ChangeAlarmStateInputDto): Promise<AlarmDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CHANGE_ALARM_STATE,
       data: input,
