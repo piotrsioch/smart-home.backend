@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericRepository } from '@smart-home.backend/libs/common';
 import { RoomEntity } from '../entities/room.entity';
-import { IRoomRepository } from '../../../../application/room';
+import { IRoomRepository } from '../../../../application/room/contracts';
 
 @Injectable()
 export class RoomRepository extends GenericRepository<RoomEntity> implements IRoomRepository {

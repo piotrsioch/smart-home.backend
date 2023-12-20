@@ -10,7 +10,7 @@ import {
   ChangeAlarmStateCommandHandler,
   ChangeAlarmStateCommandInput,
 } from './change-alarm-state.command';
-import { Alarm } from '../../../../../domain/models/alarm';
+import { Alarm } from '../../../../../domain';
 import { AlarmStateEnum } from '@smart-home.backend/libs/common';
 
 describe('ChangeAlarmStateCommand', () => {

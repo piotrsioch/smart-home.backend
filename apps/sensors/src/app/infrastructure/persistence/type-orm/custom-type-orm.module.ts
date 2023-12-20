@@ -3,14 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DhtSensorEntity } from './entities/dht-sensor.entity';
 import { DhtSensorSeeder } from './seeders/dht-sensor.seeder';
 import { DhtSensorRepository } from './repositories/dht-sensor.repository';
-import {
-  IAlarmRepository,
-  IDhtSensorRepository,
-  ILightRepository,
-  IPirSensorRepository,
-  IReedSwitchRepository,
-  ISensorRepository,
-} from '../../../application';
+import { IAlarmRepository } from '../../../application/sensors/contracts/repositories/alarm.repository.interface';
+import { IDhtSensorRepository } from '../../../application/sensors/contracts/repositories/dht-sensor.repository.interface';
+import { ISensorRepository } from '../../../application/sensors/contracts/repositories/sensor.repository.interface';
+import { IPirSensorRepository } from '../../../application/sensors/contracts/repositories/pir-sensor.repository.interface';
+import { IReedSwitchRepository } from '../../../application/sensors/contracts/repositories/reed-switch.repository.interface';
+import { ILightRepository } from '../../../application/sensors/contracts/repositories/light.repository.interface';
 import { DhtSensorFactory } from './factories/dht-sensor.factory';
 import { typeOrmConfig } from './type-orm.config';
 import { DatabaseSeederService } from './database-seeder.service';
@@ -25,7 +23,7 @@ import { PirSensorRepository } from './repositories/pir-sensor.repository';
 import { SmokeSensorEntity } from './entities/smoke-sensor.entity';
 import { SmokeSensorSeeder } from './seeders/smoke-sensor.seeder';
 import { SmokeSensorFactory } from './factories/smoke-sensor.factory';
-import { ISmokeSensorRepository } from '../../../application';
+import { ISmokeSensorRepository } from '../../../application/sensors/contracts/repositories/smoke-sensor.repository.interface';
 import { SmokeSensorRepository } from './repositories/smoke-sensor.repository';
 import { ReedSwitchEntity } from './entities/reed-switch.entity';
 import { ReedSwitchSeeder } from './seeders/reed-switch.seeder';
@@ -41,7 +39,7 @@ import { AlarmSeeder } from './seeders/alarm.seeder';
 import { AlarmFactory } from './factories/alarm.factory';
 import { AlarmRepository } from './repositories/alarm.repository';
 import { EspSensorSeeder } from './seeders/esp-sensor.seeder';
-import { IRoomRepository } from '../../../application/room';
+import { IRoomRepository } from '../../../application/room/contracts/repositories/room.repository.interface';
 import { RoomRepository } from './repositories/room.repository';
 import { RoomFactory } from './factories/room.factory';
 import { RoomSeeder } from './seeders/room.seeder';

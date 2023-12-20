@@ -1,5 +1,5 @@
 import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
-import { Alarm } from '../../../../../domain/models/alarm';
+import { Alarm } from '../../../../../domain';
 import { IAlarmRepository, ISensorRepository } from '../../../contracts';
 import { AlarmStateEnum, CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 

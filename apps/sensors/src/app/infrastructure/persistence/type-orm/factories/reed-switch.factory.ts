@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { faker } from '@faker-js/faker';
 import { ReedSwitchEntity } from '../entities/reed-switch.entity';
-import { ReedSwitch } from '../../../../domain/models/reed-switch';
+import { ReedSwitch } from '../../../../domain';
 
 @Injectable()
 export class ReedSwitchFactory {
