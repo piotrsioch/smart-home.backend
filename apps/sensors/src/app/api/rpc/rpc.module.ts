@@ -14,6 +14,7 @@ import { LightModule } from '../../application/sensors/light';
 import { LightController } from './controllers/light.controller';
 import { AlarmModule } from '../../application/sensors/alarm';
 import { AlarmController } from './controllers/alarm.controller';
+import { RoomModule } from '../../application/room';
 
 const controllers = [
   DhtSensorController,
@@ -35,6 +36,7 @@ const controllers = [
     ReedSwitchModule,
     LightModule,
     AlarmModule,
+    RoomModule,
   ],
   controllers,
 })
