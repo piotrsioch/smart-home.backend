@@ -5,3 +5,4 @@ export * from './reed-switch-order-field.enum';
 export * from './pir-sensor-order-field.enum';
 export * from './sensor-order-field.enum';
 export * from './alarm-order-field.enum';
+export * from './room-order-field.enum';

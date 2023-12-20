@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CqrsModule } from '@nestjs/cqrs';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
+import { CqrsModule } from '@nestjs/cqrs';
+import { GetRoomByIdQueryHandler, RoomListQueryHandler } from './queries';
 
 const CommandHandlers = [];
-const QueryHandlers = [];
+const QueryHandlers = [RoomListQueryHandler, GetRoomByIdQueryHandler];
 const EventHandlers = [];
 
 @Module({

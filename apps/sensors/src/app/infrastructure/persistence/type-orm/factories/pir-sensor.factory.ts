@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PirSensor } from '../../../../domain/models';
+import { PirSensor } from '../../../../domain';
 import { PirSensorEntity } from '../entities/pir-sensor.entity';
 import { faker } from '@faker-js/faker';
 

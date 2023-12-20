@@ -1,2 +1,2 @@
-export * from './sensors/contracts';
-export * from './sensors/dht-sensor';
+export * from './sensors';
+export * from './room';

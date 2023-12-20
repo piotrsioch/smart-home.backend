@@ -7,6 +7,7 @@ import { SmokeSensorController } from './smoke-sensor';
 import { ReedSwitchController } from './reed-switch';
 import { LightController } from './light';
 import { AlarmController } from './alarm';
+import { RoomController } from './room';
 
 @Module({
   imports: [CustomClientModule],
@@ -18,6 +19,7 @@ import { AlarmController } from './alarm';
     ReedSwitchController,
     LightController,
     AlarmController,
+    RoomController,
   ],
   providers: [CustomExceptionFilter],
   exports: [],
