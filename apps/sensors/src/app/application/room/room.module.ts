@@ -2,8 +2,17 @@ import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { GetRoomByIdQueryHandler, RoomListQueryHandler } from './queries';
+import { AssignSensorToRoomCommandHandler } from './commands/assign-sensor-to-room';
+import { CreateRoomCommandHandler } from './commands/create-room';
+import { DeleteRoomCommandHandler } from './commands/delete-room';
+import { RemoveSensorFromRoomCommandHandler } from './commands';
 
-const CommandHandlers = [];
+const CommandHandlers = [
+  AssignSensorToRoomCommandHandler,
+  CreateRoomCommandHandler,
+  DeleteRoomCommandHandler,
+  RemoveSensorFromRoomCommandHandler,
+];
 const QueryHandlers = [RoomListQueryHandler, GetRoomByIdQueryHandler];
 const EventHandlers = [];
 

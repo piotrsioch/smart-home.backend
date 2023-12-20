@@ -2,14 +2,23 @@ import { Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
+  CreateRoomInputDto,
   IdInputDto,
   PaginationOutput,
   RoomDto,
   RoomListInputDto,
+  RoomSensorInputDto,
   SensorsCommunicationEnum,
+  SuccessDto,
 } from '@smart-home.backend/libs/common';
 import { GetRoomByIdQuery } from '../../../application/room/queries';
 import { RoomListQuery } from '../../../application/room/queries';
+import {
+  AssignSensorToRoomCommand,
+  CreateRoomCommand,
+  DeleteRoomCommand,
+  RemoveSensorFromRoomCommand,
+} from '../../../application/room/commands';
 
 @Controller()
 export class RoomController {
@@ -35,5 +44,37 @@ export class RoomController {
       search: search ?? null,
     });
     return await this.queryBus.execute<RoomListQuery>(query);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.CREATE_ROOM)
+  async createRoom(@Payload() payload: CreateRoomInputDto): Promise<RoomDto> {
+    const { name, roomType, description } = payload;
+
+    const command = new CreateRoomCommand({ name, roomType, description });
+    return await this.commandBus.execute<CreateRoomCommand>(command);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.DELETE_ROOM)
+  async deleteRoom(@Payload() payload: IdInputDto): Promise<SuccessDto> {
+    const { id: roomId } = payload;
+
+    const command = new DeleteRoomCommand({ roomId });
+    return await this.commandBus.execute<DeleteRoomCommand>(command);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.ASSIGN_SENSOR_TO_ROOM)
+  async assignSensorToRoom(@Payload() payload: RoomSensorInputDto): Promise<RoomDto> {
+    const { sensorId, roomId } = payload;
+
+    const command = new AssignSensorToRoomCommand({ sensorId, roomId });
+    return await this.commandBus.execute<AssignSensorToRoomCommand>(command);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.REMOVE_SENSOR_FROM_ROOM)
+  async removeSensorFromRoom(@Payload() payload: RoomSensorInputDto): Promise<RoomDto> {
+    const { sensorId, roomId } = payload;
+
+    const command = new RemoveSensorFromRoomCommand({ sensorId, roomId });
+    return await this.commandBus.execute<RemoveSensorFromRoomCommand>(command);
   }
 }

@@ -17,8 +17,9 @@ export class GenericRepository<T> implements IGenericRepository<T> {
     await this._repository.remove(entity);
   }
 
-  async update(entity: T): Promise<T> {
-    return await this._repository.save(entity);
+  async update(id: string, entity: Partial<T>): Promise<any> {
+    // @ts-ignore
+    return await this._repository.update({ _id: id as any }, entity as any);
   }
 
   async findOne(criteria: DeepPartial<T>): Promise<T | undefined> {
