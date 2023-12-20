@@ -70,7 +70,7 @@ export class RoomController {
   @Post('/remove-sensor-from-room')
   async removeSensorFromRoom(@Body() input: RoomSensorInputDto): Promise<RoomDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
-      pattern: SensorsCommunicationEnum.CREATE_ROOM,
+      pattern: SensorsCommunicationEnum.REMOVE_SENSOR_FROM_ROOM,
       data: input,
     });
   }
