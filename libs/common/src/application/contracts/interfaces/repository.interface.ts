@@ -8,7 +8,7 @@ export interface IGenericRepository<T> {
 
   remove(entity: T): Promise<void>;
 
-  update(entity: T): Promise<T>;
+  update(id: string, entity: Partial<T>): Promise<any>;
 
   findOne(criteria: DeepPartial<T>): Promise<T | undefined>;
 
