@@ -4,6 +4,7 @@ import {
   ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
+  GetLatestSmokeDataInputDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -36,6 +37,15 @@ export class SmokeSensorController {
   ): Promise<PaginationOutput<SmokeSensorDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SMOKE_SENSOR_LIST,
+      data: input,
+    });
+  }
+
+  @ApiResponse({ status: 200, type: SmokeSensorDto })
+  @Get('/latest-data')
+  async getLatestData(@Query() input: GetLatestSmokeDataInputDto): Promise<SmokeSensorDto> {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
+      pattern: SensorsCommunicationEnum.GET_LATEST_SMOKE_DATA,
       data: input,
     });
   }

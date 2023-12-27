@@ -3,12 +3,14 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   AddSmokeSensorDataInputDto,
+  GetLatestSmokeDataInputDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   SmokeSensorDto,
   SmokeSensorListInputDto,
 } from '@smart-home.backend/libs/common';
 import { AddSmokeSensorDataCommand, SmokeSensorListQuery } from '../../../application/sensors';
+import { GetLatestSmokeDataQuery } from '../../../application/sensors/smoke-sensor/queries/get-latest-data';
 
 @Controller()
 export class SmokeSensorController {
@@ -41,5 +43,18 @@ export class SmokeSensorController {
     });
 
     return await this.queryBus.execute<SmokeSensorListQuery>(query);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.GET_LATEST_SMOKE_DATA)
+  async getLatestSmokeData(
+    @Payload() payload: GetLatestSmokeDataInputDto,
+  ): Promise<SmokeSensorDto> {
+    const { sensorId } = payload;
+
+    const query = new GetLatestSmokeDataQuery({
+      sensorId,
+    });
+
+    return await this.queryBus.execute<GetLatestSmokeDataQuery>(query);
   }
 }
