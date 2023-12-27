@@ -5,9 +5,10 @@ import { AddSmokeSensorDataCommandHandler } from './commands';
 import { SmokeSensorListQueryHandler } from './queries';
 import { CriticalValueDetectedHandler } from './handlers';
 import { CustomClientModule } from '@smart-home.backend/libs/common';
+import { GetLatestSmokeDataQueryHandler } from './queries/get-latest-data';
 
 const CommandHandlers = [AddSmokeSensorDataCommandHandler];
-const QueryHandlers = [SmokeSensorListQueryHandler];
+const QueryHandlers = [SmokeSensorListQueryHandler, GetLatestSmokeDataQueryHandler];
 const EventHandlers = [CriticalValueDetectedHandler];
 
 @Module({

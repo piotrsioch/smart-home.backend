@@ -9,6 +9,7 @@ export enum SensorsCommunicationEnum {
   PIR_SENSOR_LIST = 'pirSensorList',
   ADD_SMOKE_DATA = 'addSmokeData',
   SMOKE_SENSOR_LIST = 'smokeSensorList',
+  GET_LATEST_SMOKE_DATA = 'getLatestSmokeData',
   ADD_REED_SWITCH_DATA = 'addReedSwitchData',
   GET_LATEST_REED_SWITCH_DATA = 'getLatestReedSwitchData',
   REED_SWITCH_LIST = 'reedSwitchList',
