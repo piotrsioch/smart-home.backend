@@ -27,6 +27,17 @@ export class GetLightStateQueryHandler implements IQueryHandler<GetLightStateQue
       throw new CustomRpcException('Sensor with given id does not exist', ErrorCodeEnum.NOT_FOUND);
     }
 
-    return await this.lightRepository.findLatestData({ sensorId });
+    let light = await this.lightRepository.findLatestData({ sensorId });
+
+    if (!light) {
+      light = Light.create({
+        sensorId,
+        isOn: false,
+      });
+
+      await this.lightRepository.add(light);
+    }
+
+    return light;
   }
 }
