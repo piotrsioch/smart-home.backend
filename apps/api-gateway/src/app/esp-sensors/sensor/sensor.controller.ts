@@ -1,13 +1,13 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   ApiOkResponsePaginated,
+  CreateSensorInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
   GetSensorByIdInputDto,
   PaginationOutput,
   ReedSwitchListInputDto,
   SensorDto,
-  SensorListInputDto,
   SensorsCommunicationEnum,
   ServiceEnum,
 } from '@smart-home.backend/libs/common';
@@ -21,9 +21,9 @@ export class SensorController {
 
   @ApiResponse({ status: 200, type: SensorDto })
   @Post('/create')
-  async createSensor(@Body() input: SensorListInputDto): Promise<SensorDto> {
+  async createSensor(@Body() input: CreateSensorInputDto): Promise<SensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
-      pattern: SensorsCommunicationEnum.SENSOR_LIST,
+      pattern: SensorsCommunicationEnum.CREATE_SENSOR,
       data: input,
     });
   }
