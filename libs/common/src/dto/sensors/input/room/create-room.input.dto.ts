@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
-import { RoomTypeEnum } from '@smart-home.backend/libs/common';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { RoomTypeEnum } from '../../../../domain';
 
 export class CreateRoomInputDto {
   @ApiProperty()
@@ -8,6 +8,7 @@ export class CreateRoomInputDto {
   name: string;
 
   @ApiProperty({ enum: RoomTypeEnum, required: true })
+  @IsEnum(RoomTypeEnum)
   roomType: RoomTypeEnum;
 
   @ApiProperty()

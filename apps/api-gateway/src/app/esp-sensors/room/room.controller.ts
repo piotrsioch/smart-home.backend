@@ -23,7 +23,7 @@ export class RoomController {
 
   @ApiOkResponsePaginated(RoomDto)
   @Get('/list')
-  async reedSwitchList(@Query() input: RoomListInputDto): Promise<PaginationOutput<RoomDto>> {
+  async roomList(@Query() input: RoomListInputDto): Promise<PaginationOutput<RoomDto>> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ROOM_LIST,
       data: input,
@@ -32,7 +32,7 @@ export class RoomController {
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Get('/get-by-id')
-  async getLatestData(@Query() input: IdInputDto): Promise<RoomDto> {
+  async getRoomById(@Query() input: IdInputDto): Promise<RoomDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_ROOM_BY_ID,
       data: input,
@@ -42,6 +42,7 @@ export class RoomController {
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/create-room')
   async createRoom(@Body() input: CreateRoomInputDto): Promise<RoomDto> {
+    console.log(input);
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CREATE_ROOM,
       data: input,
