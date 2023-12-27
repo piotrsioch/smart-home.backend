@@ -41,7 +41,7 @@ export class DhtSensorController {
     });
   }
 
-  @ApiResponse({ status: 200, type: AddDhtSensorDataInputDto })
+  @ApiResponse({ status: 200, type: DhtSensorDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
