@@ -5,13 +5,14 @@ import { GetRoomByIdQueryHandler, RoomListQueryHandler } from './queries';
 import { AssignSensorToRoomCommandHandler } from './commands/assign-sensor-to-room';
 import { CreateRoomCommandHandler } from './commands/create-room';
 import { DeleteRoomCommandHandler } from './commands/delete-room';
-import { RemoveSensorFromRoomCommandHandler } from './commands';
+import { EditRoomCommandHandler, RemoveSensorFromRoomCommandHandler } from './commands';
 
 const CommandHandlers = [
   AssignSensorToRoomCommandHandler,
   CreateRoomCommandHandler,
   DeleteRoomCommandHandler,
   RemoveSensorFromRoomCommandHandler,
+  EditRoomCommandHandler,
 ];
 const QueryHandlers = [RoomListQueryHandler, GetRoomByIdQueryHandler];
 const EventHandlers = [];

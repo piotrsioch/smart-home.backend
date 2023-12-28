@@ -2,14 +2,20 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { RoomTypeEnum } from '../../../../domain';
 
-export class CreateRoomInputDto {
+export class EditRoomInputDto {
   @ApiProperty()
   @IsString()
-  name: string;
+  id: string;
 
-  @ApiProperty({ enum: RoomTypeEnum, required: true })
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @ApiProperty({ enum: RoomTypeEnum, required: false })
   @IsEnum(RoomTypeEnum)
-  roomType: RoomTypeEnum;
+  @IsOptional()
+  roomType?: RoomTypeEnum;
 
   @ApiProperty({ required: false })
   @IsString()
