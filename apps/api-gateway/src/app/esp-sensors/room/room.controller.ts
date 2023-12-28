@@ -42,7 +42,6 @@ export class RoomController {
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/create-room')
   async createRoom(@Body() input: CreateRoomInputDto): Promise<RoomDto> {
-    console.log(input);
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CREATE_ROOM,
       data: input,
