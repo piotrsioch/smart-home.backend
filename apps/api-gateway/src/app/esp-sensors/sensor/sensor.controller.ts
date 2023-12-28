@@ -4,6 +4,7 @@ import {
   CreateSensorInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
+  EditSensorInputDto,
   GetSensorByIdInputDto,
   PaginationOutput,
   ReedSwitchListInputDto,
@@ -24,6 +25,15 @@ export class SensorController {
   async createSensor(@Body() input: CreateSensorInputDto): Promise<SensorDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CREATE_SENSOR,
+      data: input,
+    });
+  }
+
+  @ApiResponse({ status: 200, type: SensorDto })
+  @Post('/edit')
+  async editSensor(@Body() input: EditSensorInputDto): Promise<SensorDto> {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
+      pattern: SensorsCommunicationEnum.EDIT_SENSOR,
       data: input,
     });
   }
