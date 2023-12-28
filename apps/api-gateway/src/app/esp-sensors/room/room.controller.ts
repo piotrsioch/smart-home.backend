@@ -5,6 +5,7 @@ import {
   CreateRoomInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
+  EditRoomInputDto,
   IdInputDto,
   PaginationOutput,
   RoomDto,
@@ -53,6 +54,15 @@ export class RoomController {
   async deleteRoom(@Body() input: IdInputDto): Promise<SuccessDto> {
     return await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.DELETE_ROOM,
+      data: input,
+    });
+  }
+
+  @ApiResponse({ status: 200, type: RoomDto })
+  @Post('/edit-room')
+  async editRoom(@Body() input: EditRoomInputDto): Promise<RoomDto> {
+    return await this.client.sendTo(ServiceEnum.SENSORS, {
+      pattern: SensorsCommunicationEnum.EDIT_ROOM,
       data: input,
     });
   }

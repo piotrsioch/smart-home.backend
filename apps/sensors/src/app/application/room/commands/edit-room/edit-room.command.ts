@@ -4,7 +4,7 @@ import { CustomRpcException, ErrorCodeEnum, RoomTypeEnum } from '@smart-home.bac
 import { Room } from '../../../../domain';
 
 export type EditRoomCommandInput = {
-  roomId: string;
+  id: string;
   name?: string;
   roomType?: RoomTypeEnum;
   description?: string;
@@ -19,9 +19,9 @@ export class EditRoomCommandHandler implements ICommandHandler<EditRoomCommand, 
   constructor(private readonly roomRepository: IRoomRepository) {}
 
   async execute(command: EditRoomCommand): Promise<Room> {
-    const { roomId, name, roomType, description } = command.input;
+    const { id, name, roomType, description } = command.input;
 
-    const room = await this.roomRepository.findOneById(roomId);
+    const room = await this.roomRepository.findOneById(id);
 
     if (!room) {
       throw new CustomRpcException('Room with given id does not exist', ErrorCodeEnum.NOT_FOUND);

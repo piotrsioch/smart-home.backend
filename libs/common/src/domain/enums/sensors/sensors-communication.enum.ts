@@ -22,6 +22,7 @@ export enum SensorsCommunicationEnum {
   CREATE_ROOM = 'createRoom',
   ASSIGN_SENSOR_TO_ROOM = 'assignSensorToRoom',
   DELETE_ROOM = 'deleteRoom',
+  EDIT_ROOM = 'editRoom',
   REMOVE_SENSOR_FROM_ROOM = 'removeSensorFromRoom',
   GET_ROOM_BY_ID = 'getRoomById',
   ROOM_LIST = 'roomList',

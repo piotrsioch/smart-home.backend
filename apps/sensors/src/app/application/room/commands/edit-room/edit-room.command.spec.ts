@@ -10,7 +10,7 @@ import { EditRoomCommand, EditRoomCommandHandler, EditRoomCommandInput } from '.
 
 describe('EditRoomCommand', () => {
   const commandInput: EditRoomCommandInput = {
-    roomId: '',
+    id: '',
     name: 'New room name',
     description: 'New room description',
   };
@@ -39,7 +39,7 @@ describe('EditRoomCommand', () => {
 
     [room] = await roomRepository.findAll();
 
-    commandInput.roomId = room._id;
+    commandInput.id = room._id;
 
     command = new EditRoomCommand(commandInput);
   });
@@ -75,7 +75,7 @@ describe('EditRoomCommand', () => {
 
     commandInput.name = 'Name';
     commandInput.description = 'Description';
-    commandInput.roomId = v4();
+    commandInput.id = v4();
 
     try {
       await commandHandler.execute(command);

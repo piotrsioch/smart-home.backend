@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   CreateRoomInputDto,
+  EditRoomInputDto,
   IdInputDto,
   PaginationOutput,
   RoomDto,
@@ -17,6 +18,7 @@ import {
   AssignSensorToRoomCommand,
   CreateRoomCommand,
   DeleteRoomCommand,
+  EditRoomCommand,
   RemoveSensorFromRoomCommand,
 } from '../../../application/room/commands';
 
@@ -29,6 +31,7 @@ export class RoomController {
     const { id } = payload;
 
     const query = new GetRoomByIdQuery({ id });
+
     return await this.queryBus.execute<GetRoomByIdQuery>(query);
   }
 
@@ -43,6 +46,7 @@ export class RoomController {
       orderDirection: orderDirection ?? null,
       search: search ?? null,
     });
+
     return await this.queryBus.execute<RoomListQuery>(query);
   }
 
@@ -51,6 +55,7 @@ export class RoomController {
     const { name, roomType, description } = payload;
 
     const command = new CreateRoomCommand({ name, roomType, description });
+
     return await this.commandBus.execute<CreateRoomCommand>(command);
   }
 
@@ -59,6 +64,7 @@ export class RoomController {
     const { id: roomId } = payload;
 
     const command = new DeleteRoomCommand({ roomId });
+
     return await this.commandBus.execute<DeleteRoomCommand>(command);
   }
 
@@ -67,7 +73,17 @@ export class RoomController {
     const { sensorId, roomId } = payload;
 
     const command = new AssignSensorToRoomCommand({ sensorId, roomId });
+
     return await this.commandBus.execute<AssignSensorToRoomCommand>(command);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.EDIT_ROOM)
+  async editRoom(@Payload() payload: EditRoomInputDto): Promise<RoomDto> {
+    const { id, name, roomType, description } = payload;
+
+    const command = new EditRoomCommand({ id, name, roomType, description });
+
+    return await this.commandBus.execute<EditRoomCommand>(command);
   }
 
   @MessagePattern(SensorsCommunicationEnum.REMOVE_SENSOR_FROM_ROOM)
@@ -75,6 +91,7 @@ export class RoomController {
     const { sensorId, roomId } = payload;
 
     const command = new RemoveSensorFromRoomCommand({ sensorId, roomId });
+
     return await this.commandBus.execute<RemoveSensorFromRoomCommand>(command);
   }
 }
