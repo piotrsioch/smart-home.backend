@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../../../infrastructure/persistence/persistence.module';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreateSensorCommandHandler } from './commands';
+import { CreateSensorCommandHandler, EditSensorCommandHandler } from './commands';
 import { GetSensorByIdQueryHandler, SensorListQueryHandler } from './queries';
 
-const CommandHandlers = [CreateSensorCommandHandler];
+const CommandHandlers = [CreateSensorCommandHandler, EditSensorCommandHandler];
 const QueryHandlers = [GetSensorByIdQueryHandler, SensorListQueryHandler];
 const EventHandlers = [];
 

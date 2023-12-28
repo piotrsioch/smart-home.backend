@@ -2,6 +2,7 @@ export enum SensorsCommunicationEnum {
   CREATE_SENSOR = 'createSensor',
   GET_SENSOR_BY_ID = 'getSensorById',
   SENSOR_LIST = 'sensorList',
+  EDIT_SENSOR = 'editSensor',
   ADD_DHT_DATA = 'addDhtData',
   GET_LATEST_DHT_DATA = 'getLatestDhtData',
   DHT_SENSOR_LIST = 'dhtSensorList',
