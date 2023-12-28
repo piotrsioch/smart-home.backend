@@ -18,4 +18,8 @@ export class SensorDto {
   @ApiProperty()
   @IsString()
   location: string;
+
+  @ApiProperty()
+  @IsString()
+  roomId: string;
 }
