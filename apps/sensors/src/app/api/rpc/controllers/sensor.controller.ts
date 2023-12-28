@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   CreateSensorInputDto,
+  EditSensorInputDto,
   GetSensorByIdInputDto,
   PaginationOutput,
   SensorDto,
@@ -11,6 +12,7 @@ import {
 } from '@smart-home.backend/libs/common';
 import {
   CreateSensorCommand,
+  EditSensorCommand,
   GetSensorByIdQuery,
   SensorListQuery,
 } from '../../../application/sensors/sensor';
@@ -31,6 +33,20 @@ export class SensorController {
     });
 
     return await this.commandBus.execute<CreateSensorCommand>(command);
+  }
+
+  @MessagePattern(SensorsCommunicationEnum.EDIT_SENSOR)
+  async editSensor(@Payload() payload: EditSensorInputDto): Promise<SensorDto> {
+    const { id, type, name, location } = payload;
+
+    const command = new EditSensorCommand({
+      id,
+      type,
+      name,
+      location,
+    });
+
+    return await this.commandBus.execute<EditSensorCommand>(command);
   }
 
   @MessagePattern(SensorsCommunicationEnum.SENSOR_LIST)
