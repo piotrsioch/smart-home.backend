@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 import { PersistenceModule } from '../../../../infrastructure/persistence/persistence.module';
 import { INotificationRepository } from '../../../contracts/repositories';
-import { NotifyServiceModule } from '../../../../infrastructure/notify-service';
 import {
   MarkNotificationAsReadCommand,
   MarkNotificationAsReadCommandHandler,
@@ -28,7 +27,7 @@ describe('MarkNotificationAsReadCommand', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      imports: [PersistenceModule, CqrsModule, NotifyServiceModule],
+      imports: [PersistenceModule, CqrsModule],
       providers: [MarkNotificationAsReadCommand, MarkNotificationAsReadCommandHandler],
     }).compile();
 
