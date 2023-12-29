@@ -32,6 +32,8 @@ export class MarkNotificationAsReadCommandHandler
 
     if (state !== undefined && state !== null) {
       notification.isRead = state;
+    } else if (notification.isRead) {
+      return notification;
     } else {
       notification.isRead = true;
     }
