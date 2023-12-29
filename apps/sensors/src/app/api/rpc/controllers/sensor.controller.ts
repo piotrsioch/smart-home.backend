@@ -5,6 +5,7 @@ import {
   CreateSensorInputDto,
   EditSensorInputDto,
   GetSensorByIdInputDto,
+  mapEntityToDto,
   PaginationOutput,
   SensorDto,
   SensorListInputDto,
@@ -32,7 +33,9 @@ export class SensorController {
       location,
     });
 
-    return await this.commandBus.execute<CreateSensorCommand>(command);
+    const result = await this.commandBus.execute<CreateSensorCommand>(command);
+
+    return mapEntityToDto(SensorDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.EDIT_SENSOR)
@@ -46,7 +49,9 @@ export class SensorController {
       location,
     });
 
-    return await this.commandBus.execute<EditSensorCommand>(command);
+    const result = await this.commandBus.execute<EditSensorCommand>(command);
+
+    return mapEntityToDto(SensorDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.SENSOR_LIST)
@@ -61,7 +66,9 @@ export class SensorController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<SensorListQuery>(query);
+    const result = await this.queryBus.execute<SensorListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<SensorDto>, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_SENSOR_BY_ID)
@@ -72,6 +79,8 @@ export class SensorController {
       id,
     });
 
-    return await this.queryBus.execute<GetSensorByIdQuery>(query);
+    const result = await this.queryBus.execute<GetSensorByIdQuery>(query);
+
+    return mapEntityToDto(SensorDto, result);
   }
 }

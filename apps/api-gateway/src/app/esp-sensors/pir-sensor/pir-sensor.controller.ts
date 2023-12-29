@@ -4,6 +4,7 @@ import {
   ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
+  mapObjectToDto,
   PaginationOutput,
   PirSensorDto,
   PirSensorListInputDto,
@@ -21,10 +22,12 @@ export class PirSensorController {
   @ApiResponse({ status: 200, type: PirSensorDto })
   @Post('/add-data')
   async addPirSensorData(@Body() input: AddPirSensorDataInputDto): Promise<PirSensorDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_PIR_DATA,
       data: input,
     });
+
+    return mapObjectToDto(PirSensorDto, result);
   }
 
   @ApiOkResponsePaginated(PirSensorDto)
@@ -32,9 +35,11 @@ export class PirSensorController {
   async pirSensorList(
     @Query() input: PirSensorListInputDto,
   ): Promise<PaginationOutput<PirSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.PIR_SENSOR_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<PirSensorDto>, result);
   }
 }

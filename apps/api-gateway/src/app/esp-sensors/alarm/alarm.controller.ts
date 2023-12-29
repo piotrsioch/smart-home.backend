@@ -4,6 +4,7 @@ import {
   ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
+  mapObjectToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -24,27 +25,33 @@ export class AlarmController {
   @ApiResponse({ status: 200, type: AlarmDto })
   @Post('/change-state')
   async changeAlarmState(@Body() input: ChangeAlarmStateInputDto): Promise<AlarmDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CHANGE_ALARM_STATE,
       data: input,
     });
+
+    return mapObjectToDto(AlarmDto, result);
   }
 
   @ApiResponse({ status: 200, type: AlarmDto })
   @Get('/get-state')
   async getAlarmState(@Query() input: GetAlarmStateInputDto): Promise<AlarmDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_ALARM_STATE,
       data: input,
     });
+
+    return mapObjectToDto(AlarmDto, result);
   }
 
   @ApiOkResponsePaginated(AlarmDto)
   @Get('/list')
   async alarmList(@Query() input: AlarmListInputDto): Promise<PaginationOutput<AlarmDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ALARM_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<AlarmDto>, result);
   }
 }

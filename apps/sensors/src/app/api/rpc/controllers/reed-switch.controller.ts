@@ -4,6 +4,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   AddReedSwitchDataInputDto,
   GetLatestReedSwitchDataInputDto,
+  mapEntityToDto,
   PaginationOutput,
   ReedSwitchDto,
   ReedSwitchListInputDto,
@@ -28,7 +29,9 @@ export class ReedSwitchController {
       isOpened,
     });
 
-    return await this.commandBus.execute<AddReedSwitchDataCommand>(command);
+    const result = await this.commandBus.execute<AddReedSwitchDataCommand>(command);
+
+    return mapEntityToDto(ReedSwitchDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.REED_SWITCH_LIST)
@@ -45,7 +48,9 @@ export class ReedSwitchController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<ReedSwitchListQuery>(query);
+    const result = await this.queryBus.execute<ReedSwitchListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<ReedSwitchDto>, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_LATEST_REED_SWITCH_DATA)
@@ -58,6 +63,8 @@ export class ReedSwitchController {
       sensorId,
     });
 
-    return await this.queryBus.execute<GetLatestReedSwitchDataQuery>(query);
+    const result = await this.queryBus.execute<GetLatestReedSwitchDataQuery>(query);
+
+    return mapEntityToDto(ReedSwitchDto, result);
   }
 }

@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   AlarmDto,
+  mapEntityToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
@@ -27,7 +28,9 @@ export class AlarmController {
       sensorId,
     });
 
-    return await this.commandBus.execute<ChangeAlarmStateCommand>(command);
+    const result = await this.commandBus.execute<ChangeAlarmStateCommand>(command);
+
+    return mapEntityToDto(AlarmDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_ALARM_STATE)
@@ -36,7 +39,9 @@ export class AlarmController {
 
     const query = new GetAlarmStateQuery({ sensorId });
 
-    return await this.queryBus.execute<GetAlarmStateQuery>(query);
+    const result = await this.queryBus.execute<GetAlarmStateQuery>(query);
+
+    return mapEntityToDto(AlarmDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.ALARM_LIST)
@@ -51,6 +56,8 @@ export class AlarmController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<AlarmListQuery>(query);
+    const result = await this.queryBus.execute<AlarmListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<AlarmDto>, result);
   }
 }

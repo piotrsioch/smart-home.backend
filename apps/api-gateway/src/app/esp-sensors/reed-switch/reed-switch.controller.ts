@@ -5,6 +5,7 @@ import {
   CustomClientProxy,
   CustomExceptionFilter,
   GetLatestReedSwitchDataInputDto,
+  mapObjectToDto,
   PaginationOutput,
   ReedSwitchDto,
   ReedSwitchListInputDto,
@@ -22,10 +23,12 @@ export class ReedSwitchController {
   @ApiResponse({ status: 200, type: ReedSwitchDto })
   @Post('/add-data')
   async addReedSwitchController(@Body() input: AddReedSwitchDataInputDto): Promise<ReedSwitchDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_REED_SWITCH_DATA,
       data: input,
     });
+
+    return mapObjectToDto(ReedSwitchDto, result);
   }
 
   @ApiOkResponsePaginated(ReedSwitchDto)
@@ -33,18 +36,22 @@ export class ReedSwitchController {
   async reedSwitchList(
     @Query() input: ReedSwitchListInputDto,
   ): Promise<PaginationOutput<ReedSwitchDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.REED_SWITCH_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<ReedSwitchDto>, result);
   }
 
   @ApiResponse({ status: 200, type: ReedSwitchDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestReedSwitchDataInputDto): Promise<ReedSwitchDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_REED_SWITCH_DATA,
       data: input,
     });
+
+    return mapObjectToDto(ReedSwitchDto, result);
   }
 }
