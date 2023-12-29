@@ -1,8 +1,9 @@
-import { Controller, Get, Query, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
+  MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
   NotificationsCommunicationEnum,
@@ -34,6 +35,15 @@ export class NotificationController {
   ): Promise<PaginationOutput<NotificationDto>> {
     return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.NOTIFICATION_LIST,
+      data: input,
+    });
+  }
+
+  @ApiResponse({ status: 200, type: NotificationDto })
+  @Post('/mark-as-read')
+  async markAsRead(@Body() input: MarkNotificationAsReadInputDto): Promise<NotificationDto> {
+    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+      pattern: NotificationsCommunicationEnum.MARK_NOTIFICATION_AS_READ,
       data: input,
     });
   }

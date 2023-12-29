@@ -14,4 +14,7 @@ export class NotificationEntity extends BaseMongoEntity {
 
   @Column()
   sensorId: string;
+
+  @Column()
+  isRead: boolean;
 }

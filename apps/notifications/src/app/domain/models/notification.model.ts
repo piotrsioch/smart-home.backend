@@ -12,6 +12,7 @@ export class Notification extends BaseModel {
   message: string;
   receiver: string;
   sensorId: string;
+  isRead: boolean;
 
   static create(input: NotificationCreateInput): Notification {
     const { name, message, receiver, sensorId } = input;
@@ -24,6 +25,7 @@ export class Notification extends BaseModel {
     _this.message = message;
     _this.receiver = receiver;
     _this.sensorId = sensorId;
+    _this.isRead = false;
 
     return _this;
   }

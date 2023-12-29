@@ -1,7 +1,8 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { ModelDto } from '../../../dto';
 
-export class NotificationDto {
+export class NotificationDto extends ModelDto {
   @ApiProperty()
   @IsString()
   name: string;
@@ -17,4 +18,8 @@ export class NotificationDto {
   @ApiProperty()
   @IsString()
   sensorId: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  isRead: boolean;
 }

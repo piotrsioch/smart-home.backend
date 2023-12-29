@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   GetNotificationByIdInputDto,
+  MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
   NotificationsCommunicationEnum,
@@ -12,10 +13,25 @@ import {
   GetNotificationByIdQuery,
   NotificationListQuery,
 } from '../../../application/notification/queries';
+import { MarkNotificationAsReadCommand } from '../../../application/notification/commands';
 
 @Controller()
 export class NotificationController {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
+
+  @MessagePattern(NotificationsCommunicationEnum.MARK_NOTIFICATION_AS_READ)
+  async markNotificationAsRead(
+    @Payload() payload: MarkNotificationAsReadInputDto,
+  ): Promise<NotificationDto> {
+    const { id, state } = payload;
+
+    const command = new MarkNotificationAsReadCommand({
+      id,
+      state,
+    });
+
+    return await this.commandBus.execute<MarkNotificationAsReadCommand>(command);
+  }
 
   @MessagePattern(NotificationsCommunicationEnum.GET_NOTIFICATION_BY_ID)
   async getNotificationById(
