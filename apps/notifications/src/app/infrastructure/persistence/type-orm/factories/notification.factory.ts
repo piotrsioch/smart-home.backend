@@ -14,6 +14,7 @@ export class NotificationFactory {
     sensor.sensorId = faker.string.uuid();
     sensor.receiver = faker.phone.number();
     sensor.name = faker.lorem.word();
+    sensor.isRead = false;
 
     return sensor;
   }
