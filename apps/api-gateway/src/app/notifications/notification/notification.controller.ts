@@ -4,6 +4,8 @@ import {
   CustomClientProxy,
   CustomExceptionFilter,
   DeleteNotificationInputDto,
+  GetNotificationByIdInputDto,
+  mapObjectToDto,
   MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
@@ -13,7 +15,6 @@ import {
   SuccessDto,
   UnreadNotificationsDto,
 } from '@smart-home.backend/libs/common';
-import { ChangeAlarmStateInputDto } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Notifications')
@@ -24,11 +25,13 @@ export class NotificationController {
 
   @ApiResponse({ status: 200, type: NotificationDto })
   @Get('/get-by-id')
-  async getNotificationById(@Query() input: ChangeAlarmStateInputDto): Promise<NotificationDto> {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+  async getNotificationById(@Query() input: GetNotificationByIdInputDto): Promise<NotificationDto> {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.GET_NOTIFICATION_BY_ID,
       data: input,
     });
+
+    return mapObjectToDto(NotificationDto, result);
   }
 
   @ApiOkResponsePaginated(NotificationDto)
@@ -36,35 +39,43 @@ export class NotificationController {
   async notificationList(
     @Query() input: NotificationListInputDto,
   ): Promise<PaginationOutput<NotificationDto>> {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.NOTIFICATION_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<NotificationDto>, result);
   }
 
   @ApiResponse({ status: 200, type: UnreadNotificationsDto })
   @Get('/get-unread-notifications')
   async getUnreadNotifications(): Promise<UnreadNotificationsDto> {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.GET_UNREAD_NOTIFICATIONS,
     });
+
+    return mapObjectToDto(UnreadNotificationsDto, result);
   }
 
   @ApiResponse({ status: 200, type: NotificationDto })
   @Post('/mark-as-read')
   async markAsRead(@Body() input: MarkNotificationAsReadInputDto): Promise<NotificationDto> {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.MARK_NOTIFICATION_AS_READ,
       data: input,
     });
+
+    return mapObjectToDto(NotificationDto, result);
   }
 
   @ApiResponse({ status: 200, type: SuccessDto })
   @Post('/delete')
   async delete(@Body() input: DeleteNotificationInputDto): Promise<SuccessDto> {
-    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.DELETE_NOTIFICATION,
       data: input,
     });
+
+    return mapObjectToDto(SuccessDto, result);
   }
 }
