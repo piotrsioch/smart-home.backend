@@ -7,13 +7,18 @@ import {
 } from './commands';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { GetNotificationByIdQueryHandler, NotificationListQueryHandler } from './queries';
+import { GetUnreadNotificationsQueryHandler } from './queries/get-unread-notifications';
 
 const CommandHandlers = [
   SendNotificationCommandHandler,
   MarkNotificationAsReadCommandHandler,
   DeleteNotificationCommandHandler,
 ];
-const QueryHandlers = [GetNotificationByIdQueryHandler, NotificationListQueryHandler];
+const QueryHandlers = [
+  GetNotificationByIdQueryHandler,
+  NotificationListQueryHandler,
+  GetUnreadNotificationsQueryHandler,
+];
 const EventHandlers = [];
 
 @Module({
