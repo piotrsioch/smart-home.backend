@@ -1,7 +1,6 @@
 import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
 import { Notification } from '../../../../domain';
 import { INotificationRepository } from '../../../contracts/repositories';
-import { CustomRpcException, ErrorCodeEnum } from '@smart-home.backend/libs/common';
 
 export type CreateNotificationCommandInput = {
   phoneNumber: string;

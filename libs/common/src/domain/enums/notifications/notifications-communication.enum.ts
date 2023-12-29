@@ -1,4 +1,5 @@
 export enum NotificationsCommunicationEnum {
+  CREATE_NOTIFICATION = 'createNotification',
   NOTIFICATION_LIST = 'notificationList',
   GET_NOTIFICATION_BY_ID = 'getNotificationById',
   MARK_NOTIFICATION_AS_READ = 'markNotificationAsRead',
