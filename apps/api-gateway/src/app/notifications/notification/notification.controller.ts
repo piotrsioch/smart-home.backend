@@ -3,12 +3,15 @@ import {
   ApiOkResponsePaginated,
   CustomClientProxy,
   CustomExceptionFilter,
+  DeleteNotificationInputDto,
   MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
   NotificationsCommunicationEnum,
   PaginationOutput,
   ServiceEnum,
+  SuccessDto,
+  UnreadNotificationsDto,
 } from '@smart-home.backend/libs/common';
 import { ChangeAlarmStateInputDto } from '@smart-home.backend/libs/common/src/dto/sensors/input/alarm';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -39,11 +42,28 @@ export class NotificationController {
     });
   }
 
+  @ApiResponse({ status: 200, type: UnreadNotificationsDto })
+  @Get('/get-unread-notifications')
+  async getUnreadNotifications(): Promise<UnreadNotificationsDto> {
+    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+      pattern: NotificationsCommunicationEnum.GET_UNREAD_NOTIFICATIONS,
+    });
+  }
+
   @ApiResponse({ status: 200, type: NotificationDto })
   @Post('/mark-as-read')
   async markAsRead(@Body() input: MarkNotificationAsReadInputDto): Promise<NotificationDto> {
     return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.MARK_NOTIFICATION_AS_READ,
+      data: input,
+    });
+  }
+
+  @ApiResponse({ status: 200, type: SuccessDto })
+  @Post('/delete')
+  async delete(@Body() input: DeleteNotificationInputDto): Promise<SuccessDto> {
+    return await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+      pattern: NotificationsCommunicationEnum.DELETE_NOTIFICATION,
       data: input,
     });
   }
