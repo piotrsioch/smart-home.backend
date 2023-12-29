@@ -2,18 +2,25 @@ import { Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
+  DeleteNotificationInputDto,
   GetNotificationByIdInputDto,
   MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
   NotificationsCommunicationEnum,
   PaginationOutput,
+  SuccessDto,
+  UnreadNotificationsDto,
 } from '@smart-home.backend/libs/common';
 import {
   GetNotificationByIdQuery,
   NotificationListQuery,
 } from '../../../application/notification/queries';
-import { MarkNotificationAsReadCommand } from '../../../application/notification/commands';
+import {
+  DeleteNotificationCommand,
+  MarkNotificationAsReadCommand,
+} from '../../../application/notification/commands';
+import { GetUnreadNotificationsQuery } from '../../../application/notification/queries/get-unread-notifications';
 
 @Controller()
 export class NotificationController {
@@ -33,6 +40,17 @@ export class NotificationController {
     return await this.commandBus.execute<MarkNotificationAsReadCommand>(command);
   }
 
+  @MessagePattern(NotificationsCommunicationEnum.DELETE_NOTIFICATION)
+  async deleteNotification(@Payload() payload: DeleteNotificationInputDto): Promise<SuccessDto> {
+    const { id } = payload;
+
+    const command = new DeleteNotificationCommand({
+      id,
+    });
+
+    return await this.commandBus.execute<DeleteNotificationCommand>(command);
+  }
+
   @MessagePattern(NotificationsCommunicationEnum.GET_NOTIFICATION_BY_ID)
   async getNotificationById(
     @Payload() payload: GetNotificationByIdInputDto,
@@ -44,6 +62,19 @@ export class NotificationController {
     });
 
     return await this.queryBus.execute<GetNotificationByIdQuery>(query);
+  }
+
+  @MessagePattern(NotificationsCommunicationEnum.GET_UNREAD_NOTIFICATIONS)
+  async getUnreadNotifications(): Promise<UnreadNotificationsDto> {
+    const query = new GetUnreadNotificationsQuery();
+
+    const notifications = await this.queryBus.execute<GetUnreadNotificationsQuery>(query);
+
+    const dto = new UnreadNotificationsDto();
+
+    dto.notifications = notifications;
+
+    return dto;
   }
 
   @MessagePattern(NotificationsCommunicationEnum.NOTIFICATION_LIST)
