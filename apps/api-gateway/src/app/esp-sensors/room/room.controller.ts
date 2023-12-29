@@ -7,6 +7,7 @@ import {
   CustomExceptionFilter,
   EditRoomInputDto,
   IdInputDto,
+  mapObjectToDto,
   PaginationOutput,
   RoomDto,
   RoomListInputDto,
@@ -25,63 +26,77 @@ export class RoomController {
   @ApiOkResponsePaginated(RoomDto)
   @Get('/list')
   async roomList(@Query() input: RoomListInputDto): Promise<PaginationOutput<RoomDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ROOM_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<RoomDto>, result);
   }
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Get('/get-by-id')
   async getRoomById(@Query() input: IdInputDto): Promise<RoomDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_ROOM_BY_ID,
       data: input,
     });
+
+    return mapObjectToDto(RoomDto, result);
   }
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/create-room')
   async createRoom(@Body() input: CreateRoomInputDto): Promise<RoomDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CREATE_ROOM,
       data: input,
     });
+
+    return mapObjectToDto(RoomDto, result);
   }
 
   @ApiResponse({ status: 200, type: SuccessDto })
   @Post('/delete-room')
   async deleteRoom(@Body() input: IdInputDto): Promise<SuccessDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.DELETE_ROOM,
       data: input,
     });
+
+    return mapObjectToDto(SuccessDto, result);
   }
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/edit-room')
   async editRoom(@Body() input: EditRoomInputDto): Promise<RoomDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.EDIT_ROOM,
       data: input,
     });
+
+    return mapObjectToDto(RoomDto, result);
   }
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/assign-sensor-to-room')
   async assignSensorToRoom(@Body() input: RoomSensorInputDto): Promise<RoomDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ASSIGN_SENSOR_TO_ROOM,
       data: input,
     });
+
+    return mapObjectToDto(RoomDto, result);
   }
 
   @ApiResponse({ status: 200, type: RoomDto })
   @Post('/remove-sensor-from-room')
   async removeSensorFromRoom(@Body() input: RoomSensorInputDto): Promise<RoomDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.REMOVE_SENSOR_FROM_ROOM,
       data: input,
     });
+
+    return mapObjectToDto(RoomDto, result);
   }
 }

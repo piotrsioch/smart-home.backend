@@ -6,6 +6,7 @@ import {
   GetLightStateInputDto,
   LightDto,
   LightListInputDto,
+  mapEntityToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
@@ -25,7 +26,9 @@ export class LightController {
 
     const command = new ChangeLightStateCommand({ sensorId });
 
-    return await this.commandBus.execute<ChangeLightStateCommand>(command);
+    const result = await this.commandBus.execute<ChangeLightStateCommand>(command);
+
+    return mapEntityToDto(LightDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_LIGHT_STATE)
@@ -34,7 +37,9 @@ export class LightController {
 
     const query = new GetLightStateQuery({ sensorId });
 
-    return await this.queryBus.execute<GetLightStateQuery>(query);
+    const result = await this.queryBus.execute<GetLightStateQuery>(query);
+
+    return mapEntityToDto(LightDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.LIGHT_LIST)
@@ -49,6 +54,8 @@ export class LightController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<LightListQuery>(query);
+    const result = await this.queryBus.execute<LightListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<LightDto>, result);
   }
 }

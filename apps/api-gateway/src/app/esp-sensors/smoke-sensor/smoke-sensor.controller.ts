@@ -5,6 +5,7 @@ import {
   CustomClientProxy,
   CustomExceptionFilter,
   GetLatestSmokeDataInputDto,
+  mapObjectToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -24,10 +25,12 @@ export class SmokeSensorController {
   async addSmokeSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddSmokeSensorDataInputDto,
   ): Promise<SmokeSensorDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_SMOKE_DATA,
       data: input,
     });
+
+    return mapObjectToDto(SmokeSensorDto, result);
   }
 
   @ApiOkResponsePaginated(SmokeSensorDto)
@@ -35,18 +38,22 @@ export class SmokeSensorController {
   async dhtSensorList(
     @Query() input: SmokeSensorListInputDto,
   ): Promise<PaginationOutput<SmokeSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.SMOKE_SENSOR_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<SmokeSensorDto>, result);
   }
 
   @ApiResponse({ status: 200, type: SmokeSensorDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestSmokeDataInputDto): Promise<SmokeSensorDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_SMOKE_DATA,
       data: input,
     });
+
+    return mapObjectToDto(SmokeSensorDto, result);
   }
 }

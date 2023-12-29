@@ -5,6 +5,7 @@ import {
   CreateRoomInputDto,
   EditRoomInputDto,
   IdInputDto,
+  mapEntityToDto,
   PaginationOutput,
   RoomDto,
   RoomListInputDto,
@@ -32,7 +33,9 @@ export class RoomController {
 
     const query = new GetRoomByIdQuery({ id });
 
-    return await this.queryBus.execute<GetRoomByIdQuery>(query);
+    const result = await this.queryBus.execute<GetRoomByIdQuery>(query);
+
+    return mapEntityToDto(RoomDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.ROOM_LIST)
@@ -47,7 +50,9 @@ export class RoomController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<RoomListQuery>(query);
+    const result = await this.queryBus.execute<RoomListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<RoomDto>, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.CREATE_ROOM)
@@ -56,7 +61,9 @@ export class RoomController {
 
     const command = new CreateRoomCommand({ name, roomType, description });
 
-    return await this.commandBus.execute<CreateRoomCommand>(command);
+    const result = await this.commandBus.execute<CreateRoomCommand>(command);
+
+    return mapEntityToDto(RoomDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.DELETE_ROOM)
@@ -74,7 +81,9 @@ export class RoomController {
 
     const command = new AssignSensorToRoomCommand({ sensorId, roomId });
 
-    return await this.commandBus.execute<AssignSensorToRoomCommand>(command);
+    const result = await this.commandBus.execute<AssignSensorToRoomCommand>(command);
+
+    return mapEntityToDto(RoomDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.EDIT_ROOM)
@@ -83,7 +92,9 @@ export class RoomController {
 
     const command = new EditRoomCommand({ id, name, roomType, description });
 
-    return await this.commandBus.execute<EditRoomCommand>(command);
+    const result = await this.commandBus.execute<EditRoomCommand>(command);
+
+    return mapEntityToDto(RoomDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.REMOVE_SENSOR_FROM_ROOM)
@@ -92,6 +103,8 @@ export class RoomController {
 
     const command = new RemoveSensorFromRoomCommand({ sensorId, roomId });
 
-    return await this.commandBus.execute<RemoveSensorFromRoomCommand>(command);
+    const result = await this.commandBus.execute<RemoveSensorFromRoomCommand>(command);
+
+    return mapEntityToDto(RoomDto, result);
   }
 }

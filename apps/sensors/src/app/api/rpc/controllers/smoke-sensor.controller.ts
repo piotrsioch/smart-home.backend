@@ -4,6 +4,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   AddSmokeSensorDataInputDto,
   GetLatestSmokeDataInputDto,
+  mapEntityToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   SmokeSensorDto,
@@ -25,7 +26,9 @@ export class SmokeSensorController {
       value,
     });
 
-    return await this.commandBus.execute<AddSmokeSensorDataCommand>(command);
+    const result = await this.commandBus.execute<AddSmokeSensorDataCommand>(command);
+
+    return mapEntityToDto(SmokeSensorDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.SMOKE_SENSOR_LIST)
@@ -42,7 +45,9 @@ export class SmokeSensorController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<SmokeSensorListQuery>(query);
+    const result = await this.queryBus.execute<SmokeSensorListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<SmokeSensorDto>, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_LATEST_SMOKE_DATA)
@@ -55,6 +60,8 @@ export class SmokeSensorController {
       sensorId,
     });
 
-    return await this.queryBus.execute<GetLatestSmokeDataQuery>(query);
+    const result = await this.queryBus.execute<GetLatestSmokeDataQuery>(query);
+
+    return mapEntityToDto(SmokeSensorDto, result);
   }
 }

@@ -4,6 +4,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   DeleteNotificationInputDto,
   GetNotificationByIdInputDto,
+  mapEntityToDto,
   MarkNotificationAsReadInputDto,
   NotificationDto,
   NotificationListInputDto,
@@ -37,7 +38,9 @@ export class NotificationController {
       state,
     });
 
-    return await this.commandBus.execute<MarkNotificationAsReadCommand>(command);
+    const result = await this.commandBus.execute<MarkNotificationAsReadCommand>(command);
+
+    return mapEntityToDto(NotificationDto, result);
   }
 
   @MessagePattern(NotificationsCommunicationEnum.DELETE_NOTIFICATION)
@@ -61,7 +64,9 @@ export class NotificationController {
       id,
     });
 
-    return await this.queryBus.execute<GetNotificationByIdQuery>(query);
+    const result = await this.queryBus.execute<GetNotificationByIdQuery>(query);
+
+    return mapEntityToDto(NotificationDto, result);
   }
 
   @MessagePattern(NotificationsCommunicationEnum.GET_UNREAD_NOTIFICATIONS)
@@ -91,6 +96,8 @@ export class NotificationController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<NotificationListQuery>(query);
+    const result = await this.queryBus.execute<NotificationListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<NotificationDto>, result);
   }
 }

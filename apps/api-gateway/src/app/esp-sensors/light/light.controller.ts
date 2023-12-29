@@ -7,6 +7,7 @@ import {
   GetLightStateInputDto,
   LightDto,
   LightListInputDto,
+  mapObjectToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -22,27 +23,33 @@ export class LightController {
   @ApiResponse({ status: 200, type: LightDto })
   @Post('/change-state')
   async changeLightState(@Body() input: ChangeLightStateInputDto): Promise<LightDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.CHANGE_LIGHT_STATE,
       data: input,
     });
+
+    return mapObjectToDto(LightDto, result);
   }
 
   @ApiOkResponsePaginated(LightDto)
   @Get('/list')
   async lightList(@Query() input: LightListInputDto): Promise<PaginationOutput<LightDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.LIGHT_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<LightDto>, result);
   }
 
   @ApiResponse({ status: 200, type: LightDto })
   @Get('/get-state')
   async getLightState(@Query() input: GetLightStateInputDto): Promise<LightDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LIGHT_STATE,
       data: input,
     });
+
+    return mapObjectToDto(LightDto, result);
   }
 }

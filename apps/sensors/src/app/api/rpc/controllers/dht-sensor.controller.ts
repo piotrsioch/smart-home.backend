@@ -6,6 +6,7 @@ import {
   DhtSensorDto,
   DhtSensorListInputDto,
   GetLatestDhtDataInputDto,
+  mapEntityToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
 } from '@smart-home.backend/libs/common';
@@ -29,7 +30,9 @@ export class DhtSensorController {
       humidity,
     });
 
-    return await this.commandBus.execute<AddDhtSensorDataCommand>(command);
+    const result = await this.commandBus.execute<AddDhtSensorDataCommand>(command);
+
+    return mapEntityToDto(DhtSensorDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.DHT_SENSOR_LIST)
@@ -46,7 +49,9 @@ export class DhtSensorController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<DhtSensorListQuery>(query);
+    const result = await this.queryBus.execute<DhtSensorListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<DhtSensorDto>, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.GET_LATEST_DHT_DATA)
@@ -57,6 +62,8 @@ export class DhtSensorController {
       sensorId,
     });
 
-    return await this.queryBus.execute<GetLatestDhtDataQuery>(query);
+    const result = await this.queryBus.execute<GetLatestDhtDataQuery>(query);
+
+    return mapEntityToDto(DhtSensorDto, result);
   }
 }

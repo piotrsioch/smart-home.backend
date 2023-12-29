@@ -7,6 +7,7 @@ import {
   DhtSensorDto,
   DhtSensorListInputDto,
   GetLatestDhtDataInputDto,
+  mapObjectToDto,
   PaginationOutput,
   SensorsCommunicationEnum,
   ServiceEnum,
@@ -24,10 +25,12 @@ export class DhtSensorController {
   async addDhtSensorData(
     @Body(new ValidationPipe({ transform: true })) input: AddDhtSensorDataInputDto,
   ): Promise<DhtSensorDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.ADD_DHT_DATA,
       data: input,
     });
+
+    return mapObjectToDto(DhtSensorDto, result);
   }
 
   @ApiOkResponsePaginated(DhtSensorDto)
@@ -35,18 +38,22 @@ export class DhtSensorController {
   async dhtSensorList(
     @Query() input: DhtSensorListInputDto,
   ): Promise<PaginationOutput<DhtSensorDto>> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.DHT_SENSOR_LIST,
       data: input,
     });
+
+    return mapObjectToDto(PaginationOutput<DhtSensorDto>, result);
   }
 
   @ApiResponse({ status: 200, type: DhtSensorDto })
   @Get('/latest-data')
   async getLatestData(@Query() input: GetLatestDhtDataInputDto): Promise<DhtSensorDto> {
-    return await this.client.sendTo(ServiceEnum.SENSORS, {
+    const result = await this.client.sendTo(ServiceEnum.SENSORS, {
       pattern: SensorsCommunicationEnum.GET_LATEST_DHT_DATA,
       data: input,
     });
+
+    return mapObjectToDto(DhtSensorDto, result);
   }
 }

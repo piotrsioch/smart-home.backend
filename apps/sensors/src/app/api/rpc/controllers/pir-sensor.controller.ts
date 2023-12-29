@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   AddPirSensorDataInputDto,
+  mapEntityToDto,
   PaginationOutput,
   PirSensorDto,
   PirSensorListInputDto,
@@ -25,7 +26,9 @@ export class PirSensorController {
       sensorId,
     });
 
-    return await this.commandBus.execute<AddPirSensorDataCommand>(command);
+    const result = await this.commandBus.execute<AddPirSensorDataCommand>(command);
+
+    return mapEntityToDto(PirSensorDto, result);
   }
 
   @MessagePattern(SensorsCommunicationEnum.PIR_SENSOR_LIST)
@@ -42,6 +45,8 @@ export class PirSensorController {
       search: search ?? null,
     });
 
-    return await this.queryBus.execute<PirSensorListQuery>(query);
+    const result = await this.queryBus.execute<PirSensorListQuery>(query);
+
+    return mapEntityToDto(PaginationOutput<PirSensorDto>, result);
   }
 }
