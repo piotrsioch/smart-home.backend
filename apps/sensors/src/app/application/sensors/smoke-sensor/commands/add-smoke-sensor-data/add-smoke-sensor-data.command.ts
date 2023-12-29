@@ -43,7 +43,9 @@ export class AddSmokeSensorDataCommandHandler
 
     await this.smokeSensorRepository.add(sensor);
 
-    this.eventBus.publish(new SmokeSensorCriticalValueDetectedDomainEvent(sensor));
+    if (value > 400) {
+      this.eventBus.publish(new SmokeSensorCriticalValueDetectedDomainEvent(sensor));
+    }
 
     return sensor;
   }

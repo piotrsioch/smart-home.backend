@@ -42,7 +42,7 @@ export class SensorsController {
     const date = new Date().toDateString();
 
     const message = await createNotificationMessage({
-      type: NotificationTypeEnum.PIR_SENSOR,
+      type: NotificationTypeEnum.SMOKE_SENSOR,
       sensorName: sensorId,
       date,
     });
