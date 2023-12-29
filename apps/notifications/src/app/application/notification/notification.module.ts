@@ -4,6 +4,7 @@ import {
   SendNotificationCommandHandler,
   MarkNotificationAsReadCommandHandler,
   DeleteNotificationCommandHandler,
+  CreateNotificationCommandHandler,
 } from './commands';
 import { PersistenceModule } from '../../infrastructure/persistence/persistence.module';
 import { GetNotificationByIdQueryHandler, NotificationListQueryHandler } from './queries';
@@ -13,6 +14,7 @@ const CommandHandlers = [
   SendNotificationCommandHandler,
   MarkNotificationAsReadCommandHandler,
   DeleteNotificationCommandHandler,
+  CreateNotificationCommandHandler,
 ];
 const QueryHandlers = [
   GetNotificationByIdQueryHandler,

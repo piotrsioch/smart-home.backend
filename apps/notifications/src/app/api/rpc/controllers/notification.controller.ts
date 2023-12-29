@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
+  CreateNotificationInputDto,
   DeleteNotificationInputDto,
   GetNotificationByIdInputDto,
   mapEntityToDto,
@@ -18,6 +19,7 @@ import {
   NotificationListQuery,
 } from '../../../application/notification/queries';
 import {
+  CreateNotificationCommand,
   DeleteNotificationCommand,
   MarkNotificationAsReadCommand,
 } from '../../../application/notification/commands';
@@ -39,6 +41,24 @@ export class NotificationController {
     });
 
     const result = await this.commandBus.execute<MarkNotificationAsReadCommand>(command);
+
+    return mapEntityToDto(NotificationDto, result);
+  }
+
+  @MessagePattern(NotificationsCommunicationEnum.CREATE_NOTIFICATION)
+  async createNotification(
+    @Payload() payload: CreateNotificationInputDto,
+  ): Promise<NotificationDto> {
+    const { phoneNumber, message, sensorId, name } = payload;
+
+    const command = new CreateNotificationCommand({
+      phoneNumber,
+      message,
+      sensorId,
+      name,
+    });
+
+    const result = await this.commandBus.execute<CreateNotificationCommand>(command);
 
     return mapEntityToDto(NotificationDto, result);
   }

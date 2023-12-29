@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import {
   ApiOkResponsePaginated,
+  CreateNotificationInputDto,
   CustomClientProxy,
   CustomExceptionFilter,
   DeleteNotificationInputDto,
@@ -62,6 +63,17 @@ export class NotificationController {
   async markAsRead(@Body() input: MarkNotificationAsReadInputDto): Promise<NotificationDto> {
     const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
       pattern: NotificationsCommunicationEnum.MARK_NOTIFICATION_AS_READ,
+      data: input,
+    });
+
+    return mapObjectToDto(NotificationDto, result);
+  }
+
+  @ApiResponse({ status: 200, type: NotificationDto })
+  @Post('/create')
+  async create(@Body() input: CreateNotificationInputDto): Promise<NotificationDto> {
+    const result = await this.client.sendTo(ServiceEnum.NOTIFICATIONS, {
+      pattern: NotificationsCommunicationEnum.CREATE_NOTIFICATION,
       data: input,
     });
 
