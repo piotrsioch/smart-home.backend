@@ -24,9 +24,11 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:+$ENVIRONMENT}
     env_file:
       - .env
-      - ./apps/api-gateway/.env
+      - ./apps/api-gateway/.env${ENVIRONMENT:+.${ENVIRONMENT}}
     depends_on:
       - rabbitmq
       - users
@@ -41,9 +43,11 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:+$ENVIRONMENT}
     env_file:
       - .env
-      - ./apps/users/.env
+      - ./apps/users/.env${ENVIRONMENT:+.${ENVIRONMENT}}
     depends_on:
       - rabbitmq
       - mongo
@@ -56,9 +60,11 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:+$ENVIRONMENT}
     env_file:
       - .env
-      - ./apps/sensors/.env
+      - ./apps/sensors/.env${ENVIRONMENT:+.${ENVIRONMENT}}
     depends_on:
       - rabbitmq
       - mongo
@@ -71,9 +77,11 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:+$ENVIRONMENT}
     env_file:
       - .env
-      - ./apps/notifications/.env
+      - ./apps/notifications/.env${ENVIRONMENT:+.${ENVIRONMENT}}
     depends_on:
       - rabbitmq
       - mongo
