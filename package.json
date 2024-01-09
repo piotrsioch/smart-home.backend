@@ -23,6 +23,7 @@
     "prepare": "husky install",
     "start-prettier": "npx prettier --write '**/*.{ts,js}'",
     "seed": "ts-node ./assets/seed-database.ts",
+    "seed-prod": "NODE_ENV=prod ts-node ./assets/seed-database.ts",
     "clear-database": "ts-node -r tsconfig-paths/register ./assets/clear-database.ts",
     "seed-esp-sensors": "ts-node -r tsconfig-paths/register ./assets/seed-esp-sensor.ts"
   },
