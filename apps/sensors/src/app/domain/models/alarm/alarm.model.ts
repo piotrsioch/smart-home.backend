@@ -1,11 +1,12 @@
-import { AlarmStateEnum, BaseModel } from '@smart-home.backend/libs/common';
+import { AlarmStateEnum } from '@smart-home.backend/libs/common';
+import { BaseSensor } from '../base-sensor';
 
 export type AlarmCreateInput = {
   sensorId: string;
   state: AlarmStateEnum;
 };
 
-export class Alarm extends BaseModel {
+export class Alarm extends BaseSensor {
   sensorId: string;
   state: AlarmStateEnum;
 

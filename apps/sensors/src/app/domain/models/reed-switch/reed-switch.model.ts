@@ -1,11 +1,11 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
+import { BaseSensor } from '../base-sensor';
 
 export type ReedSwitchCreateInput = {
   isOpened: boolean;
   sensorId: string;
 };
 
-export class ReedSwitch extends BaseModel {
+export class ReedSwitch extends BaseSensor {
   isOpened: boolean;
   sensorId: string;
 

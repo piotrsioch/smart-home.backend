@@ -24,6 +24,7 @@ export class SendNotificationCommandHandler
   ) {}
 
   async execute(command: SendNotificationCommand): Promise<Notification> {
+    //TODO handle here critical values last time, to not send notifications 10000 times
     const { phoneNumber, message, sensorId, name } = command.input;
 
     await this.notifyService.sendMessage({

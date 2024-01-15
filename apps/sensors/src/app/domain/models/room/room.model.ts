@@ -6,6 +6,8 @@ export type RoomCreateInput = {
   description?: string;
 };
 
+export type RoomUpdateInput = Partial<RoomCreateInput>;
+
 export class Room extends BaseModel {
   name: string;
   roomType: RoomTypeEnum;
@@ -25,5 +27,15 @@ export class Room extends BaseModel {
     _this.sensorsIds = [];
 
     return _this;
+  }
+
+  update(input: RoomUpdateInput): void {
+    const { name, description, roomType } = input;
+
+    this.name = name ?? this.name;
+    this.description = description ?? this.description;
+    this.roomType = roomType ?? this.roomType;
+
+    super.update();
   }
 }
