@@ -12,4 +12,9 @@ export class ModelDto {
   @IsDate()
   @Transform(({ value }) => new Date(value))
   createdAt: Date;
+
+  @ApiProperty()
+  @IsDate()
+  @Transform(({ value }) => new Date(value))
+  updatedAt: Date;
 }

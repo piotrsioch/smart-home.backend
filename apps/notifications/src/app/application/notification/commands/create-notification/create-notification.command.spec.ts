@@ -28,7 +28,7 @@ describe('CreateNotificationCommand', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      imports: [PersistenceModule, CqrsModule, NotifyServiceModule],
+      imports: [PersistenceModule, CqrsModule],
       providers: [CreateNotificationCommand, CreateNotificationCommandHandler],
     }).compile();
 

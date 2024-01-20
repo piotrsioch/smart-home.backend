@@ -1,4 +1,4 @@
-import { SensorTypeEnum } from '@smart-home.backend/libs/common';
+import { BaseModel, SensorTypeEnum } from '@smart-home.backend/libs/common';
 
 export type SensorCreateInput = {
   id: string;
@@ -7,8 +7,9 @@ export type SensorCreateInput = {
   location: string;
 };
 
-export class Sensor {
-  _id: string;
+export type SensorUpdateInput = Partial<Omit<SensorCreateInput, 'id'>>;
+
+export class Sensor extends BaseModel {
   type: SensorTypeEnum;
   name: string;
   location: string;
@@ -19,6 +20,8 @@ export class Sensor {
 
     const _this = new Sensor();
 
+    _this.create();
+
     _this._id = id;
     _this.type = type;
     _this.name = name;
@@ -26,5 +29,15 @@ export class Sensor {
     _this.roomId = null;
 
     return _this;
+  }
+
+  update(input: SensorUpdateInput): void {
+    const { type, name, location } = input;
+
+    this.type = type ?? this.type;
+    this.name = name ?? this.name;
+    this.location = location ?? this.location;
+
+    super.update();
   }
 }

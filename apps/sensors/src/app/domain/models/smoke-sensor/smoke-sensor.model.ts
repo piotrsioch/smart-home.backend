@@ -1,11 +1,11 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
+import { BaseSensor } from '../base-sensor';
 
 export type SmokeSensorCreateInput = {
   sensorId: string;
   value: number;
 };
 
-export class SmokeSensor extends BaseModel {
+export class SmokeSensor extends BaseSensor {
   sensorId: string;
   value: number;
 

@@ -1,11 +1,11 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
+import { BaseSensor } from '../base-sensor';
 
 export type LightCreateInput = {
   sensorId: string;
   isOn: boolean;
 };
 
-export class Light extends BaseModel {
+export class Light extends BaseSensor {
   sensorId: string;
   isOn: boolean;
 

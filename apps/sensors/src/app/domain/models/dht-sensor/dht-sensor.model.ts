@@ -1,4 +1,4 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
+import { BaseSensor } from '../base-sensor';
 
 export type DhtSensorCreateInput = {
   sensorId: string;
@@ -6,7 +6,7 @@ export type DhtSensorCreateInput = {
   humidity: number;
 };
 
-export class DhtSensor extends BaseModel {
+export class DhtSensor extends BaseSensor {
   sensorId: string;
   temperature: number;
   humidity: number;

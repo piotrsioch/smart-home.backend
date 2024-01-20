@@ -1,11 +1,11 @@
-import { BaseModel } from '@smart-home.backend/libs/common';
 import { PirSensorMovementDetectedDomainEvent } from '../../events';
+import { BaseSensor } from '../base-sensor';
 
 export type PirSensorCreateInput = {
   sensorId: string;
 };
 
-export class PirSensor extends BaseModel {
+export class PirSensor extends BaseSensor {
   sensorId: string;
 
   static create(input: PirSensorCreateInput): PirSensor {
