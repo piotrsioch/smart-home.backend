@@ -6,4 +6,7 @@ export class BaseMongoEntity {
 
   @Column()
   createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }

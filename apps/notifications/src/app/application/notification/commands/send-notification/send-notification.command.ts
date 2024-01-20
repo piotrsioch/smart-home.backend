@@ -23,24 +23,28 @@ export class SendNotificationCommandHandler
     private readonly notificationRepository: INotificationRepository,
   ) {}
 
-  async execute(command: SendNotificationCommand): Promise<Notification> {
-    //TODO handle here critical values last time, to not send notifications 10000 times
+  async execute(command: SendNotificationCommand): Promise<any> {
     const { phoneNumber, message, sensorId, name } = command.input;
 
-    await this.notifyService.sendMessage({
-      phoneNumber,
-      message,
-    });
+    const foundNotificationIn5Minutes =
+      await this.notificationRepository.findNotificationCreatedInGivenMinutes(sensorId, 5);
 
-    const notification = Notification.create({
-      receiver: phoneNumber,
-      message,
-      sensorId,
-      name,
-    });
+    if (!foundNotificationIn5Minutes) {
+      await this.notifyService.sendMessage({
+        phoneNumber,
+        message,
+      });
 
-    await this.notificationRepository.add(notification);
+      const notification = Notification.create({
+        receiver: phoneNumber,
+        message,
+        sensorId,
+        name,
+      });
 
-    return notification;
+      await this.notificationRepository.add(notification);
+
+      return notification;
+    }
   }
 }
