@@ -25,8 +25,9 @@ export class NotificationRepository
     const now = new Date();
     const fiveMinutesAgo = new Date(now.getTime() - minutes * 60 * 1000);
 
-    // @ts-ignore
     const result = await this._repository.findOne({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       sensorId,
       createdAt: { $gte: fiveMinutesAgo, $lte: now },
     });
